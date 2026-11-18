@@ -78,7 +78,7 @@ class Ui {
     var height = 0f
         private set
 
-    class Target(val id: String, val x: Float, val y: Float, val w: Float, val h: Float)
+    class Target(val id: String, val x: Float, val y: Float, val w: Float, val h: Float, val live: Boolean = true)
     class Hold(val x: Float, val y: Float, val w: Float, val h: Float, val text: String)
 
     val targets = ArrayList<Target>()
@@ -191,7 +191,7 @@ class Ui {
 
     /** A button. True when it was tapped this frame. */
     fun button(id: String, x: Float, y: Float, w: Float, h: Float, label: String, hot: Boolean = false, enabled: Boolean = true, scale: Float = 1f): Boolean {
-        targets.add(Target(id, x, y, w, h))
+        targets.add(Target(id, x, y, w, h, enabled && !inert))
         rect(x, y, w, h, if (hot) Palette.buttonHot else Palette.button, if (enabled) 1f else 0.5f)
         frame(x, y, w, h, if (hot) Palette.accent else Palette.line)
         if (label.isNotEmpty()) {
@@ -206,7 +206,7 @@ class Ui {
 
     /** Swallows a tap that fell on a panel, so it does not reach the map under it. */
     fun block(x: Float, y: Float, w: Float, h: Float) {
-        if (tapX >= 0 && inside(tapX, tapY, x, y, w, h)) tapX = -1f
+        if (!inert && tapX >= 0 && inside(tapX, tapY, x, y, w, h)) tapX = -1f
     }
 
     fun dispose() {

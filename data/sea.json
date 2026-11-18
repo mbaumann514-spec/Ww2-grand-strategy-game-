@@ -28,7 +28,7 @@
     { "a": "svendborg", "b": "esbjerg", "comment": "the Little Belt" },
     { "a": "messina", "b": "catanzaro", "comment": "the Strait of Messina" },
     { "a": "kerch", "b": "novorossiysk", "comment": "the Kerch Strait" },
-    { "a": "istanbul", "b": "usak", "comment": "the Bosporus and the Sea of Marmara" }
+    { "a": "istanbul", "b": "ushak", "comment": "the Bosporus and the Sea of Marmara" }
   ],
   "routes": [
     { "a": "dover", "b": "calais", "zones": ["channel"] },
@@ -55,7 +55,7 @@
     { "a": "mariehamn", "b": "tampere", "zones": ["baltic_east"] },
     { "a": "tallinn", "b": "helsinki", "zones": ["gulf_finland"] },
     { "a": "liepaja", "b": "visby", "zones": ["baltic_east"] },
-    { "a": "gibraltar", "b": "tangier", "zones": ["west_med"] },
+    { "a": "gibraltar", "b": "tetuan", "zones": ["west_med"] },
     { "a": "gibraltar", "b": "casablanca", "zones": ["atlantic"] },
     { "a": "gibraltar", "b": "oran", "zones": ["west_med"] },
     { "a": "gibraltar", "b": "valletta", "zones": ["west_med", "central_med"] },
@@ -80,11 +80,11 @@
     { "a": "haifa", "b": "nicosia", "zones": ["east_med"] },
     { "a": "athens", "b": "candia", "zones": ["aegean"] },
     { "a": "rhodes", "b": "candia", "zones": ["aegean"] },
-    { "a": "athens", "b": "mitilini", "zones": ["aegean"] },
-    { "a": "athens", "b": "ermoupoli", "zones": ["aegean"] },
+    { "a": "athens", "b": "mytilene", "zones": ["aegean"] },
+    { "a": "athens", "b": "syra", "zones": ["aegean"] },
     { "a": "sebastopol", "b": "odessa", "zones": ["black_sea"] },
     { "a": "sebastopol", "b": "novorossiysk", "zones": ["black_sea"] },
-    { "a": "sebastopol", "b": "batum", "zones": ["black_sea"] },
+    { "a": "sebastopol", "b": "kutaisi", "zones": ["black_sea"] },
     { "a": "constanza", "b": "odessa", "zones": ["black_sea"] },
     { "a": "barcelona", "b": "palma", "zones": ["west_med"] },
     { "a": "malaga", "b": "melilla", "zones": ["west_med"] }

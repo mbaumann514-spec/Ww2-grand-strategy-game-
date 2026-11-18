@@ -39,7 +39,7 @@ SIMPLE = {
     "LBY": "ITA",                        # Italian Libya, its coast four provinces of the kingdom since January 1939
     "ALB": "ITA",                        # occupied in April 1939, the crown united with Italy's
     "BIH": "YUG", "SRB": "YUG", "KOS": "YUG", "MNE": "YUG", "MKD": "YUG",   # Slovenia is decided by the Rapallo line below
-    "HUN": "HUN", "SVK": "SLO",
+    "HUN": "HUN",                        # Slovakia is cut along the Vienna Award (see CUTS)
     "ROU": "ROM", "TUR": "TUR",          # Hatay joined Turkey in July 1939, and today's line is that one
     "IRQ": "IRQ", "IRN": "PER", "SAU": "SAU", "EGY": "EGY", "AFG": "AFG",
     "GEO": "SOV", "ARM": "SOV", "AZE": "SOV", "KAZ": "SOV", "TKM": "SOV", "UZB": "SOV",
@@ -109,6 +109,8 @@ def owner(a3, name, lon, lat):
         return "SPA" if name == "Tanger - Tétouan" else "FRA"
     if a3 == "SVN":
         return owner_slovenia(lon, lat)
+    if a3 == "SVK":
+        return "SLO"
     if a3 == "FIN":
         return "FIN"
     if a3 == "RUS":
@@ -124,7 +126,28 @@ def owner(a3, name, lon, lat):
 #    point lies in it, or else to the nearest such point.
 # ----------------------------------------------------------------------------------------
 
+# DEVIATIONS of the borders drawn, beside those named where they are made: Zaolzie (Teschen west of the Olza, Polish
+# since 2 October 1938) is drawn German with the Protectorate; Petseri and Jaanilinn (Estonian), Abrene (Latvian)
+# and the strip of Salla and Kuusamo (Finnish until March 1940) are drawn Soviet; Lubawa and Nowe Miasto (Polish)
+# are drawn German; Tenda and Briga (Italian) French; the Faroes and Bahrain are off the map. Danzig was still the
+# Free City at 04:45 and was declared part of the Reich in the course of the day: it is drawn German from the start.
+# Tangier was an international zone until Spain occupied it on 14 June 1940: it is drawn with the Spanish protectorate.
+
 CUTS = [
+    dict(
+        note="The First Vienna Award of 2 November 1938 and the eastern strip Hungary took on 4 April 1939: Galanta, "
+             "Ersekujvar, Komarom, Leva, Losonc, Rimaszombat, Rozsnyo, Kassa and Szobranc Hungarian; Bratislava, Nitra, "
+             "Zvolen, Dobsina, Presov and Michalovce Slovak.",
+        units=[("SVK", "Bratislavský"), ("SVK", "Trnavský"), ("SVK", "Nitriansky"), ("SVK", "Banskobystrický"), ("SVK", "Košický"), ("SVK", "Prešov")],
+        line=[(17.00, 47.90), (17.20, 48.05), (17.32, 48.26), (17.75, 48.24), (18.15, 48.22), (18.45, 48.28), (18.75, 48.30),
+              (19.00, 48.22), (19.55, 48.43), (20.00, 48.50), (20.45, 48.74), (21.10, 48.84), (21.45, 48.62), (21.75, 48.50),
+              (21.95, 48.52), (22.05, 48.70), (22.10, 48.95), (22.25, 49.30)],
+        pieces=[("HUN", (18.16, 47.99)), ("HUN", (17.73, 48.17)), ("HUN", (17.31, 48.03)), ("HUN", (18.61, 48.20)), ("HUN", (19.67, 48.31)),
+                ("HUN", (20.02, 48.36)), ("HUN", (20.53, 48.62)), ("HUN", (21.26, 48.70)), ("HUN", (22.18, 48.74)), ("HUN", (22.08, 48.55)),
+                ("SLO", (17.11, 48.15)), ("SLO", (18.09, 48.33)), ("SLO", (19.14, 48.58)), ("SLO", (20.37, 48.84)), ("SLO", (21.24, 49.00)),
+                ("SLO", (21.92, 48.77)), ("SLO", (17.59, 48.38)), ("SLO", (19.15, 48.74)), ("SLO", (20.30, 49.06)), ("SLO", (21.91, 48.94)),
+                ("SLO", (18.74, 49.22)), ("SLO", (17.27, 48.29))],
+    ),
     dict(
         note="The Corridor's west side, 1920-1939: Lauenburg, Buetow, Rummelsburg and Schlochau German; "
              "Wejherowo, Kartuzy, Koscierzyna and Chojnice Polish.",
@@ -256,10 +279,10 @@ FORCED = [
     "Grozny", "Baku", "Maykop", "Novorossiysk", "Tula", "Kursk", "Kharkiv", "Kyiv", "Minsk", "Riga", "Tallinn",
     # the Balkans and the straits
     "Constanța", "Chișinău", "Chernivtsi", "Thessaloniki", "Iraklio", "Rodos", "Istanbul", "Edirne",
-    "Tirana", "Trieste", "Pula", "Messina", "Palermo", "Taranto", "Valletta",
+    "Tirana", "Trieste", "Pula", "Messina", "Palermo", "Taranto", "Valletta", "Izmayil", "Dobrich", "Prešov", "Białystok", "Košice",
     # the desert war and the Levant
     "Tripoli", "Misratah", "Surt", "Ajdabiya", "Banghazi", "Darnah", "Tubruq", "Marsa Matruh", "Alexandria",
-    "Cairo", "Suez", "Bur Said", "Tunis", "Bizerte", "Sfax", "Algiers", "Oran", "Casablanca", "Tangier",
+    "Cairo", "Suez", "Bur Said", "Tunis", "Bizerte", "Sfax", "Algiers", "Oran", "Casablanca", "Tétouan",
     "Jerusalem", "Haifa", "Amman", "Beirut", "Damascus", "Aleppo", "Baghdad", "Basra", "Mosul", "Kirkuk",
     "Abadan", "Tehran", "Kuwait City", "Gibraltar",
     # every capital of 1939
@@ -270,7 +293,8 @@ FORCED = [
 
 # Places the war turned on that Natural Earth's list of towns does not carry: (lon, lat), from any gazetteer.
 EXTRA_PLACES = {
-    "Scapa Flow": (-3.10, 58.90), "Palermo": (13.36, 38.12), "Cádiz": (-6.29, 36.53), "Misratah": (15.09, 32.38), "Petsamo": (31.20, 69.55), "Dover": (1.31, 51.13), "Calais": (1.86, 50.95),
+    "Scapa Flow": (-3.10, 58.90), "Izmayil": (28.84, 45.35), "Dobrich": (27.83, 43.57), "Prešov": (21.24, 49.00),
+    "Białystok": (23.16, 53.13), "Tétouan": (-5.37, 35.57), "Košice": (21.26, 48.72), "Palermo": (13.36, 38.12), "Cádiz": (-6.29, 36.53), "Misratah": (15.09, 32.38), "Petsamo": (31.20, 69.55), "Dover": (1.31, 51.13), "Calais": (1.86, 50.95),
     "Cherbourg": (-1.62, 49.64), "Narvik": (17.43, 68.44), "Kirkenes": (30.05, 69.73), "Kiruna": (20.23, 67.86),
     "Vyborg": (28.75, 60.71), "Gibraltar": (-5.35, 36.14), "Valletta": (14.51, 35.90), "Rodos": (28.22, 36.44),
     "Iraklio": (25.13, 35.34), "Tubruq": (23.96, 32.08), "Darnah": (22.64, 32.76), "Ajdabiya": (20.22, 30.76),
@@ -337,8 +361,7 @@ NAMES_1939 = {
     "Tallinn": "Tallinn", "Kaunas": "Kaunas", "Helsinki": "Helsinki", "Turku": "Turku", "Daugavpils": "Daugavpils",
     "Liepaja": "Libau", "Liepāja": "Libau",
     # the Danube and the Balkans
-    "Bratislava": "Bratislava", "Košice": "Presov",   # DEVIATION: Kassa itself was Hungarian from November 1938; the region is eastern Slovakia
-    "Uzhgorod": "Ungvár", "Chișinău": "Kishinev",
+    "Bratislava": "Bratislava", "Košice": "Kassa", "Uzhgorod": "Ungvár", "Chișinău": "Kishinev",
     "Chernivtsi": "Cernauti", "Ploiești": "Ploesti", "Constanța": "Constanza", "Iași": "Jassy",
     "Cluj-Napoca": "Cluj", "Timișoara": "Timisoara", "Brașov": "Brasov", "Galați": "Galatz",
     "Bilhorod-Dnistrovskyy": "Cetatea Alba", "Izmayil": "Ismail", "Bălți": "Balti", "Dobrich": "Bazargic",
@@ -387,10 +410,16 @@ NAMES_FIXED = {
     # founded or named after 1939: the older place nearest to it
     "Nizhnekamsk": "Yelabuga", "Volgodonsk": "Tsimlyanskaya", "Balkanabat": "Nebit-Dag", "Pechora": "Ust-Usa",
     "Mangyshlak": "Fort Shevchenko", "Er Rachidia": "Ksar-es-Souk", "Illizi": "Fort Polignac", "Sefra": "Ain Sefra",
-    "Arar": "Badanah", "Zhangaozen": "Fort Shevchenko", "Miercurea Cuic": "Miercurea Ciuc", "Aral": "Aralsk", "Oktyabrsk": "Syzran",
+    "Arar": "Jauf", "Zhangaozen": "Fort Shevchenko", "Severouralsk": "Serov", "Zhetiqara": "Dzhetygara",
+    "Slantsy": "Kingisepp", "Beyneu": "Ust-Urt", "Zaranj": "Chakhansur", "An Nabk": "Kaf", "Dubăsari": "Dubossary",
+    "Al Aqabah": "Akaba", "Ar Rutbah": "Rutba", "Al Hasakah": "Hassetche", "Alexandroupoli": "Alexandroupolis",
+    "Ermoupoli": "Syra", "Mitilini": "Mytilene", "Kavala": "Kavalla", "Uşak": "Ushak", "Usak": "Ushak", "Zillah": "Zella",
+    "Izmayil": "Ismail", "Dobrich": "Bazargic", "Prešov": "Presov", "Tétouan": "Tetuan", "Białystok": "Bialystok",
+    # Ust-Urt, Chakhansur and Kaf are filled in, not attested as towns of 1939: the land's own name stands for a seat. "Miercurea Cuic": "Miercurea Ciuc", "Aral": "Aralsk", "Oktyabrsk": "Syzran",
 }
 
 # The one region of a state
 
 # The one region of a state the window shows a corner of, where Natural Earth lists no town there.
-FALLBACK_NAMES = {"AFG": "Herat", "LUX": "Luxembourg"}
+FALLBACK_NAMES = {"AFG": "Chakhansur", "LUX": "Luxembourg", "ITA/SVN": "Postumia", "ITA/HRV": "Pola", "ENG/PAK": "Chagai",
+                  "GER/LTU": "Memel", "POL/LTU": "Wilno", "HUN/SVK": "Kassa", "FIN/RUS": "Viipuri"}

@@ -74,6 +74,11 @@ class SimTest {
         assertEquals(7, german.count { it.type == UnitType.ARM })
         assertEquals(8, german.count { it.type == UnitType.MOT })
         assertEquals(39, game.world.divisions.count { it.owner == pol && it.type == UnitType.INF })
+        // The Vienna Award: Kassa is Hungarian, Presov Slovak; and no region crosses a border of today.
+        assertEquals(data.country("HUN"), data.startOwner[data.region("kassa")])
+        assertEquals(data.country("SLO"), data.startOwner[data.region("presov")])
+        assertEquals("RUS", data.regions[data.region("viipuri")].today)
+        assertTrue(data.regions[data.region("viipuri")].area < 45000, "Viipuri is the land ceded in 1940, not a quarter of Finland")
         repeat(3) { game.tick() }
         assertTrue(game.atWar(eng, ger) && game.atWar(fra, ger), "the guarantee is honoured on 3 September")
         assertEquals(Faction.ALLIES, game.cs(pol).faction)
@@ -87,6 +92,28 @@ class SimTest {
             assertEquals(data.country("GER"), game.world.controller[data.region("warsaw")], "seed $seed: Warsaw")
             assertFalse(game.atWar(data.country("GER"), data.country("SOV")))
         }
+    }
+
+    @Test fun `infantry alone does not break a line, armour does`() {
+        // The heart of the battle model (docs/GEFECHT.md), on two bare lines of equal quality on open ground.
+        val game = Game.start(data, 1, null)
+        val world = game.world
+        val fra = data.country("FRA"); val ger = data.country("GER")
+        val from = data.region("saarbruecken"); val target = data.region("metz")
+        fun day(type: UnitType): Game.Clash {
+            val attackers = world.divisions.filter { it.owner == ger && it.region == from }.take(8)
+            for (d in attackers) { d.path = intArrayOf(target) }
+            val wanted = world.divisions.filter { it.owner == ger && it.type == type }.take(8)
+            return game.clash(target, if (type == UnitType.INF) attackers else wanted.onEach { it.path = intArrayOf(target) }.also { list ->
+                // armour is asked for from wherever it stands: only the day's arithmetic is looked at here
+                list.forEach { it.org = 0.9 }
+            })!!
+        }
+        game.declareWar(ger, fra)
+        val foot = day(UnitType.INF)
+        assertTrue(foot.onAttackers > foot.onDefenders, "infantry attacking a held line must lose more than it costs: ${foot.onAttackers} against ${foot.onDefenders}")
+        val tanks = day(UnitType.ARM)
+        assertTrue(tanks.onAttackers < foot.onAttackers * 0.6, "armour takes far less going in: ${tanks.onAttackers} against ${foot.onAttackers}")
     }
 
     @Test fun `the same seed makes the same war`() {
@@ -120,13 +147,15 @@ class SimTest {
     }
 
     @Test fun `the plan of history waits for the player`() {
-        // As the Soviet Union: on 17 September 1939 the computer does not march into Poland for him; the decision is his.
         val game = Game.start(data, 1, "SOV")
         val sov = data.country("SOV"); val pol = data.country("POL")
-        repeat(16) { game.tick() }
-        assertEquals("1939-09-17", Calendar.iso(game.world.day))
+        // As the Soviet Union: when Poland's front has broken (on or after 17 September 1939) the computer does not march
+        // in for him; the decision is his.
+        var waited = 0
+        while (game.decisions(sov).none { it.id == "soviet_poland" } && waited < 60 && game.alive(pol)) { game.tick(); waited++ }
+        assertTrue(Calendar.iso(game.world.day) >= "1939-09-17", "offered before its day: ${Calendar.iso(game.world.day)}")
         assertFalse(game.atWar(sov, pol), "the computer declared the player's war for him")
-        assertTrue(game.decisions(sov).any { it.id == "soviet_poland" }, "decisions: ${game.decisions(sov).map { it.id }}, Poland has lost ${game.lostVp(pol)}")
+        assertTrue(game.decisions(sov).any { it.id == "soviet_poland" }, "decisions on ${Calendar.iso(game.world.day)}: ${game.decisions(sov).map { it.id }}, Poland has lost ${game.lostVp(pol)}")
         assertTrue(game.takeDecision(sov, "soviet_poland"))
         assertTrue(game.atWar(sov, pol))
         assertFalse(game.atWar(sov, data.country("ENG")), "a local war draws nobody else in")

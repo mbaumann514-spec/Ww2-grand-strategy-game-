@@ -46,6 +46,8 @@ class LinkDef(val to: String, val km: Int, val river: Boolean = false)
 @Serializable
 class RegionDef(
     val id: String, val name: String, val owner: String,
+    /** The state of today the region lies in (Natural Earth's code): with [owner], what a plan's `lands` name. */
+    val today: String = "",
     /** The town, in tenths of a kilometre from the map's south-west corner. */
     val city: IntArray, val lon: Double, val lat: Double,
     val area: Int, val coastal: Boolean, val urban: Int,
@@ -77,19 +79,25 @@ class MapDef(
 // ---------------------------------------------------------------- data/rules.json
 
 @Serializable
-class UnitDef(val attack: Double, val defense: Double, val speed: Double, val cost: Double, val manpower: Double, val fuel: Double)
+class UnitDef(
+    val fire: Double, val antiTank: Double, val armoured: Double, val hold: Double, val drive: Double,
+    val plate: Double, val pierce: Double, val front: Double,
+    val speed: Double, val cost: Double, val manpower: Double, val fuel: Double,
+)
 
 @Serializable
-class TerrainDef(val move: Double, val defense: Double, val attack: Map<String, Double>) {
+class TerrainDef(val frontage: Double, val move: Double, val defense: Double, val attack: Map<String, Double>) {
     fun attackOf(type: UnitType): Double = attack[type.name] ?: attack["all"] ?: 1.0
 }
 
 @Serializable
 class CombatRules(
-    val width: Int, val widthPerExtraFlank: Int, val orgLossPerDay: Double, val ratioExponent: Double,
-    val minRatio: Double, val maxRatio: Double, val attackerWear: Double, val strengthPerOrg: Double,
+    val flankFrontage: Double, val stack: Int, val stackPerFlank: Int, val stackPenalty: Double, val overflowMax: Double,
+    val focus: Double, val hitHeld: Double, val hitOpen: Double, val orgPerHit: Double, val strengthPerHit: Double,
+    val pierceGood: Double, val pierceGoodFire: Double, val pierceHalf: Double, val pierceHalfFire: Double,
+    val pierceNoneFire: Double, val unpiercedShock: Double, val encircled: Double,
     val breakOrg: Double, val attackMinOrg: Double, val regroupDays: Int, val riverCrossing: Double,
-    val straitCrossing: Double, val landing: Double, val landingWidth: Int, val fortPerLevel: Double,
+    val straitCrossing: Double, val landing: Double, val landingFront: Double, val fortPerLevel: Double, val fortMinFire: Double, val fortCover: Double,
     val entrenchPerDay: Double, val entrenchMax: Double, val noSupplyPower: Double, val noFuelPower: Double,
     val dice: Double, val surpriseDays: Int, val surprisePower: Double,
 )
@@ -182,6 +190,9 @@ class GuaranteeDef(val by: String, val of: String, val against: String, val dela
 class OilDealDef(val from: String, val to: String, val perDay: Double, val start: String = "")
 
 @Serializable
+class StandstillDef(val of: String, val against: List<String>, val until: String)
+
+@Serializable
 class DeployDef(
     val of: String, val type: UnitType, val n: Int, val at: List<String>,
     val size: Double = 1.0, val strength: Double = 1.0, val org: Double = 0.8,
@@ -205,7 +216,7 @@ class WhenDef(
 @Serializable
 class PlanDef(
     val id: String, val kind: String, val by: String, val on: String = "", val faction: String = "", val date: String,
-    val regions: List<String> = emptyList(), val annex: Boolean = false, val breaksPact: Boolean = false,
+    val regions: List<String> = emptyList(), val lands: List<String> = emptyList(), val annex: Boolean = false, val breaksPact: Boolean = false,
     val `when`: WhenDef = WhenDef(),
 )
 
@@ -220,7 +231,7 @@ class ScenarioDef(
     val id: String, val name: String, val start: String, val end: String,
     val factions: Map<String, List<String>>, val majors: Map<String, List<String>>,
     val wars: List<WarDef>, val pacts: List<WarDef> = emptyList(), val guarantees: List<GuaranteeDef> = emptyList(),
-    val passive: List<String> = emptyList(), val oilDeals: List<OilDealDef> = emptyList(),
+    val passive: List<String> = emptyList(), val standstill: List<StandstillDef> = emptyList(), val oilDeals: List<OilDealDef> = emptyList(),
     val oil: Map<String, Double>, val forts: Map<String, Int>, val industry: Map<String, Double>,
     val victory: Map<String, Int>, val units: UnitsDef, val plan: PlanFile, val outcomes: Map<String, OutcomeDef> = emptyMap(),
 )

@@ -44,12 +44,49 @@ What is built, what was measured, and what comes next. One package at a time.
 - Army quality, generals' caution, mobilisation and the sea's fleet stations are our own judgement *(filled in)*.
 - Region names are the English forms of 1939 in both languages.
 
+## Paket 2 — the battle after its precedent, and the map put right (18 November 2026)
+
+**Asked for** by the author: *"das Combat soll ähnlich wie Hearts of Iron sein, studier das"*, and the whole of the
+sister game's `wissen/` copied here (done, see `CLAUDE.md`).
+
+**Built**
+- The battle (`docs/GEFECHT.md`): fire against men and against armour, what a division can take under cover while
+  it holds and while it drives, plate against guns, frontage by ground with reserves, works that cover the defender
+  and are turned from a flank, pockets. The computer judges an attack by a day of the battle as it would go.
+- The Sitzkrieg as data (`standstill`): the computer does not attack in the west before 10 May 1940.
+- After the historian's after-check (`docs/pruefer/`, verdict "fix first"): no region crosses a border of today, so
+  the lines of 1939-45 are region borders (Viipuri is the land ceded in 1940, northern Bukovina and Bessarabia are
+  their own regions, Wilno, southern Dobruja); the First Vienna Award is cut (Kassa Hungarian); plans name land by
+  `lands`; the Treaty of Craiova; the French reserve and the Red Army start as unready as they were; Tetuan for
+  Tangier; names of 1939 for a dozen towns; forts moved to where they stood.
+- After the aesthete's review: three bugs mended (the title page on small phones, a question's "No" falling through
+  to the button under it, harness runs overwriting the saved war); the player's armies are paper with a band of his
+  colour; names give way to armies; the selection is one gold line; the map cannot be zoomed out past its edge.
+
+**Measured** (the computer alone, seeds 1 to 4)
+- Poland capitulates 26 to 30 September 1939 (historically 6 October).
+- The Winter War ends with a peace in the first days of January 1940 (historically 13 March).
+- France falls 27 July, 6 August and 23 August 1940 in three runs, 10 May 1941 in one (historically 22 June 1940).
+- The east: the Soviet Union capitulates in 1942 in three runs (March, March, September); in one Germany does
+  (October 1942). **The Red Army of 1941-42 is too weak against armour and the war still far too short.**
+- A simulated day costs 1.5 to 3.4 ms. 14 tests, no failures.
+
+**Deviations named by the historian and left for now**
+- The Second Vienna Award's line is not cut (the regions of Oradea and Cluj stand for it); Zaolzie, Petseri, Abrene
+  and Salla are drawn with their neighbours; Tangier with the Spanish zone; Danzig German from the first morning.
+- When Germany attacks the Soviet Union its allies are drawn in, Bulgaria among them, which never fought the Soviets.
+- Finland's entry in 1941 is logged as joining the Axis; it was a co-belligerent.
+- Spelling is not yet by one rule (Lodz and Lwow beside Rzeszów and Győr; Liège, Luxembourg). `air`, `navy`, army
+  quality and the Soviet strength of September 1939 are filled in, not sourced.
+- Declaring war still sits on every row of the States page; the aesthete wants it behind the state's own sheet with
+  what follows from it. The far view still shows armies as many small squares.
+
 ## Next, in this order
 
 1. **Android**: the launcher module and a workflow that builds the APK on a button press, so the author can play on
    his phone.
-2. **Balance of the long war**: the east must take years, not months (depth of the Soviet Union, reserves, the
-   winter of 1941, German manpower); France should fall in the summer of 1940 more often.
+2. **Balance of the long war**: the east must take years, not months (Soviet anti-tank guns and tanks from 1941,
+   reserves, the winter of 1941, German manpower).
 3. **The west comes back**: the United States (off the map, arriving in Britain), landings by the computer, Italy's
    change of side, liberation of a capitulated ally's land.
 4. **A first lesson** for a new player (what to tap, in a year of Poland), and a fronts order so a player does not

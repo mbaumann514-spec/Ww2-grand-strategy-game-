@@ -45,6 +45,7 @@ fun main(args: Array<String>) {
     var wait = 0
     var problems = 0
     if (shot != null) {
+        options.noSave = true
         options.onFrame = { game, frame ->
             if (frame == 2) {
                 if (days > 0) game.advance(days)
@@ -81,7 +82,8 @@ fun main(args: Array<String>) {
                     val small = game.lastTargets.filter { it.w < 47.5f * dp || it.h < 47.5f * dp }.map { it.id }
                     println("tap targets under 48 dp: " + if (small.isEmpty()) "none" else small.joinToString())
                     val over = ArrayList<String>()
-                    val t = game.lastTargets
+                    // What lies under an open question does not answer, and so is not counted against it.
+                    val t = game.lastTargets.filter { it.live }
                     for (i in t.indices) for (j in i + 1 until t.size) {
                         val a = t[i]; val b = t[j]
                         if (a.x < b.x + b.w - 1 && b.x < a.x + a.w - 1 && a.y < b.y + b.h - 1 && b.y < a.y + a.h - 1) over.add(a.id + " / " + b.id)

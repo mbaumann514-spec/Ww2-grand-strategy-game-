@@ -91,7 +91,7 @@ def stretch(lat):
 
 def gap_at(tag, lon, lat):
     """The spacing of regions there, in the map's own (stretched) kilometres."""
-    return R.spacing(tag, lon, lat) * stretch(lat)
+    return R.spacing(tag.split("/")[0], lon, lat) * stretch(lat)
 
 
 def fetch():
@@ -146,7 +146,7 @@ def build_pieces():
     for feature in load("ne_10m_admin_1_states_provinces"):
         p = feature["properties"]
         a3, name = p["adm0_a3"], p["name"] or ""
-        if a3 not in R.SIMPLE and a3 not in ("POL", "LTU", "BLR", "UKR", "MDA", "BGR", "HRV", "GRC", "MAR", "FIN", "RUS", "SVN"):
+        if a3 not in R.SIMPLE and a3 not in ("POL", "LTU", "BLR", "UKR", "MDA", "BGR", "HRV", "GRC", "MAR", "FIN", "RUS", "SVN", "SVK"):
             continue
         geom = shapely.make_valid(shape(feature["geometry"]))
         if not geom.intersects(window):
@@ -173,9 +173,24 @@ def build_pieces():
                 tag = R.owner(a3, name, lon, lat)
             if tag is None:
                 continue
-            pieces.append((tag, poly))
+            pieces.append((tag, a3, poly))
     print(len(pieces), "pieces;", dropped, "islets under 25 km2 left out", flush=True)
-    return pieces
+    # A region never crosses a border of today: where the land of a state of 1939 lies in several states of
+    # today, each part grows its own regions. The lines of 1939-45 that Natural Earth has as borders of today
+    # (Finland's of 1940, the Prut, the Bug, the Curzon line's stretches) are then region borders, and land can
+    # change hands along them as it did. A part too small for a region goes with the state's main part.
+    area = {}
+    for tag, a3, poly in pieces:
+        area[(tag, a3)] = area.get((tag, a3), 0.0) + poly.area
+    main = {}
+    for (tag, a3), v in sorted(area.items()):
+        if tag not in main or v > area[(tag, main[tag])]:
+            main[tag] = a3
+    out = []
+    for tag, a3, poly in pieces:
+        small = area[(tag, a3)] < 6000 and a3 not in ("GIB", "MLT")
+        out.append((tag + "/" + (main[tag] if small else a3), poly))
+    return out
 
 
 # ------------------------------------------------------------------------------------------
@@ -249,7 +264,8 @@ def choose_seeds(pieces):
         biggest = max((p for t, p in pieces if t == tag), key=lambda p: p.area)
         c = biggest.representative_point()
         lon, lat = unproject(c.x, c.y)
-        seeds.append(dict(name=R.FALLBACK_NAMES.get(tag, tag), a3="", pop=0, lon=lon, lat=lat, point=c, tag=tag, capital=False))
+        print("  no town on Natural Earth's list in", tag)
+        seeds.append(dict(name=R.FALLBACK_NAMES.get(tag, R.FALLBACK_NAMES.get(tag.split("/")[0], tag)), a3="", pop=0, lon=lon, lat=lat, point=c, tag=tag, capital=False))
     for i, s in enumerate(seeds):
         s["index"] = i
         name = s["name"]
@@ -311,7 +327,7 @@ def contact(a, b):
 
 def tidy(regions, seeds):
     """Stray parts go to the neighbour they touch; regions too small to tap are merged away."""
-    forced = {s["index"] for s in seeds if s["name"] in R.FORCED or s["capital"] or s["tag"] == "ENG" and s["name"] == "Gibraltar"}
+    forced = {s["index"] for s in seeds if s["name"] in R.FORCED or s["capital"] or s["tag"].startswith("ENG") and s["name"] == "Gibraltar"}
     tag_of = {s["index"]: s["tag"] for s in seeds}
     for _ in range(3):
         moved = 0
@@ -603,7 +619,7 @@ def main():
         base = slug(seeds[key]["name39"]) or "region"
         name = base
         if name in used:
-            name = base + "_" + seeds[key]["tag"].lower()
+            name = base + "_" + seeds[key]["tag"].split("/")[0].lower()
         n = 2
         while name in used:
             name = base + "_" + str(n)
@@ -612,14 +628,16 @@ def main():
         ids[key] = name
 
     neighbours = {k: {} for k in regions}
-    coastal = set()
+    shore = {}
     for b in borders:
         if b["kind"] == "coast":
-            coastal.add(b["a"])
+            shore[b["a"]] = shore.get(b["a"], 0.0) + b["km"]
         if b["kind"] == "land":
             neighbours[b["a"]][b["b"]] = neighbours[b["a"]].get(b["b"], 0) + b["km"]
             neighbours[b["b"]][b["a"]] = neighbours[b["b"]].get(b["a"], 0) + b["km"]
 
+    # A real coast, not a sliver between two regions that the noding left open.
+    coastal = {k for k, km in shore.items() if km >= 25}
     urban = {k: 0 for k in regions}
     region_tree = STRtree([regions[k] for k in sorted(regions)])
     order = sorted(regions)
@@ -651,7 +669,7 @@ def main():
             river = any(major_lines[i].intersects(way) for i in major.query(way))
             links.append(dict(to=ids[other], km=int(round(km / stretch(unproject(city.x, city.y)[1]))), river=river))
         out_regions.append(dict(
-            id=ids[key], name=s["name39"], owner=s["tag"],
+            id=ids[key], name=s["name39"], owner=s["tag"].split("/")[0], today=s["tag"].split("/")[1],
             city=tenths([(city.x, city.y)]), lon=round(unproject(city.x, city.y)[0], 2), lat=round(unproject(city.x, city.y)[1], 2),
             area=int(round(geom.area / stretch(unproject(city.x, city.y)[1]) ** 2)), coastal=key in coastal,
             urban=int(round(urban[key] / 1000)), terrain=shares[key],

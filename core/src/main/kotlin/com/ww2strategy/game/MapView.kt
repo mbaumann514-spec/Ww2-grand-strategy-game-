@@ -138,7 +138,7 @@ class MapView(private val data: GameData) {
         // setToOrtho moves the camera to the middle of the viewport: put it back where it looked.
         camera.position.set(x, y, 0f)
         camera.zoom = zoom
-        maxZoom = max(worldW / w, worldH / h) * 1.02f
+        maxZoom = min(worldW / w, worldH / h)
         clamp()
     }
 
@@ -152,8 +152,10 @@ class MapView(private val data: GameData) {
 
     fun clamp() {
         camera.zoom = camera.zoom.coerceIn(minZoom, maxZoom)
-        camera.position.x = camera.position.x.coerceIn(0f, worldW)
-        camera.position.y = camera.position.y.coerceIn(0f, worldH)
+        val halfW = camera.viewportWidth * camera.zoom / 2
+        val halfH = camera.viewportHeight * camera.zoom / 2
+        camera.position.x = if (halfW * 2 >= worldW) worldW / 2 else camera.position.x.coerceIn(halfW, worldW - halfW)
+        camera.position.y = if (halfH * 2 >= worldH) worldH / 2 else camera.position.y.coerceIn(halfH, worldH - halfH)
         camera.update()
     }
 
@@ -219,7 +221,7 @@ class MapView(private val data: GameData) {
             shown[i] = key
             dirty = true
             val c = colours[controller[i]]
-            val bits = if (i == selected) Color.toFloatBits(min(1f, c.r + 0.25f), min(1f, c.g + 0.25f), min(1f, c.b + 0.2f), 0.85f)
+            val bits = if (i == selected) Color.toFloatBits(min(1f, c.r + 0.08f), min(1f, c.g + 0.08f), min(1f, c.b + 0.08f), 0.7f)
                        else Color.toFloatBits(c.r, c.g, c.b, 0.62f)
             var v = first[i] * 3 + 2
             repeat(count[i]) { landVertices[v] = bits; v += 3 }
@@ -270,8 +272,13 @@ class MapView(private val data: GameData) {
         }
         for ((i, b) in data.map.borders.withIndex()) {
             if (!visible(borderBox[i], x0, y0, x1, y1)) continue
+            if (selected >= 0 && (b.a == selected || b.b == selected)) {
+                shapes.setColor(0.11f, 0.1f, 0.09f, 1f); line(shapes, borderPts[i], zoom * 4.2f)
+                shapes.setColor(Palette.accent.r, Palette.accent.g, Palette.accent.b, 1f); line(shapes, borderPts[i], zoom * 2.2f)
+                continue
+            }
             when {
-                b.kind == "coast" -> { if (zoom > 3.6f) continue; shapes.setColor(0.16f, 0.2f, 0.24f, 0.75f); line(shapes, borderPts[i], zoom * 1.1f) }
+                b.kind == "coast" -> { shapes.setColor(0.16f, 0.2f, 0.24f, 0.8f); line(shapes, borderPts[i], zoom * 1.1f) }
                 b.kind == "edge" -> continue
                 controller[b.a] != controller[b.b] -> { shapes.setColor(0.09f, 0.08f, 0.07f, 0.95f); line(shapes, borderPts[i], zoom * 2.6f) }
                 else -> { if (zoom > 2.4f) continue; shapes.setColor(0.12f, 0.11f, 0.1f, 0.42f); line(shapes, borderPts[i], zoom * 1.0f) }
@@ -287,7 +294,10 @@ class MapView(private val data: GameData) {
     }
 
     /** Towns, names and the armies, drawn in screen pixels over the map. */
+    private var ownTag = -1
+
     fun drawOver(ui: Ui, game: Game, player: Int, selected: Int) {
+        ownTag = player
         val zoom = camera.zoom
         val world = game.world
         val dp = ui.dp
@@ -296,6 +306,16 @@ class MapView(private val data: GameData) {
         ui.shapes.setColor(Palette.accent.r, Palette.accent.g, Palette.accent.b, 0.9f)
         val drawn = HashSet<Long>()
         val labels = ArrayList<FloatArray>()
+        // First where the armies' signs will stand, so that no name is written under one.
+        for (r in 0 until n) {
+            val here = game.divisionsIn(r)
+            if (here.isEmpty()) continue
+            val sx = screenX(r); val sy = screenY(r)
+            if (sx < -60 * dp || sx > w + 60 * dp || sy < -60 * dp || sy > h + 60 * dp) continue
+            val owners = minOf(3, here.map { it.owner }.distinct().size)
+            val half = when { zoom > 4.6f -> 8f * dp; zoom > 1.15f -> owners * 13f * dp; else -> owners * 21f * dp }
+            labels.add(floatArrayOf(sx - half, sy + 4 * dp, sx + half, sy + (if (zoom > 1.15f) 28f else 38f) * dp))
+        }
         for (d in world.divisions) {
             if (d.owner != player || d.path.isEmpty()) continue
             val to = d.path[0]
@@ -315,11 +335,11 @@ class MapView(private val data: GameData) {
             if (world.battleDay[r] >= world.day - 1) burst(ui, sx, sy + 16 * dp, 9f * dp)
             if (zoom < 1.7f || (capital && zoom < 3.2f)) {
                 // A name is written only where no name stands yet: two names on top of each other read as neither.
-                val half = ui.textWidth(data.regions[r].name, 0.8f) / 2 + 3 * dp
-                val box = floatArrayOf(sx - half, sy - 9 * dp - ui.lineHeight(0.8f), sx + half, sy - 5 * dp)
+                val half = ui.textWidth(data.regions[r].name, 0.7f) / 2 + 3 * dp
+                val box = floatArrayOf(sx - half, sy - 9 * dp - ui.lineHeight(0.7f), sx + half, sy - 5 * dp)
                 if (labels.none { it[0] < box[2] && box[0] < it[2] && it[1] < box[3] && box[1] < it[3] }) {
                     labels.add(box)
-                    ui.text(data.regions[r].name, sx - 100 * dp, sy - 7 * dp, Palette.line, 0.8f, com.badlogic.gdx.utils.Align.center, 200 * dp)
+                    ui.text(data.regions[r].name, sx - 100 * dp, sy - 7 * dp, Color(Palette.line).apply { a = 0.8f }, 0.7f, com.badlogic.gdx.utils.Align.center, 200 * dp)
                 }
             }
             val here = game.divisionsIn(r)
@@ -338,9 +358,11 @@ class MapView(private val data: GameData) {
                 val cw = 24f * dp; val ch = 17f * dp
                 var x = sx - (stacks.size * (cw + 2 * dp) - 2 * dp) / 2
                 for (s in stacks) {
-                    val c = colours[s.owner]
-                    ui.rect(x - dp, sy + 7 * dp - dp, cw + 2 * dp, ch + 2 * dp, if (r == selected && s.owner == player) Palette.accent else Palette.line)
+                    val own = s.owner == player
+                    val c = if (own) Palette.ink else colours[s.owner]
+                    ui.rect(x - dp, sy + 7 * dp - dp, cw + 2 * dp, ch + 2 * dp, if (r == selected && own) Palette.accent else Palette.line)
                     ui.rect(x, sy + 7 * dp, cw, ch, c)
+                    if (own) ui.rect(x, sy + 7 * dp, 4 * dp, ch, colours[s.owner])
                     val ink = if (c.r * 0.3f + c.g * 0.59f + c.b * 0.11f > 0.55f) Palette.line else Palette.ink
                     ui.text(s.n.toString(), x, sy + 7 * dp + ch / 2 + ui.mid(0.8f), ink, 0.8f, com.badlogic.gdx.utils.Align.center, cw)
                     x += cw + 2 * dp
@@ -370,9 +392,11 @@ class MapView(private val data: GameData) {
     /** A military map symbol: a box in the state's colour, the sign of its arm, how many, and how whole they are. */
     private fun counter(ui: Ui, x: Float, y: Float, w: Float, h: Float, s: Stack, hot: Boolean) {
         val dp = ui.dp
-        val c = colours[s.owner]
+        // The player's own armies are paper with a band of his colour: light is mine, wherever it stands.
+        val c = if (s.owner == ownTag) Palette.ink else colours[s.owner]
         ui.rect(x - dp, y - dp, w + 2 * dp, h + 2 * dp, if (hot) Palette.accent else Palette.line)
         ui.rect(x, y, w, h, c)
+        if (s.owner == ownTag) ui.rect(x, y, 3 * dp, h, colours[s.owner])
         val ink = if (c.r * 0.3f + c.g * 0.59f + c.b * 0.11f > 0.55f) Palette.line else Palette.ink
         ui.shapes.color = ink
         val bx = x + 3 * dp; val by = y + 8 * dp; val bw = w * 0.52f; val bh = h - 11 * dp
@@ -386,7 +410,7 @@ class MapView(private val data: GameData) {
             UnitType.MOT -> { ui.shapes.rectLine(bx, by, bx + bw, by + bh, t); ui.shapes.rectLine(bx, by + bh, bx + bw, by, t); ellipse(ui, bx + bw / 2, by + bh / 2, bw * 0.34f, bh * 0.28f, t) }
             UnitType.CAV -> ui.shapes.rectLine(bx, by, bx + bw, by + bh, t)
             UnitType.MTN -> { ui.shapes.rectLine(bx, by, bx + bw, by + bh, t); ui.shapes.rectLine(bx, by + bh, bx + bw, by, t); ui.shapes.triangle(bx + bw / 2 - 3 * dp, by, bx + bw / 2 + 3 * dp, by, bx + bw / 2, by + 5 * dp) }
-            UnitType.GAR -> ui.shapes.rect(bx + bw / 2 - 2 * dp, by + bh / 2 - 2 * dp, 4 * dp, 4 * dp)
+            UnitType.GAR -> { ui.shapes.rectLine(bx, by, bx + bw, by + bh, t); ui.shapes.rectLine(bx, by + bh, bx + bw, by, t); ui.shapes.rect(bx, by, bw, 3 * dp) }
         }
         // how whole: a bar under the sign
         val whole = if (s.size > 0) (s.strength / s.size).coerceIn(0f, 1f) else 0f

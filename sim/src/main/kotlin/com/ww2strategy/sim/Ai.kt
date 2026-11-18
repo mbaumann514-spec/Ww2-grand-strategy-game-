@@ -16,7 +16,7 @@ internal class Ai(private val game: Game) {
     private val rules = data.rules
     private val n = data.n
 
-    private fun power(d: Division): Double = data.unit[d.type.ordinal].attack * d.strength * (0.4 + 0.6 * d.org) * game.quality(d.owner)
+    private fun power(d: Division): Double = data.unit[d.type.ordinal].fire * d.strength * (0.4 + 0.6 * d.org) * game.quality(d.owner)
 
     fun think(c: Int) {
         val mine = world.divisions.filter { it.owner == c }
@@ -106,7 +106,7 @@ internal class Ai(private val game: Game) {
             var best = 0.0
             for (t in data.adj[r]) {
                 if (!game.enemyGround(c, t)) continue
-                val hold = game.divisionsIn(t).sumOf { if (game.atWar(c, it.owner)) game.defensePower(it, c) else 0.0 }
+                val hold = game.divisionsIn(t).sumOf { if (game.atWar(c, it.owner)) data.unit[it.type.ordinal].hold * it.strength * game.quality(it.owner) * data.terrain[t].defense else 0.0 }
                 val works = if (game.allied(world.controller[t], data.startOwner[t])) data.fort[t] else 0
                 val value = data.terrain[t].attackOf(UnitType.ARM) / (1.0 + 0.6 * works) / (1.0 + hold / 120.0) * (1.0 + data.vp[t] / 30.0)
                 if (value > best) best = value
@@ -141,6 +141,7 @@ internal class Ai(private val game: Game) {
         val odds = rules.ai.attackOdds / data.countries[c].aggressionIn(game.year)
         for (target in targets.keys.sortedWith(compareByDescending<Int> { data.vp[it] }.thenBy { it })) {
             val origins = targets[target]!!
+            if (game.standsStill(c, world.controller[target])) continue
             val defenders = game.divisionsIn(target).filter { game.atWar(c, it.owner) }
             val candidates = origins.flatMap { byRegion[it] ?: emptyList() }.filter { it.id !in used }
             if (candidates.isEmpty()) continue
@@ -151,11 +152,10 @@ internal class Ai(private val game: Game) {
                 if (game.orderMove(c, listOf(runner.id), target) == 1) used.add(runner.id)
                 continue
             }
-            val hold = defenders.sortedByDescending { it.org }.take(combat.width).sumOf { game.defensePower(it, c) }
-            val room = combat.width + combat.widthPerExtraFlank * minOf(2, origins.size - 1)
-            val chosen = candidates.sortedByDescending { game.attackPower(it, target, defenders[0].owner) }.take(room)
-            val push = chosen.sumOf { game.attackPower(it, target, defenders[0].owner) }
-            if (push < odds * hold) continue
+            // What a day of this battle would do: it is fought if it costs the defender more than it costs us, by the odds asked.
+            val day = game.clash(target, candidates) ?: continue
+            if (day.onDefenders < odds * day.onAttackers || day.onDefenders <= 0.0) continue
+            val chosen = day.attackers
             // Leave one behind in each region that other enemies also threaten.
             val going = ArrayList<Division>()
             for ((origin, group) in chosen.groupBy { it.region }) {

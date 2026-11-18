@@ -78,7 +78,7 @@ class Game(val data: GameData, val world: World) {
 
     /** The fighting weight of a state's whole army: for odds, ultimatums and the report. */
     fun armyPower(c: Int): Double =
-        world.divisions.sumOf { if (it.owner == c) (data.unit[it.type.ordinal].attack + data.unit[it.type.ordinal].defense) * it.strength * quality(c) else 0.0 }
+        world.divisions.sumOf { if (it.owner == c) (data.unit[it.type.ordinal].fire + data.unit[it.type.ordinal].hold) * it.strength * quality(c) else 0.0 }
 
     fun divisionCount(c: Int): Int = world.divisions.count { it.owner == c }
 
@@ -275,36 +275,134 @@ class Game(val data: GameData, val world: World) {
 
     // ------------------------------------------------------------------ battles
 
-    private fun orgFactor(org: Double) = 0.4 + 0.6 * org
-
     private fun surprise(c: Int, other: Int): Double {
         val key = World.pair(c, other)
         val began = world.warStart[key] ?: return 1.0
         return if (world.warOpener[key] == c && world.day - began < rules.combat.surpriseDays) rules.combat.surprisePower else 1.0
     }
 
-    fun attackPower(d: Division, target: Int, defender: Int): Double {
+    /** What one day of a battle does: the share of its organisation each side's line loses, and who stood in the line. */
+    class Clash(val attackers: List<Division>, val defenders: List<Division>, val attackerHits: DoubleArray, val defenderHits: DoubleArray) {
+        /** Hits a day on the average division of each line. */
+        val onAttackers: Double get() = if (attackers.isEmpty()) 0.0 else attackerHits.sum() / attackers.size
+        val onDefenders: Double get() = if (defenders.isEmpty()) 0.0 else defenderHits.sum() / defenders.size
+    }
+
+    private fun frontOf(d: Division): Double = data.unit[d.type.ordinal].front * (0.5 + 0.5 * d.size)
+
+    /** The divisions the frontage has room for, the freshest first. The last may stand a little past it. */
+    private fun line(all: List<Division>, room: Double, order: Comparator<Division>, landing: (Division) -> Boolean): Pair<List<Division>, Double> {
+        val c = rules.combat
+        val out = ArrayList<Division>()
+        var used = 0.0
+        var beach = 0.0
+        for (d in all.sortedWith(order)) {
+            val front = frontOf(d)
+            if (used + front > room * (1.0 + c.overflowMax)) continue
+            if (landing(d)) { if (beach + front > c.landingFront) continue; beach += front }
+            out.add(d)
+            used += front
+            if (used >= room) break
+        }
+        return out to maxOf(0.0, used - room) / room
+    }
+
+    /** How much of his fire and drive an attacker of [target] keeps: ground, crossing, works, weather, supply, surprise, the way home. */
+    private fun attackerShare(d: Division, target: Int, defender: Int, flanks: Int): Double {
         val c = rules.combat
         val u = data.unit[d.type.ordinal]
-        var p = u.attack * quality(d.owner) * d.strength * orgFactor(d.org) * data.terrain[target].attackOf(d.type)
+        var p = quality(d.owner) * data.terrain[target].attackOf(d.type)
         val k = data.adj[d.region].indexOf(target)
         if (k < 0) p *= c.landing else {
             if (data.adjRiver[d.region][k]) p *= c.riverCrossing
             if (data.adjStrait[d.region][k]) p *= c.straitCrossing
+        }
+        // Works face the way they were built, and each further direction of attack turns one level of them, never the last.
+        if (data.fort[target] > 0 && allied(defender, data.startOwner[target])) {
+            val levels = maxOf(1, data.fort[target] - (flanks - 1))
+            p *= maxOf(c.fortMinFire, 1.0 - c.fortPerLevel * levels)
         }
         if (!d.supplied) p *= c.noSupplyPower
         if (u.fuel > 0 && cs(d.owner).noFuel) p *= c.noFuelPower
         return p * weatherAttack(d.owner, target) * surprise(d.owner, defender) * reach(d.owner, target)
     }
 
-    fun defensePower(d: Division, attacker: Int): Double {
+    private fun defenderShare(d: Division, attacker: Int, cutOff: Boolean): Double {
         val c = rules.combat
-        val u = data.unit[d.type.ordinal]
-        var p = u.defense * quality(d.owner) * d.strength * orgFactor(d.org) * data.terrain[d.region].defense * (1.0 + d.entrench)
-        // Works face the way they were built: they serve the side that built them.
-        if (allied(d.owner, data.startOwner[d.region])) p *= 1.0 + data.fort[d.region] * c.fortPerLevel
+        var p = quality(d.owner) * (1.0 + d.entrench)
         if (!d.supplied) p *= c.noSupplyPower
+        if (cutOff) p *= c.encircled
         return p * surprise(d.owner, attacker)
+    }
+
+    /** The fire of [a] that [t] draws: against its men and against its armour, and less where the guns cannot go through its plate. */
+    private fun fireOn(a: Division, t: Division): Double {
+        val c = rules.combat
+        val ua = data.unit[a.type.ordinal]
+        val ut = data.unit[t.type.ordinal]
+        var fire = ua.fire * (1.0 - ut.armoured) + ua.antiTank * ut.armoured
+        if (ut.plate > ua.pierce) {
+            fire *= when {
+                ua.pierce >= c.pierceGood * ut.plate -> c.pierceGoodFire
+                ua.pierce >= c.pierceHalf * ut.plate -> c.pierceHalfFire
+                else -> c.pierceNoneFire
+            }
+        }
+        return fire * a.strength
+    }
+
+    /** Hits a day on each division of [targets] from [shooters]. [share] scales a shooter's fire, [cover] is what a target can take under cover. */
+    private fun volley(shooters: List<Division>, targets: List<Division>, share: (Division) -> Double, cover: (Division) -> Double, sidePenalty: Double): DoubleArray {
+        val c = rules.combat
+        val incoming = DoubleArray(targets.size)
+        if (shooters.isEmpty() || targets.isEmpty()) return incoming
+        val fronts = DoubleArray(targets.size) { frontOf(targets[it]) }
+        val all = fronts.sum()
+        var weakest = 0
+        for (i in targets.indices) if (targets[i].org < targets[weakest].org) weakest = i
+        for (a in shooters) {
+            val keep = share(a) * sidePenalty
+            for (i in targets.indices) {
+                val part = (1.0 - c.focus) * fronts[i] / all + if (i == weakest) c.focus else 0.0
+                incoming[i] += fireOn(a, targets[i]) * keep * part
+            }
+        }
+        // A division no gun in the enemy's line can pierce shakes him more.
+        val best = targets.maxOf { data.unit[it.type.ordinal].pierce }
+        val shock = if (shooters.any { data.unit[it.type.ordinal].plate > best }) {
+            val plated = shooters.count { data.unit[it.type.ordinal].plate > best }.toDouble() / shooters.size
+            1.0 + (c.unpiercedShock - 1.0) * plated
+        } else 1.0
+        return DoubleArray(targets.size) { i ->
+            val held = minOf(incoming[i], cover(targets[i]))
+            (held * c.hitHeld + (incoming[i] - held) * c.hitOpen) * shock
+        }
+    }
+
+    /** One day of the battle for [target] between [candidates] attacking it and those who hold it. Changes nothing. */
+    fun clash(target: Int, candidates: List<Division>): Clash? {
+        if (candidates.isEmpty()) return null
+        val c = rules.combat
+        val side = candidates[0].owner
+        val holding = divsAt[target].filter { atWar(side, it.owner) }
+        if (holding.isEmpty()) return null
+        val flanks = candidates.map { it.region }.distinct().size
+        val ground = data.terrain[target].frontage
+        val room = ground * (1.0 + c.flankFrontage * minOf(2, flanks - 1))
+        val order = compareByDescending<Division> { it.org }.thenBy { it.id }
+        val (attackers, over) = line(candidates.filter { atWar(it.owner, holding[0].owner) }, room, order) { data.adj[it.region].indexOf(target) < 0 }
+        val (defenders, _) = line(holding, ground, order) { false }
+        if (attackers.isEmpty() || defenders.isEmpty()) return null
+        val crowd = maxOf(0, candidates.size - (c.stack + c.stackPerFlank * minOf(2, flanks - 1)))
+        val attackPenalty = (1.0 - over) * maxOf(0.5, 1.0 - c.stackPenalty * crowd)
+        val cutOff = data.adj[target].none { friendlyGround(holding[0].owner, it) && !hostileIn(holding[0].owner, it) }
+        val defender = defenders[0].owner
+        val works = if (allied(defender, data.startOwner[target])) 1.0 + c.fortCover * maxOf(0, data.fort[target] - (flanks - 1).coerceAtMost(maxOf(0, data.fort[target] - 1))) else 1.0
+        val onDefenders = volley(attackers, defenders, { attackerShare(it, target, defender, flanks) },
+            { data.unit[it.type.ordinal].hold * it.strength * defenderShare(it, side, cutOff) * data.terrain[target].defense * works }, attackPenalty)
+        val onAttackers = volley(defenders, attackers, { defenderShare(it, side, cutOff) },
+            { data.unit[it.type.ordinal].drive * it.strength * attackerShare(it, target, defender, flanks) }, 1.0)
+        return Clash(attackers, defenders, onAttackers, onDefenders)
     }
 
     private fun retreat(d: Division, underAttack: Set<Int>) {
@@ -331,45 +429,23 @@ class Game(val data: GameData, val world: World) {
             if (d.path.isEmpty() || d.org < c.attackMinOrg || world.day < d.regroupUntil) continue
             if (hostileIn(d.owner, d.path[0])) attacks.getOrPut(d.path[0]) { ArrayList() }.add(d)
         }
-        val order = compareByDescending<Division> { it.org }.thenBy { it.id }
         for ((target, all) in attacks) {
-            val side = all[0].owner
-            val defenders = divsAt[target].filter { atWar(side, it.owner) }.sortedWith(order)
-            if (defenders.isEmpty()) continue
-            val flanks = all.map { it.region }.distinct().size
-            val room = c.width + c.widthPerExtraFlank * min(2, flanks - 1)
-            var landed = 0
-            val attackers = ArrayList<Division>()
-            for (d in all.filter { atWar(it.owner, defenders[0].owner) }.sortedWith(order)) {
-                if (attackers.size >= room) break
-                if (data.adj[d.region].indexOf(target) < 0) { if (landed >= c.landingWidth) continue; landed++ }
-                attackers.add(d)
-            }
-            if (attackers.isEmpty()) continue
-            val holding = defenders.take(c.width)
-            val power = attackers.sumOf { attackPower(it, target, holding[0].owner) }
-            val hold = holding.sumOf { defensePower(it, side) }
-            val dice = 1.0 + (chance(target, 7) * 2 - 1) * c.dice
-            val ratio = (power * dice / max(hold, 0.01)).coerceIn(c.minRatio, c.maxRatio)
-            val defLoss = c.orgLossPerDay * ratio.pow(c.ratioExponent)
-            val atkLoss = c.orgLossPerDay * c.attackerWear * (1.0 / ratio).pow(c.ratioExponent)
+            val day = clash(target, all) ?: continue
+            val luck = (chance(target, 7) * 2 - 1) * c.dice
             world.battleDay[target] = world.day
-            for (d in holding) {
-                d.org = max(0.0, d.org - defLoss)
-                d.strength -= defLoss * c.strengthPerOrg * d.size
+            fun wear(d: Division, hits: Double) {
+                // A hit costs a small formation more of itself than a large one.
+                d.org = max(0.0, d.org - hits * c.orgPerHit / d.size)
+                d.strength -= hits * c.strengthPerHit
                 d.foughtDay = world.day
                 d.activeDay = world.day
             }
-            for (d in attackers) {
-                d.org = max(0.0, d.org - atkLoss)
-                d.strength -= atkLoss * c.strengthPerOrg * d.size
-                d.foughtDay = world.day
-                d.activeDay = world.day
-            }
-            for (d in holding) {
+            for ((i, d) in day.defenders.withIndex()) wear(d, day.defenderHits[i] * (1.0 + luck))
+            for ((i, d) in day.attackers.withIndex()) wear(d, day.attackerHits[i] * (1.0 - luck))
+            for (d in day.defenders) {
                 if (d.strength < 0.05 * d.size) destroy(d) else if (d.org <= c.breakOrg) retreat(d, attacks.keys)
             }
-            for (d in attackers) {
+            for (d in day.attackers) {
                 if (d.strength < 0.05 * d.size) destroy(d)
                 else if (d.org <= c.breakOrg) { halt(d); d.regroupUntil = world.day + c.regroupDays }
             }
@@ -770,6 +846,15 @@ class Game(val data: GameData, val world: World) {
         return true
     }
 
+    /** The land a plan is about: the regions it names, and all that lies in the `lands` it names (state of 1939 / state of today). */
+    private fun planRegions(p: PlanDef): List<Int> {
+        val out = p.regions.map { data.region(it) }.toMutableList()
+        if (p.lands.isNotEmpty()) for (r in 0 until n) {
+            if (data.countries[data.startOwner[r]].tag + "/" + data.regions[r].today in p.lands && r !in out) out.add(r)
+        }
+        return out
+    }
+
     private fun ready(p: PlanDef): Boolean {
         if (p.id in world.donePlans || world.day < Calendar.day(p.date)) return false
         val by = data.country(p.by)
@@ -788,6 +873,11 @@ class Game(val data: GameData, val world: World) {
             world.day >= Calendar.day(it.date) - rules.ai.stagingDays && alive(data.country(it.on)) && !atWar(c, data.country(it.on)) &&
             (it.`when`.atWar.size != 2 || atWar(data.country(it.`when`.atWar[0]), data.country(it.`when`.atWar[1])))
     }.map { data.country(it.on) }
+
+    /** Whether the computer playing [c] holds its hand against [other] for now (the Sitzkrieg): until the day named, unless it has lost land to him. */
+    fun standsStill(c: Int, other: Int): Boolean = data.scenario.standstill.any {
+        data.country(it.of) == c && world.day < Calendar.day(it.until) && it.against.any { tag -> data.country(tag) == other }
+    } && (0 until n).none { world.owner[it] == c && atWar(c, world.controller[it]) }
 
     /** What the human player may decide today, from the plan of history. */
     fun decisions(c: Int): List<PlanDef> = data.scenario.plan.list.filter { data.country(it.by) == c && ready(it) }
@@ -812,7 +902,7 @@ class Game(val data: GameData, val world: World) {
             for (k in 0 until nc) endWar(on, k)
             log("ANNEX", by, on)
         } else {
-            handOver(p.regions.map { data.region(it) }.filter { world.owner[it] == on }.toIntArray(), by)
+            handOver(planRegions(p).filter { world.owner[it] == on }.toIntArray(), by)
             log("CEDE", on, by)
             sendHome(on)
         }
@@ -821,7 +911,7 @@ class Game(val data: GameData, val world: World) {
     private fun refuse(p: PlanDef) {
         val by = data.country(p.by)
         val on = data.country(p.on)
-        val goals = if (p.annex) (0 until n).filter { world.owner[it] == on }.toIntArray() else p.regions.map { data.region(it) }.toIntArray()
+        val goals = if (p.annex) (0 until n).filter { world.owner[it] == on }.toIntArray() else planRegions(p).toIntArray()
         world.limited.add(LimitedWar(p.id, by, on, goals, world.day))
         openWar(by, on, limited = true)
     }
@@ -846,7 +936,7 @@ class Game(val data: GameData, val world: World) {
             }
             "limited" -> {
                 val on = data.country(p.on)
-                world.limited.add(LimitedWar(p.id, by, on, p.regions.map { data.region(it) }.toIntArray(), world.day))
+                world.limited.add(LimitedWar(p.id, by, on, planRegions(p).toIntArray(), world.day))
                 openWar(by, on, limited = true)
             }
             "ultimatum" -> {
@@ -858,7 +948,7 @@ class Game(val data: GameData, val world: World) {
             "join" -> joinFaction(by, Faction.valueOf(p.faction))
             "cede" -> {
                 val on = data.country(p.on)
-                handOver(p.regions.map { data.region(it) }.filter { world.controller[it] == by }.toIntArray(), on)
+                handOver(planRegions(p).filter { world.controller[it] == by }.toIntArray(), on)
                 log("CEDE", by, on)
                 sendHome(by)
             }
