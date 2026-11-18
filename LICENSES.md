@@ -48,6 +48,10 @@ It ships as rows of pixels in `core/…/SchriftGlyphen.kt`, which is a Modified 
 alone of this game's code, under the OFL; its header says so. The licence text ships as
 `data/licences/ofl-jersey-10.txt` and is shown in the game.
 
+The file is the sister game's, taken over unchanged, and so also carries the rows of **Jacquard 12** (the same
+authors, the same licence, `data/licences/ofl-jacquard-12.txt`, shown in the game too). This game does not draw it: a
+blackletter face is the wrong voice for this subject.
+
 ### Libraries
 
 | Library | Version | Licence | Ships in |
