@@ -63,7 +63,17 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
     private var frame = 0
     private var scroll = 0f
     private var logSeen = 0
-    private val notices = ArrayList<Pair<String, Float>>()
+    private class Notice(val text: String, var left: Float, val colour: Color)
+    private val notices = ArrayList<Notice>()
+    private var lastController: IntArray? = null
+    private var lastDecisions = 0
+    private var showStart = false
+    private var returnTo = Screen.TITLE
+
+    private fun note(text: String, colour: Color = Palette.ink, seconds: Float = 7f) {
+        notices.add(Notice(text, seconds, colour))
+        while (notices.size > 5) notices.removeAt(0)
+    }
     private var hint = ""
     private var hintTime = 0f
     private var hintX = 0f
@@ -83,7 +93,7 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
     private var holdFired = false
 
     private val playable = listOf("GER", "ENG", "FRA", "SOV", "ITA", "POL", "ROM", "HUN", "YUG", "GRE", "TUR", "SPA", "SWE", "FIN", "NOR", "BEL", "HOL", "BUL")
-    private val speeds = floatArrayOf(0.7f, 2f, 6f, 16f)
+    private val speeds = floatArrayOf(0.5f, 1.5f, 4f, 10f)
 
     override fun create() {
         data = GameData.load(source)
@@ -126,6 +136,9 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         endShown = false
         logSeen = g.world.log.size
         notices.clear()
+        lastController = g.world.controller.copyOf()
+        lastDecisions = 0
+        showStart = g.world.day == data.startDay
         val me = g.world.player
         map.lookAtRegion(data.capital[me], 1.0f)
     }
@@ -231,8 +244,8 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         if (saved) { if (ui.button("continue", 12 * dp, fy, w - 24 * dp, 48 * dp, Texts.t("continue"), scale = 0.85f)) load(); fy += 54 * dp }
         if (ui.button("play", 12 * dp, fy, w - 24 * dp, 56 * dp, Texts.t("play") + ": " + countryName(data.country(shown[chosen])), hot = true)) start(shown[chosen])
         val third = (w - 36 * dp) / 3
-        if (ui.button("about", 12 * dp, 14 * dp, third, 48 * dp, Texts.t("about.button"), scale = 0.75f)) { screen = Screen.ABOUT; scroll = 0f }
-        if (ui.button("sources", 18 * dp + third, 14 * dp, third, 48 * dp, Texts.t("sources.button"), scale = 0.75f)) { screen = Screen.SOURCES; scroll = 0f }
+        if (ui.button("about", 12 * dp, 14 * dp, third, 48 * dp, Texts.t("about.button"), scale = 0.75f)) { returnTo = Screen.TITLE; screen = Screen.ABOUT; scroll = 0f }
+        if (ui.button("sources", 18 * dp + third, 14 * dp, third, 48 * dp, Texts.t("sources.button"), scale = 0.75f)) { returnTo = Screen.TITLE; screen = Screen.SOURCES; scroll = 0f }
         if (ui.button("language", 24 * dp + 2 * third, 14 * dp, third, 48 * dp, Texts.t("language"), scale = 0.75f)) Texts.load(source, if (Texts.language == "de") "en" else "de")
     }
 
@@ -279,9 +292,9 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         val me = g.world.player
         val state = g.cs(me)
         val over = g.world.winner != Faction.NEUTRAL || g.cs(me).capitulated
-        val popupOpen = g.world.ultimatums.isNotEmpty() || askWar >= 0 || (over && !endShown)
+        val popupOpen = g.world.ultimatums.isNotEmpty() || askWar >= 0 || (over && !endShown) || showStart
         val modal = panel != Panel.NONE || popupOpen
-        map.drawOver(ui, g, me, selected)
+        map.drawOver(ui, g, me, selected) { countryName(it) }
         ui.flush()
 
         // New entries of the world's log become notices under the top bar.
@@ -294,9 +307,21 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
             if (e.kind == "WAR" && (g.cs(e.a).passive || g.cs(e.b).passive)) continue
             val a = if (e.a >= 0 && e.kind != "VICTORY") countryName(e.a) else ""
             val b = if (e.kind == "JOIN") Texts.t("faction." + Faction.entries[e.b].name) else if (e.b >= 0) countryName(e.b) else ""
-            notices.add(Texts.t("log." + e.kind, a, b, if (e.region >= 0) data.regions[e.region].name else "") to 7f)
-            while (notices.size > 4) notices.removeAt(0)
+            note(Texts.t("log." + e.kind, a, b, if (e.region >= 0) data.regions[e.region].name else ""))
         }
+        // What changed hands: the player's own land lost is an alarm, land he took a word of success.
+        lastController?.let { before ->
+            for (r in 0 until data.n) {
+                val now = g.world.controller[r]
+                if (now == before[r]) continue
+                if (g.world.owner[r] == me && before[r] == me && g.atWar(me, now)) note(Texts.t("alarm.lost", countryName(now), data.regions[r].name), Palette.bad, 12f)
+                else if (now == me && g.world.owner[r] != me) note(Texts.t("alarm.won", data.regions[r].name), Palette.good)
+                before[r] = now
+            }
+        }
+        val waiting = g.decisions(me).size
+        if (waiting > lastDecisions) note(Texts.t("alarm.decision"), Palette.accent, 10f)
+        lastDecisions = waiting
 
         // ---- the top bar
         val top = 104 * dp
@@ -322,16 +347,17 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
 
         // ---- notices
         var ny = h - top - 6 * dp
-        val it = notices.listIterator()
+        val it = notices.iterator()
         while (it.hasNext()) {
-            val (text, left) = it.next()
-            val alpha = (left / 1.5f).coerceIn(0f, 1f)
-            val tw = ui.textWidth(text, 0.8f)
-            ui.rect(8 * dp, ny - ui.lineHeight(0.8f) - 4 * dp, tw + 12 * dp, ui.lineHeight(0.8f) + 6 * dp, Palette.line, 0.72f * alpha)
-            ui.text(text, 14 * dp, ny - 3 * dp, Color(Palette.ink).apply { a = alpha }, 0.8f)
-            ny -= ui.lineHeight(0.8f) + 8 * dp
-            if (!paused || left > 3f) it.set(text to left - dt)
-            if (left - dt <= 0f) it.remove()
+            val n = it.next()
+            val alpha = (n.left / 1.5f).coerceIn(0f, 1f)
+            val tw = minOf(ui.textWidth(n.text, 0.8f), w - 28 * dp)
+            val th = ui.paragraphHeight(n.text, w - 28 * dp, 0.8f)
+            ui.rect(8 * dp, ny - th - 4 * dp, tw + 12 * dp, th + 6 * dp, Palette.line, 0.78f * alpha)
+            ui.paragraph(n.text, 14 * dp, ny - 3 * dp, w - 28 * dp, Color(n.colour).apply { a = alpha }, 0.8f)
+            ny -= th + 8 * dp
+            n.left -= dt
+            if (n.left <= 0f) it.remove()
         }
         if (paused) ui.text(Texts.t("paused"), 0f, h - 12 * dp - ui.lineHeight(1.05f), Palette.dim, 0.75f, Align.right, w - 10 * dp)
 
@@ -369,6 +395,14 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         g.world.ultimatums.firstOrNull { it.on == me }?.let { u ->
             popup(Texts.t("ultimatum.title"), Texts.t("ultimatum.text", countryName(u.by)), "ultimatum.yes", "ultimatum.no") { yes -> g.answerUltimatum(me, u.plan, yes) }
         }
+        if (showStart) {
+            val foes = data.countries.indices.filter { g.atWar(me, it) }.joinToString(", ") { countryName(it) }
+            val first = if (foes.isEmpty()) Texts.t("start.peace") else Texts.t("start.war", foes)
+            popup(Texts.t("start.title"), first + " " + Texts.t("start.text"), "start.ok", "about.button") { yes ->
+                showStart = false
+                if (!yes) { returnTo = Screen.CAMPAIGN; screen = Screen.ABOUT; scroll = 0f }
+            }
+        }
         if (over && !endShown) {
             paused = true
             val text = if (g.cs(me).capitulated && g.world.winner == Faction.NEUTRAL) Texts.t("end.defeat") else Texts.t("end." + g.world.winner.name)
@@ -379,7 +413,8 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         if (ui.tapX >= 0 && !modal && ui.tapY > sheetTop && ui.tapY < h - top) {
             val r = map.regionAt(ui.tapX, h - ui.tapY)
             if (marching && selected >= 0 && r >= 0) {
-                g.orderMove(me, myDivisions(g, selected).map { it.id }, r)
+                val went = g.orderMove(me, myDivisions(g, selected).map { it.id }, r)
+                if (went == 0 && r != selected) note(Texts.t("march.noway"), Palette.bad)
                 marching = false
             } else {
                 selected = if (r == selected) -1 else r
@@ -447,7 +482,8 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         if (ui.button("sheet.close", w - 56 * dp, y + sheetH - 52 * dp, 48 * dp, 48 * dp, "x")) { selected = -1; marching = false }
         ty -= ui.lineHeight(1.15f) + 4 * dp
         val whose = if (holder == owner) countryName(owner) else countryName(owner) + ", " + Texts.t("held.by", countryName(holder))
-        ui.text(whose + "  ·  " + Texts.t("terrain." + data.terrainName[selected]), 12 * dp, ty, Palette.dim, 0.8f)
+        val fought = g.world.battleDay[selected] >= g.world.day - 1
+        ui.text(if (fought) Texts.t("sheet.battle") else whose + "  ·  " + Texts.t("terrain." + data.terrainName[selected]), 12 * dp, ty, if (fought) Palette.bad else Palette.dim, 0.8f)
         ty -= ui.lineHeight(0.8f) + 4 * dp
         val facts = ArrayList<String>()
         facts.add(Texts.t("factories", "%.1f".format(data.factories[selected])))
@@ -455,6 +491,7 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         if (data.fort[selected] > 0) facts.add(Texts.t("works", data.fort[selected]))
         if (data.oil[selected] > 0) facts.add(Texts.t("oil", data.oil[selected].roundToInt()))
         ui.text(facts.joinToString("   "), 12 * dp, ty, Palette.ink, 0.8f)
+        ui.hold(0f, ty - ui.lineHeight(0.8f) - 6 * dp, w - 60 * dp, ui.lineHeight(0.8f) + 12 * dp, "hold.facts")
         ty -= ui.lineHeight(0.8f) + 8 * dp
         if (all.isNotEmpty()) {
             // Who stands here: one line a state, its arms counted.
@@ -463,7 +500,7 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
                 val whole = (group.sumOf { it.strength } / group.sumOf { it.size } * 100).roundToInt()
                 val ready = (group.sumOf { it.org } / group.size * 100).roundToInt()
                 ui.rect(12 * dp, ty - 16 * dp, 8 * dp, 16 * dp, Color.valueOf(data.countries[owner2].colour))
-                ui.text(counts.joinToString(", ") + "  ·  $whole% / $ready%", 26 * dp, ty, if (owner2 == me) Palette.ink else Palette.dim, 0.8f)
+                ui.text(counts.joinToString(", ") + "  ·  " + Texts.t("sheet.state", whole, ready), 26 * dp, ty, if (owner2 == me) Palette.ink else Palette.dim, 0.8f)
                 ty -= ui.lineHeight(0.8f) + 4 * dp
             }
         }
@@ -507,14 +544,18 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         ui.text(Texts.t("production.add"), x + 12 * dp, ty, Palette.ink, 1f)
         ty -= ui.lineHeight() + 4 * dp
         val full = state.queue.size >= data.rules.economy.productionLines
-        for (type in UnitType.entries) {
+        // Two to a row, so that six lines in progress and six kinds to raise fit a small phone; a held finger tells the price.
+        val half = (w - 32 * dp) / 2
+        for ((i, type) in UnitType.entries.withIndex()) {
             val u = data.unit[type.ordinal]
             val cost = u.cost * data.countries[me].divisionCost
             val days = (cost / state.icNow.coerceAtLeast(0.1)).roundToInt()
-            val label = Texts.t("unit." + type.name) + "   " + Texts.t("production.days", days) + "   " + Texts.t("production.men", u.manpower.roundToInt())
-            if (ui.button("build:" + type.name, x + 12 * dp, ty - 48 * dp, w - 24 * dp, 48 * dp, label, enabled = !full, scale = 0.8f)) g.build(me, type)
-            ty -= 52 * dp
+            val bx = x + 12 * dp + (i % 2) * (half + 8 * dp)
+            val by = ty - 48 * dp - (i / 2) * 52 * dp
+            if (ui.button("build:" + type.name, bx, by, half, 48 * dp, Texts.t("unit." + type.name) + "  " + Texts.t("production.days", days), enabled = !full, scale = 0.75f)) g.build(me, type)
+            ui.holdText(bx, by, half, 48 * dp, Texts.t("hold.build", u.manpower.roundToInt(), cost.roundToInt()))
         }
+        ty -= ((UnitType.entries.size + 1) / 2) * 52 * dp
         if (full) ui.text(Texts.t("production.full"), x + 12 * dp, ty, Palette.bad, 0.85f)
         ui.block(x, y, w, h)
     }
@@ -543,7 +584,7 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
             ui.rect(x + 12 * dp, ty - rowH + 8 * dp, 8 * dp, rowH - 16 * dp, Color.valueOf(data.countries[c].colour))
             val status = if (g.atWar(me, c)) Texts.t("diplomacy.war") else if (g.allied(me, c)) Texts.t("diplomacy.ally") else Texts.t("faction." + g.cs(c).faction.name)
             ui.text(countryName(c), x + 26 * dp, ty - 6 * dp, Palette.ink, 0.85f)
-            ui.text(status + "  ·  " + Texts.t("divisions", g.divisionCount(c)), x + 26 * dp, ty - 6 * dp - ui.lineHeight(0.85f), if (g.atWar(me, c)) Palette.bad else Palette.dim, 0.7f)
+            ui.text(status + "  ·  " + (if (g.divisionCount(c) == 1) Texts.t("division") else Texts.t("divisions", g.divisionCount(c))), x + 26 * dp, ty - 6 * dp - ui.lineHeight(0.85f), if (g.atWar(me, c)) Palette.bad else Palette.dim, 0.7f)
             if (g.canDeclareWar(me, c) && ui.button("war:" + data.countries[c].tag, x + w - 132 * dp, ty - rowH + 3 * dp, 120 * dp, 48 * dp, Texts.t("diplomacy.declare"), scale = 0.7f)) askWar = c
             ty -= rowH
         }
@@ -563,7 +604,7 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
         var ty = y + h - 16 * dp
         if (ui.button("menu.save", x + 12 * dp, ty - 56 * dp, w - 24 * dp, 56 * dp, Texts.t("menu.save"))) { save(); screen = Screen.TITLE }
         ty -= 64 * dp
-        if (ui.button("menu.about", x + 12 * dp, ty - 56 * dp, w - 24 * dp, 56 * dp, Texts.t("about.button"))) { save(); screen = Screen.ABOUT; scroll = 0f }
+        if (ui.button("menu.about", x + 12 * dp, ty - 56 * dp, w - 24 * dp, 56 * dp, Texts.t("about.button"))) { save(); returnTo = Screen.CAMPAIGN; screen = Screen.ABOUT; scroll = 0f }
         ty -= 64 * dp
         if (ui.button("menu.language", x + 12 * dp, ty - 56 * dp, w - 24 * dp, 56 * dp, Texts.t("language"))) Texts.load(source, if (Texts.language == "de") "en" else "de")
         ui.block(x, y, w, h)
@@ -590,7 +631,7 @@ class Ww2Game(private val options: Options = Options()) : ApplicationAdapter() {
     /** The back key and Escape: close what is open, then leave the campaign. */
     fun back() {
         when {
-            screen == Screen.ABOUT || screen == Screen.SOURCES -> screen = if (game != null && screen == Screen.ABOUT && panel == Panel.MENU) Screen.CAMPAIGN else Screen.TITLE
+            screen == Screen.ABOUT || screen == Screen.SOURCES -> screen = if (returnTo == Screen.CAMPAIGN && game != null) Screen.CAMPAIGN else Screen.TITLE
             screen == Screen.TITLE -> {}
             askWar >= 0 -> askWar = -1
             panel != Panel.NONE -> panel = Panel.NONE

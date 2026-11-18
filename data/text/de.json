@@ -128,5 +128,19 @@
   "country.POR": "Portugal", "country.IRE": "Irland", "country.BEL": "Belgien", "country.HOL": "Niederlande", "country.LUX": "Luxemburg",
   "country.SWI": "Schweiz", "country.DEN": "Dänemark", "country.NOR": "Norwegen", "country.SWE": "Schweden", "country.FIN": "Finnland",
   "country.EST": "Estland", "country.LAT": "Lettland", "country.LIT": "Litauen", "country.EGY": "Ägypten", "country.IRQ": "Irak",
-  "country.PER": "Iran", "country.SAU": "Saudi-Arabien", "country.AFG": "Afghanistan", "country.VIC": "Vichy-Frankreich"
+  "country.PER": "Iran", "country.SAU": "Saudi-Arabien", "country.AFG": "Afghanistan", "country.VIC": "Vichy-Frankreich",
+  "start.title": "1. September 1939",
+  "start.text": "Die Uhr steht, bis du sie startest. Deine Armeen sind die hellen Zeichen auf der Karte. Tippe eine Region an, in der sie stehen, drücke Marsch und tippe dann, wohin sie gehen sollen: Sie finden den Weg und kämpfen sich durch. Das Dreieck oben startet die Uhr. Halte den Finger auf ein Zeichen, dann wird es erklärt.",
+  "start.war": "Du bist im Krieg mit {0}.",
+  "start.peace": "Du bist im Frieden. Unter Staaten steht, was du entscheiden kannst.",
+  "start.ok": "Zur Karte",
+  "alarm.lost": "Der Feind steht in deinem Land: {0} hat {1} genommen.",
+  "alarm.won": "{0} ist genommen.",
+  "alarm.decision": "Unter Staaten wartet eine Entscheidung.",
+  "march.noway": "Dorthin führt kein Weg.",
+  "sheet.state": "Stärke {0}% · bereit {1}%",
+  "sheet.battle": "Hier wird gekämpft.",
+  "hold.facts": "Fabriken: der Anteil dieser Region an der Industrie. Punkte: was sie zählt, wenn ein Staat aufgibt. Werke: Befestigungen, Stufe 1 bis 3.",
+  "hold.build": "Braucht {0} 000 Mann und {1} Fabriktage. Alle Linien teilen sich die Industrie gleichmäßig.",
+  "log.RAISED": "Eine neue Division steht bereit in {2}."
 }

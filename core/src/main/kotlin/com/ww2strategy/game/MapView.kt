@@ -296,7 +296,7 @@ class MapView(private val data: GameData) {
     /** Towns, names and the armies, drawn in screen pixels over the map. */
     private var ownTag = -1
 
-    fun drawOver(ui: Ui, game: Game, player: Int, selected: Int) {
+    fun drawOver(ui: Ui, game: Game, player: Int, selected: Int, stateName: (Int) -> String) {
         ownTag = player
         val zoom = camera.zoom
         val world = game.world
@@ -318,9 +318,27 @@ class MapView(private val data: GameData) {
         }
         for (d in world.divisions) {
             if (d.owner != player || d.path.isEmpty()) continue
-            val to = d.path[0]
-            if (!drawn.add(d.region.toLong() * 1000 + to)) continue
-            arrow(ui, screenX(d.region), screenY(d.region), screenX(to), screenY(to), 3f * dp)
+            // The whole way, region by region, with the head where it ends.
+            var from = d.region
+            for ((k, to) in d.path.withIndex()) {
+                if (drawn.add(from.toLong() * 1000 + to)) {
+                    if (k == d.path.lastIndex) arrow(ui, screenX(from), screenY(from), screenX(to), screenY(to), 3f * dp)
+                    else ui.shapes.rectLine(screenX(from), screenY(from), screenX(to), screenY(to), 3f * dp)
+                }
+                from = to
+            }
+        }
+        val placed = ArrayList<FloatArray>()
+        val battles = ArrayList<FloatArray>()
+        fun free(x0: Float, y0: Float, x1: Float, y1: Float): Float {
+            // A sign that would lie on another is set above it.
+            var lift = 0f
+            repeat(3) {
+                if (placed.none { it[0] < x1 && x0 < it[2] && it[1] < y1 + lift && y0 + lift < it[3] }) return@repeat
+                lift += (y1 - y0) + 3 * dp
+            }
+            placed.add(floatArrayOf(x0, y0 + lift, x1, y1 + lift))
+            return lift
         }
         for (r in 0 until n) {
             val sx = screenX(r); val sy = screenY(r)
@@ -332,7 +350,10 @@ class MapView(private val data: GameData) {
                 ui.rect(sx - s, sy - s, s * 2, s * 2, Palette.line)
                 ui.rect(sx - s + dp, sy - s + dp, s * 2 - 2 * dp, s * 2 - 2 * dp, if (capital) Palette.accent else Palette.paper)
             }
-            if (world.battleDay[r] >= world.day - 1) burst(ui, sx, sy + 16 * dp, 9f * dp)
+            if (world.battleDay[r] >= world.day - 1) battles.add(floatArrayOf(sx + 24 * dp, sy + 2 * dp))
+            if (capital && zoom >= 1.7f && world.controller[r] == data.capital.indexOf(r)) {
+                ui.text(stateName(world.controller[r]).uppercase(), sx - 150 * dp, sy - 9 * dp - ui.lineHeight(0.7f), Color(Palette.line).apply { a = 0.7f }, 0.8f, com.badlogic.gdx.utils.Align.center, 300 * dp)
+            }
             if (zoom < 1.7f || (capital && zoom < 3.2f)) {
                 // A name is written only where no name stands yet: two names on top of each other read as neither.
                 val half = ui.textWidth(data.regions[r].name, 0.7f) / 2 + 3 * dp
@@ -357,25 +378,29 @@ class MapView(private val data: GameData) {
                 // From the middle distance: a small tag in the state's colour with the number of divisions.
                 val cw = 24f * dp; val ch = 17f * dp
                 var x = sx - (stacks.size * (cw + 2 * dp) - 2 * dp) / 2
+                val up = free(x - dp, sy + 6 * dp, x + stacks.size * (cw + 2 * dp), sy + 8 * dp + ch)
                 for (s in stacks) {
                     val own = s.owner == player
                     val c = if (own) Palette.ink else colours[s.owner]
-                    ui.rect(x - dp, sy + 7 * dp - dp, cw + 2 * dp, ch + 2 * dp, if (r == selected && own) Palette.accent else Palette.line)
-                    ui.rect(x, sy + 7 * dp, cw, ch, c)
-                    if (own) ui.rect(x, sy + 7 * dp, 4 * dp, ch, colours[s.owner])
+                    ui.rect(x - dp, sy + up + 7 * dp - dp, cw + 2 * dp, ch + 2 * dp, if (r == selected && own) Palette.accent else Palette.line)
+                    ui.rect(x, sy + up + 7 * dp, cw, ch, c)
+                    if (own) ui.rect(x, sy + up + 7 * dp, 4 * dp, ch, colours[s.owner])
                     val ink = if (c.r * 0.3f + c.g * 0.59f + c.b * 0.11f > 0.55f) Palette.line else Palette.ink
-                    ui.text(s.n.toString(), x, sy + 7 * dp + ch / 2 + ui.mid(0.8f), ink, 0.8f, com.badlogic.gdx.utils.Align.center, cw)
+                    ui.text(s.n.toString(), x + (if (own) 3 * dp else 0f), sy + up + 7 * dp + ch / 2 + ui.mid(0.75f), ink, 0.75f, com.badlogic.gdx.utils.Align.center, cw - (if (own) 3 * dp else 0f))
                     x += cw + 2 * dp
                 }
                 continue
             }
             val cw = 38f * dp; val ch = 26f * dp
             var x = sx - (stacks.size * (cw + 3 * dp) - 3 * dp) / 2
+            val up = free(x - dp, sy + 8 * dp, x + stacks.size * (cw + 3 * dp), sy + 10 * dp + ch)
             for (s in stacks) {
-                counter(ui, x, sy + 9 * dp, cw, ch, s, r == selected && s.owner == player)
+                counter(ui, x, sy + up + 9 * dp, cw, ch, s, r == selected && s.owner == player)
                 x += cw + 3 * dp
             }
         }
+        // Where a battle is being fought, over everything else.
+        for (b in battles) burst(ui, b[0], b[1], 10f * dp)
     }
 
     private fun stacksOf(here: List<Division>, player: Int): List<Stack> {
@@ -416,7 +441,8 @@ class MapView(private val data: GameData) {
         val whole = if (s.size > 0) (s.strength / s.size).coerceIn(0f, 1f) else 0f
         ui.rect(x + 2 * dp, y + 2 * dp, w - 4 * dp, 3 * dp, Palette.line)
         ui.rect(x + 2 * dp, y + 2 * dp, (w - 4 * dp) * whole, 3 * dp, if (whole > 0.6f) Palette.good else if (whole > 0.35f) Palette.accent else Palette.bad)
-        ui.text(s.n.toString(), bx + bw, y + h - 5 * dp, ink, 1f, com.badlogic.gdx.utils.Align.center, w - bw - 3 * dp)
+        val size = if (s.n >= 100) 0.6f else if (s.n >= 10) 0.8f else 1f
+        ui.text(s.n.toString(), bx + bw, y + 5 * dp + (h - 5 * dp) / 2 + ui.mid(size), ink, size, com.badlogic.gdx.utils.Align.center, w - bw - 3 * dp)
     }
 
     private fun ellipse(ui: Ui, cx: Float, cy: Float, rx: Float, ry: Float, t: Float) {
@@ -441,7 +467,9 @@ class MapView(private val data: GameData) {
 
     /** Where a battle is being fought: a small burst. */
     private fun burst(ui: Ui, x: Float, y: Float, r: Float) {
-        ui.shapes.setColor(Palette.bad.r, Palette.bad.g, Palette.bad.b, 0.95f)
+        ui.shapes.setColor(Palette.line.r, Palette.line.g, Palette.line.b, 1f)
+        ui.shapes.circle(x, y, r * 0.95f, 16)
+        ui.shapes.setColor(Palette.bad.r, Palette.bad.g, Palette.bad.b, 1f)
         for (i in 0 until 4) {
             val a = i * (Math.PI / 4)
             val dx = r * kotlin.math.cos(a).toFloat(); val dy = r * kotlin.math.sin(a).toFloat()

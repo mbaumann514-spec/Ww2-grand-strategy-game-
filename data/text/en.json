@@ -121,5 +121,19 @@
   "sources.1": "The map is made from Natural Earth (naturalearthdata.com), which is in the public domain. The borders are those of 1 September 1939, from the treaties; nothing was traced from an atlas.",
   "sources.2": "The typeface is Jersey 10, Copyright 2023 The Soft Type Project Authors, under the SIL Open Font License 1.1, drawn here as rows of pixels sampled from the font.",
   "sources.3": "Built with libGDX (Copyright the libGDX authors), Kotlin and kotlinx.serialization (Copyright JetBrains s.r.o. and contributors), under the Apache License 2.0. The licence texts follow.",
-  "sources.4": "This game collects nothing: it has no accounts, no network access and no tracking."
+  "sources.4": "This game collects nothing: it has no accounts, no network access and no tracking.",
+  "start.title": "1 September 1939",
+  "start.text": "The clock stands still until you start it. Your armies are the light signs on the map. Tap a region where they stand, press March, then tap where they shall go: they find the way and fight for it. The triangle at the top starts the clock. Hold a finger on a sign to have it explained.",
+  "start.war": "You are at war with {0}.",
+  "start.peace": "You are at peace. Under States you find what you may decide.",
+  "start.ok": "To the map",
+  "alarm.lost": "The enemy is in your land: {0} has taken {1}.",
+  "alarm.won": "{0} is taken.",
+  "alarm.decision": "A decision is waiting under States.",
+  "march.noway": "No way leads there.",
+  "sheet.state": "strength {0}% · ready {1}%",
+  "sheet.battle": "A battle is being fought here.",
+  "hold.facts": "Factories: this region's share of the industry. Points: what it counts for when a state gives up. Works: fortifications, level 1 to 3.",
+  "hold.build": "Needs {0},000 men and {1} factory-days. All lines share the industry evenly.",
+  "log.RAISED": "A new division stands ready at {2}."
 }

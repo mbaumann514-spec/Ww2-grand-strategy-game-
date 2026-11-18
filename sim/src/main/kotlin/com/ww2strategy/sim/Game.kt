@@ -524,6 +524,7 @@ class Game(val data: GameData, val world: World) {
         val d = Division(world.nextDivision++, c, type, 1.0, 1.0, rules.economy.newDivisionOrg, r)
         world.divisions.add(d)
         divsAt[r].add(d)
+        if (c == world.player) log("RAISED", c, -1, r)
     }
 
     private fun economy() {
@@ -559,22 +560,23 @@ class Game(val data: GameData, val world: World) {
                     }
                 }
             }
-            // Production: the lines in order.
-            val iterator = state.queue.iterator()
+            // Production: every line gets an even share of what is left.
             val deployAt = deployRegion(c)
+            val price = { line: ProductionLine -> data.unit[line.type.ordinal].cost * data.countries[c].divisionCost }
+            val open = state.queue.filter { it.done < price(it) - 1e-9 }
+            if (open.isNotEmpty()) {
+                val each = budget / open.size
+                for (line in open) line.done += min(each, price(line) - line.done)
+            }
+            val iterator = state.queue.iterator()
             while (iterator.hasNext()) {
                 val line = iterator.next()
-                val u = data.unit[line.type.ordinal]
-                val price = u.cost * data.countries[c].divisionCost
-                val give = min(budget, price - line.done)
-                line.done += give
-                budget -= give
-                if (line.done >= price - 1e-9 && state.manpower >= u.manpower && deployAt >= 0) {
-                    state.manpower -= u.manpower
+                val men = data.unit[line.type.ordinal].manpower
+                if (line.done >= price(line) - 1e-9 && state.manpower >= men && deployAt >= 0) {
+                    state.manpower -= men
                     spawn(c, line.type, deployAt)
                     iterator.remove()
                 }
-                if (budget <= 0.0) break
             }
             // Fuel.
             val income = fuelIncome(c)

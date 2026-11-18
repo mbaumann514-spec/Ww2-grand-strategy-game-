@@ -63,7 +63,15 @@ sister game's `wissen/` copied here (done, see `CLAUDE.md`).
   to the button under it, harness runs overwriting the saved war); the player's armies are paper with a band of his
   colour; names give way to armies; the selection is one gold line; the map cannot be zoomed out past its edge.
 
-**Measured** (the computer alone, seeds 1 to 4)
+- After the player's review ("fun to take Poland; no way in, battles unseen, no warning"): a note on the first morning
+  that says what to tap; an alarm when the enemy takes the player's land and a word when he takes land; the whole
+  way of a march drawn; a battle's sign over everything; armies' signs that step aside instead of lying on each
+  other; strength and readiness named; a held finger explains factories, points and works and what a division
+  costs; a notice when a decision waits and when a division is raised; every production line gets an even share;
+  notices fade also while the clock stands; slower clock speeds; states' names on the map from afar.
+
+**Measured** (the computer alone, seeds 1 to 4; with the even industry, seeds 1 and 2: Poland 27 and 30 September
+1939, France 4 and 30 August 1940, Germany capitulates in December 1942 and in April 1944)
 - Poland capitulates 26 to 30 September 1939 (historically 6 October).
 - The Winter War ends with a peace in the first days of January 1940 (historically 13 March).
 - France falls 27 July, 6 August and 23 August 1940 in three runs, 10 May 1941 in one (historically 22 June 1940).
@@ -78,6 +86,10 @@ sister game's `wissen/` copied here (done, see `CLAUDE.md`).
 - Finland's entry in 1941 is logged as joining the Axis; it was a co-belligerent.
 - Spelling is not yet by one rule (Lodz and Lwow beside Rzeszów and Győr; Liège, Luxembourg). `air`, `navy`, army
   quality and the Soviet strength of September 1939 are filled in, not sourced.
+- From the player's review, still open: the list of states does not scroll (it ends after about eleven); towns keep
+  their English names in the German game (Munich, Warsaw); the title page has no picture and the menu no help; on a
+  360 dp phone the head takes too much of the screen; nothing new appears when zoomed in close; there is no goal on
+  the screen beyond the end of the war.
 - Declaring war still sits on every row of the States page; the aesthete wants it behind the state's own sheet with
   what follows from it. The far view still shows armies as many small squares.
 

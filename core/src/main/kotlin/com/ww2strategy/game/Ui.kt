@@ -189,6 +189,10 @@ class Ui {
         holds.add(Hold(x, y, w, h, Texts.t(key)))
     }
 
+    fun holdText(x: Float, y: Float, w: Float, h: Float, text: String) {
+        holds.add(Hold(x, y, w, h, text))
+    }
+
     /** A button. True when it was tapped this frame. */
     fun button(id: String, x: Float, y: Float, w: Float, h: Float, label: String, hot: Boolean = false, enabled: Boolean = true, scale: Float = 1f): Boolean {
         targets.add(Target(id, x, y, w, h, enabled && !inert))
