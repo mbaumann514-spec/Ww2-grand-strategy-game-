@@ -1,0 +1,1255 @@
+{
+  "group_id": "8e98fe5e-5e91-4744-9b56-9ab3b2b1124e",
+  "states": [
+    {
+      "character": {
+        "id": "5445e693-3117-4770-bd85-cc9819ed3f17",
+        "name": "Idle",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:16:47.015445+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "east": [
+              "Idle/animations/walking/east/frame_000.png",
+              "Idle/animations/walking/east/frame_001.png",
+              "Idle/animations/walking/east/frame_002.png",
+              "Idle/animations/walking/east/frame_003.png",
+              "Idle/animations/walking/east/frame_004.png",
+              "Idle/animations/walking/east/frame_005.png"
+            ],
+            "south": [
+              "Idle/animations/walking/south/frame_000.png",
+              "Idle/animations/walking/south/frame_001.png",
+              "Idle/animations/walking/south/frame_002.png",
+              "Idle/animations/walking/south/frame_003.png",
+              "Idle/animations/walking/south/frame_004.png",
+              "Idle/animations/walking/south/frame_005.png"
+            ],
+            "south-west": [
+              "Idle/animations/walking/south-west/frame_000.png",
+              "Idle/animations/walking/south-west/frame_001.png",
+              "Idle/animations/walking/south-west/frame_002.png",
+              "Idle/animations/walking/south-west/frame_003.png",
+              "Idle/animations/walking/south-west/frame_004.png",
+              "Idle/animations/walking/south-west/frame_005.png"
+            ],
+            "north-east": [
+              "Idle/animations/walking/north-east/frame_000.png",
+              "Idle/animations/walking/north-east/frame_001.png",
+              "Idle/animations/walking/north-east/frame_002.png",
+              "Idle/animations/walking/north-east/frame_003.png",
+              "Idle/animations/walking/north-east/frame_004.png",
+              "Idle/animations/walking/north-east/frame_005.png"
+            ],
+            "west": [
+              "Idle/animations/walking/west/frame_000.png",
+              "Idle/animations/walking/west/frame_001.png",
+              "Idle/animations/walking/west/frame_002.png",
+              "Idle/animations/walking/west/frame_003.png",
+              "Idle/animations/walking/west/frame_004.png",
+              "Idle/animations/walking/west/frame_005.png"
+            ],
+            "south-east": [
+              "Idle/animations/walking/south-east/frame_000.png",
+              "Idle/animations/walking/south-east/frame_001.png",
+              "Idle/animations/walking/south-east/frame_002.png",
+              "Idle/animations/walking/south-east/frame_003.png",
+              "Idle/animations/walking/south-east/frame_004.png",
+              "Idle/animations/walking/south-east/frame_005.png"
+            ],
+            "north": [
+              "Idle/animations/walking/north/frame_000.png",
+              "Idle/animations/walking/north/frame_001.png",
+              "Idle/animations/walking/north/frame_002.png",
+              "Idle/animations/walking/north/frame_003.png",
+              "Idle/animations/walking/north/frame_004.png",
+              "Idle/animations/walking/north/frame_005.png"
+            ],
+            "north-west": [
+              "Idle/animations/walking/north-west/frame_000.png",
+              "Idle/animations/walking/north-west/frame_001.png",
+              "Idle/animations/walking/north-west/frame_002.png",
+              "Idle/animations/walking/north-west/frame_003.png",
+              "Idle/animations/walking/north-west/frame_004.png",
+              "Idle/animations/walking/north-west/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "a368c9f7-a046-4140-83e6-a3dcd65e2826",
+        "name": "tunic",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:49.836573+00:00"
+      },
+      "folder": "tunic",
+      "frames": {
+        "rotations": {
+          "south": "tunic/rotations/south.png",
+          "south-east": "tunic/rotations/south-east.png",
+          "east": "tunic/rotations/east.png",
+          "north-east": "tunic/rotations/north-east.png",
+          "north": "tunic/rotations/north.png",
+          "north-west": "tunic/rotations/north-west.png",
+          "west": "tunic/rotations/west.png",
+          "south-west": "tunic/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "south-west": [
+              "tunic/animations/walking/south-west/frame_000.png",
+              "tunic/animations/walking/south-west/frame_001.png",
+              "tunic/animations/walking/south-west/frame_002.png",
+              "tunic/animations/walking/south-west/frame_003.png",
+              "tunic/animations/walking/south-west/frame_004.png",
+              "tunic/animations/walking/south-west/frame_005.png"
+            ],
+            "north-east": [
+              "tunic/animations/walking/north-east/frame_000.png",
+              "tunic/animations/walking/north-east/frame_001.png",
+              "tunic/animations/walking/north-east/frame_002.png",
+              "tunic/animations/walking/north-east/frame_003.png",
+              "tunic/animations/walking/north-east/frame_004.png",
+              "tunic/animations/walking/north-east/frame_005.png"
+            ],
+            "south-east": [
+              "tunic/animations/walking/south-east/frame_000.png",
+              "tunic/animations/walking/south-east/frame_001.png",
+              "tunic/animations/walking/south-east/frame_002.png",
+              "tunic/animations/walking/south-east/frame_003.png",
+              "tunic/animations/walking/south-east/frame_004.png",
+              "tunic/animations/walking/south-east/frame_005.png"
+            ],
+            "south": [
+              "tunic/animations/walking/south/frame_000.png",
+              "tunic/animations/walking/south/frame_001.png",
+              "tunic/animations/walking/south/frame_002.png",
+              "tunic/animations/walking/south/frame_003.png",
+              "tunic/animations/walking/south/frame_004.png",
+              "tunic/animations/walking/south/frame_005.png"
+            ],
+            "west": [
+              "tunic/animations/walking/west/frame_000.png",
+              "tunic/animations/walking/west/frame_001.png",
+              "tunic/animations/walking/west/frame_002.png",
+              "tunic/animations/walking/west/frame_003.png",
+              "tunic/animations/walking/west/frame_004.png",
+              "tunic/animations/walking/west/frame_005.png"
+            ],
+            "north": [
+              "tunic/animations/walking/north/frame_000.png",
+              "tunic/animations/walking/north/frame_001.png",
+              "tunic/animations/walking/north/frame_002.png",
+              "tunic/animations/walking/north/frame_003.png",
+              "tunic/animations/walking/north/frame_004.png",
+              "tunic/animations/walking/north/frame_005.png"
+            ],
+            "north-west": [
+              "tunic/animations/walking/north-west/frame_000.png",
+              "tunic/animations/walking/north-west/frame_001.png",
+              "tunic/animations/walking/north-west/frame_002.png",
+              "tunic/animations/walking/north-west/frame_003.png",
+              "tunic/animations/walking/north-west/frame_004.png",
+              "tunic/animations/walking/north-west/frame_005.png"
+            ],
+            "east": [
+              "tunic/animations/walking/east/frame_000.png",
+              "tunic/animations/walking/east/frame_001.png",
+              "tunic/animations/walking/east/frame_002.png",
+              "tunic/animations/walking/east/frame_003.png",
+              "tunic/animations/walking/east/frame_004.png",
+              "tunic/animations/walking/east/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "a78d5038-e270-4561-90da-1d93270626fc",
+        "name": "haubergeon",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:50.456912+00:00"
+      },
+      "folder": "haubergeon",
+      "frames": {
+        "rotations": {
+          "south": "haubergeon/rotations/south.png",
+          "south-east": "haubergeon/rotations/south-east.png",
+          "east": "haubergeon/rotations/east.png",
+          "north-east": "haubergeon/rotations/north-east.png",
+          "north": "haubergeon/rotations/north.png",
+          "north-west": "haubergeon/rotations/north-west.png",
+          "west": "haubergeon/rotations/west.png",
+          "south-west": "haubergeon/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "south-east": [
+              "haubergeon/animations/walking/south-east/frame_000.png",
+              "haubergeon/animations/walking/south-east/frame_001.png",
+              "haubergeon/animations/walking/south-east/frame_002.png",
+              "haubergeon/animations/walking/south-east/frame_003.png",
+              "haubergeon/animations/walking/south-east/frame_004.png",
+              "haubergeon/animations/walking/south-east/frame_005.png"
+            ],
+            "north": [
+              "haubergeon/animations/walking/north/frame_000.png",
+              "haubergeon/animations/walking/north/frame_001.png",
+              "haubergeon/animations/walking/north/frame_002.png",
+              "haubergeon/animations/walking/north/frame_003.png",
+              "haubergeon/animations/walking/north/frame_004.png",
+              "haubergeon/animations/walking/north/frame_005.png"
+            ],
+            "east": [
+              "haubergeon/animations/walking/east/frame_000.png",
+              "haubergeon/animations/walking/east/frame_001.png",
+              "haubergeon/animations/walking/east/frame_002.png",
+              "haubergeon/animations/walking/east/frame_003.png",
+              "haubergeon/animations/walking/east/frame_004.png",
+              "haubergeon/animations/walking/east/frame_005.png"
+            ],
+            "south": [
+              "haubergeon/animations/walking/south/frame_000.png",
+              "haubergeon/animations/walking/south/frame_001.png",
+              "haubergeon/animations/walking/south/frame_002.png",
+              "haubergeon/animations/walking/south/frame_003.png",
+              "haubergeon/animations/walking/south/frame_004.png",
+              "haubergeon/animations/walking/south/frame_005.png"
+            ],
+            "south-west": [
+              "haubergeon/animations/walking/south-west/frame_000.png",
+              "haubergeon/animations/walking/south-west/frame_001.png",
+              "haubergeon/animations/walking/south-west/frame_002.png",
+              "haubergeon/animations/walking/south-west/frame_003.png",
+              "haubergeon/animations/walking/south-west/frame_004.png",
+              "haubergeon/animations/walking/south-west/frame_005.png"
+            ],
+            "west": [
+              "haubergeon/animations/walking/west/frame_000.png",
+              "haubergeon/animations/walking/west/frame_001.png",
+              "haubergeon/animations/walking/west/frame_002.png",
+              "haubergeon/animations/walking/west/frame_003.png",
+              "haubergeon/animations/walking/west/frame_004.png",
+              "haubergeon/animations/walking/west/frame_005.png"
+            ],
+            "north-west": [
+              "haubergeon/animations/walking/north-west/frame_000.png",
+              "haubergeon/animations/walking/north-west/frame_001.png",
+              "haubergeon/animations/walking/north-west/frame_002.png",
+              "haubergeon/animations/walking/north-west/frame_003.png",
+              "haubergeon/animations/walking/north-west/frame_004.png",
+              "haubergeon/animations/walking/north-west/frame_005.png"
+            ],
+            "north-east": [
+              "haubergeon/animations/walking/north-east/frame_000.png",
+              "haubergeon/animations/walking/north-east/frame_001.png",
+              "haubergeon/animations/walking/north-east/frame_002.png",
+              "haubergeon/animations/walking/north-east/frame_003.png",
+              "haubergeon/animations/walking/north-east/frame_004.png",
+              "haubergeon/animations/walking/north-east/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "209a2bfb-e65e-43eb-be29-715ca2f3cb7a",
+        "name": "plates",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:50.734383+00:00"
+      },
+      "folder": "plates",
+      "frames": {
+        "rotations": {
+          "south": "plates/rotations/south.png",
+          "south-east": "plates/rotations/south-east.png",
+          "east": "plates/rotations/east.png",
+          "north-east": "plates/rotations/north-east.png",
+          "north": "plates/rotations/north.png",
+          "north-west": "plates/rotations/north-west.png",
+          "west": "plates/rotations/west.png",
+          "south-west": "plates/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "north": [
+              "plates/animations/walking/north/frame_000.png",
+              "plates/animations/walking/north/frame_001.png",
+              "plates/animations/walking/north/frame_002.png",
+              "plates/animations/walking/north/frame_003.png",
+              "plates/animations/walking/north/frame_004.png",
+              "plates/animations/walking/north/frame_005.png"
+            ],
+            "east": [
+              "plates/animations/walking/east/frame_000.png",
+              "plates/animations/walking/east/frame_001.png",
+              "plates/animations/walking/east/frame_002.png",
+              "plates/animations/walking/east/frame_003.png",
+              "plates/animations/walking/east/frame_004.png",
+              "plates/animations/walking/east/frame_005.png"
+            ],
+            "south-west": [
+              "plates/animations/walking/south-west/frame_000.png",
+              "plates/animations/walking/south-west/frame_001.png",
+              "plates/animations/walking/south-west/frame_002.png",
+              "plates/animations/walking/south-west/frame_003.png",
+              "plates/animations/walking/south-west/frame_004.png",
+              "plates/animations/walking/south-west/frame_005.png"
+            ],
+            "north-east": [
+              "plates/animations/walking/north-east/frame_000.png",
+              "plates/animations/walking/north-east/frame_001.png",
+              "plates/animations/walking/north-east/frame_002.png",
+              "plates/animations/walking/north-east/frame_003.png",
+              "plates/animations/walking/north-east/frame_004.png",
+              "plates/animations/walking/north-east/frame_005.png"
+            ],
+            "north-west": [
+              "plates/animations/walking/north-west/frame_000.png",
+              "plates/animations/walking/north-west/frame_001.png",
+              "plates/animations/walking/north-west/frame_002.png",
+              "plates/animations/walking/north-west/frame_003.png",
+              "plates/animations/walking/north-west/frame_004.png",
+              "plates/animations/walking/north-west/frame_005.png"
+            ],
+            "south-east": [
+              "plates/animations/walking/south-east/frame_000.png",
+              "plates/animations/walking/south-east/frame_001.png",
+              "plates/animations/walking/south-east/frame_002.png",
+              "plates/animations/walking/south-east/frame_003.png",
+              "plates/animations/walking/south-east/frame_004.png",
+              "plates/animations/walking/south-east/frame_005.png"
+            ],
+            "south": [
+              "plates/animations/walking/south/frame_000.png",
+              "plates/animations/walking/south/frame_001.png",
+              "plates/animations/walking/south/frame_002.png",
+              "plates/animations/walking/south/frame_003.png",
+              "plates/animations/walking/south/frame_004.png",
+              "plates/animations/walking/south/frame_005.png"
+            ],
+            "west": [
+              "plates/animations/walking/west/frame_000.png",
+              "plates/animations/walking/west/frame_001.png",
+              "plates/animations/walking/west/frame_002.png",
+              "plates/animations/walking/west/frame_003.png",
+              "plates/animations/walking/west/frame_004.png",
+              "plates/animations/walking/west/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "2fc1e128-6205-4a47-84e1-a47f48eca91a",
+        "name": "kettlehat",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:51.313843+00:00"
+      },
+      "folder": "kettlehat",
+      "frames": {
+        "rotations": {
+          "south": "kettlehat/rotations/south.png",
+          "south-east": "kettlehat/rotations/south-east.png",
+          "east": "kettlehat/rotations/east.png",
+          "north-east": "kettlehat/rotations/north-east.png",
+          "north": "kettlehat/rotations/north.png",
+          "north-west": "kettlehat/rotations/north-west.png",
+          "west": "kettlehat/rotations/west.png",
+          "south-west": "kettlehat/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "south-west": [
+              "kettlehat/animations/walking/south-west/frame_000.png",
+              "kettlehat/animations/walking/south-west/frame_001.png",
+              "kettlehat/animations/walking/south-west/frame_002.png",
+              "kettlehat/animations/walking/south-west/frame_003.png",
+              "kettlehat/animations/walking/south-west/frame_004.png",
+              "kettlehat/animations/walking/south-west/frame_005.png"
+            ],
+            "south-east": [
+              "kettlehat/animations/walking/south-east/frame_000.png",
+              "kettlehat/animations/walking/south-east/frame_001.png",
+              "kettlehat/animations/walking/south-east/frame_002.png",
+              "kettlehat/animations/walking/south-east/frame_003.png",
+              "kettlehat/animations/walking/south-east/frame_004.png",
+              "kettlehat/animations/walking/south-east/frame_005.png"
+            ],
+            "north-east": [
+              "kettlehat/animations/walking/north-east/frame_000.png",
+              "kettlehat/animations/walking/north-east/frame_001.png",
+              "kettlehat/animations/walking/north-east/frame_002.png",
+              "kettlehat/animations/walking/north-east/frame_003.png",
+              "kettlehat/animations/walking/north-east/frame_004.png",
+              "kettlehat/animations/walking/north-east/frame_005.png"
+            ],
+            "west": [
+              "kettlehat/animations/walking/west/frame_000.png",
+              "kettlehat/animations/walking/west/frame_001.png",
+              "kettlehat/animations/walking/west/frame_002.png",
+              "kettlehat/animations/walking/west/frame_003.png",
+              "kettlehat/animations/walking/west/frame_004.png",
+              "kettlehat/animations/walking/west/frame_005.png"
+            ],
+            "north": [
+              "kettlehat/animations/walking/north/frame_000.png",
+              "kettlehat/animations/walking/north/frame_001.png",
+              "kettlehat/animations/walking/north/frame_002.png",
+              "kettlehat/animations/walking/north/frame_003.png",
+              "kettlehat/animations/walking/north/frame_004.png",
+              "kettlehat/animations/walking/north/frame_005.png"
+            ],
+            "south": [
+              "kettlehat/animations/walking/south/frame_000.png",
+              "kettlehat/animations/walking/south/frame_001.png",
+              "kettlehat/animations/walking/south/frame_002.png",
+              "kettlehat/animations/walking/south/frame_003.png",
+              "kettlehat/animations/walking/south/frame_004.png",
+              "kettlehat/animations/walking/south/frame_005.png"
+            ],
+            "north-west": [
+              "kettlehat/animations/walking/north-west/frame_000.png",
+              "kettlehat/animations/walking/north-west/frame_001.png",
+              "kettlehat/animations/walking/north-west/frame_002.png",
+              "kettlehat/animations/walking/north-west/frame_003.png",
+              "kettlehat/animations/walking/north-west/frame_004.png",
+              "kettlehat/animations/walking/north-west/frame_005.png"
+            ],
+            "east": [
+              "kettlehat/animations/walking/east/frame_000.png",
+              "kettlehat/animations/walking/east/frame_001.png",
+              "kettlehat/animations/walking/east/frame_002.png",
+              "kettlehat/animations/walking/east/frame_003.png",
+              "kettlehat/animations/walking/east/frame_004.png",
+              "kettlehat/animations/walking/east/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "4b949d54-2784-4fcb-b358-ab10952104c1",
+        "name": "bascinet",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:51.625380+00:00"
+      },
+      "folder": "bascinet",
+      "frames": {
+        "rotations": {
+          "south": "bascinet/rotations/south.png",
+          "south-east": "bascinet/rotations/south-east.png",
+          "east": "bascinet/rotations/east.png",
+          "north-east": "bascinet/rotations/north-east.png",
+          "north": "bascinet/rotations/north.png",
+          "north-west": "bascinet/rotations/north-west.png",
+          "west": "bascinet/rotations/west.png",
+          "south-west": "bascinet/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "south-east": [
+              "bascinet/animations/walking/south-east/frame_000.png",
+              "bascinet/animations/walking/south-east/frame_001.png",
+              "bascinet/animations/walking/south-east/frame_002.png",
+              "bascinet/animations/walking/south-east/frame_003.png",
+              "bascinet/animations/walking/south-east/frame_004.png",
+              "bascinet/animations/walking/south-east/frame_005.png"
+            ],
+            "north-west": [
+              "bascinet/animations/walking/north-west/frame_000.png",
+              "bascinet/animations/walking/north-west/frame_001.png",
+              "bascinet/animations/walking/north-west/frame_002.png",
+              "bascinet/animations/walking/north-west/frame_003.png",
+              "bascinet/animations/walking/north-west/frame_004.png",
+              "bascinet/animations/walking/north-west/frame_005.png"
+            ],
+            "north": [
+              "bascinet/animations/walking/north/frame_000.png",
+              "bascinet/animations/walking/north/frame_001.png",
+              "bascinet/animations/walking/north/frame_002.png",
+              "bascinet/animations/walking/north/frame_003.png",
+              "bascinet/animations/walking/north/frame_004.png",
+              "bascinet/animations/walking/north/frame_005.png"
+            ],
+            "north-east": [
+              "bascinet/animations/walking/north-east/frame_000.png",
+              "bascinet/animations/walking/north-east/frame_001.png",
+              "bascinet/animations/walking/north-east/frame_002.png",
+              "bascinet/animations/walking/north-east/frame_003.png",
+              "bascinet/animations/walking/north-east/frame_004.png",
+              "bascinet/animations/walking/north-east/frame_005.png"
+            ],
+            "south-west": [
+              "bascinet/animations/walking/south-west/frame_000.png",
+              "bascinet/animations/walking/south-west/frame_001.png",
+              "bascinet/animations/walking/south-west/frame_002.png",
+              "bascinet/animations/walking/south-west/frame_003.png",
+              "bascinet/animations/walking/south-west/frame_004.png",
+              "bascinet/animations/walking/south-west/frame_005.png"
+            ],
+            "east": [
+              "bascinet/animations/walking/east/frame_000.png",
+              "bascinet/animations/walking/east/frame_001.png",
+              "bascinet/animations/walking/east/frame_002.png",
+              "bascinet/animations/walking/east/frame_003.png",
+              "bascinet/animations/walking/east/frame_004.png",
+              "bascinet/animations/walking/east/frame_005.png"
+            ],
+            "west": [
+              "bascinet/animations/walking/west/frame_000.png",
+              "bascinet/animations/walking/west/frame_001.png",
+              "bascinet/animations/walking/west/frame_002.png",
+              "bascinet/animations/walking/west/frame_003.png",
+              "bascinet/animations/walking/west/frame_004.png",
+              "bascinet/animations/walking/west/frame_005.png"
+            ],
+            "south": [
+              "bascinet/animations/walking/south/frame_000.png",
+              "bascinet/animations/walking/south/frame_001.png",
+              "bascinet/animations/walking/south/frame_002.png",
+              "bascinet/animations/walking/south/frame_003.png",
+              "bascinet/animations/walking/south/frame_004.png",
+              "bascinet/animations/walking/south/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "ad1bcb80-5ab0-44d3-9f04-62b5b18de709",
+        "name": "coif",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:51.921808+00:00"
+      },
+      "folder": "coif",
+      "frames": {
+        "rotations": {
+          "south": "coif/rotations/south.png",
+          "south-east": "coif/rotations/south-east.png",
+          "east": "coif/rotations/east.png",
+          "north-east": "coif/rotations/north-east.png",
+          "north": "coif/rotations/north.png",
+          "north-west": "coif/rotations/north-west.png",
+          "west": "coif/rotations/west.png",
+          "south-west": "coif/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "west": [
+              "coif/animations/walking/west/frame_000.png",
+              "coif/animations/walking/west/frame_001.png",
+              "coif/animations/walking/west/frame_002.png",
+              "coif/animations/walking/west/frame_003.png",
+              "coif/animations/walking/west/frame_004.png",
+              "coif/animations/walking/west/frame_005.png"
+            ],
+            "north-west": [
+              "coif/animations/walking/north-west/frame_000.png",
+              "coif/animations/walking/north-west/frame_001.png",
+              "coif/animations/walking/north-west/frame_002.png",
+              "coif/animations/walking/north-west/frame_003.png",
+              "coif/animations/walking/north-west/frame_004.png",
+              "coif/animations/walking/north-west/frame_005.png"
+            ],
+            "north": [
+              "coif/animations/walking/north/frame_000.png",
+              "coif/animations/walking/north/frame_001.png",
+              "coif/animations/walking/north/frame_002.png",
+              "coif/animations/walking/north/frame_003.png",
+              "coif/animations/walking/north/frame_004.png",
+              "coif/animations/walking/north/frame_005.png"
+            ],
+            "north-east": [
+              "coif/animations/walking/north-east/frame_000.png",
+              "coif/animations/walking/north-east/frame_001.png",
+              "coif/animations/walking/north-east/frame_002.png",
+              "coif/animations/walking/north-east/frame_003.png",
+              "coif/animations/walking/north-east/frame_004.png",
+              "coif/animations/walking/north-east/frame_005.png"
+            ],
+            "east": [
+              "coif/animations/walking/east/frame_000.png",
+              "coif/animations/walking/east/frame_001.png",
+              "coif/animations/walking/east/frame_002.png",
+              "coif/animations/walking/east/frame_003.png",
+              "coif/animations/walking/east/frame_004.png",
+              "coif/animations/walking/east/frame_005.png"
+            ],
+            "south-east": [
+              "coif/animations/walking/south-east/frame_000.png",
+              "coif/animations/walking/south-east/frame_001.png",
+              "coif/animations/walking/south-east/frame_002.png",
+              "coif/animations/walking/south-east/frame_003.png",
+              "coif/animations/walking/south-east/frame_004.png",
+              "coif/animations/walking/south-east/frame_005.png"
+            ],
+            "south-west": [
+              "coif/animations/walking/south-west/frame_000.png",
+              "coif/animations/walking/south-west/frame_001.png",
+              "coif/animations/walking/south-west/frame_002.png",
+              "coif/animations/walking/south-west/frame_003.png",
+              "coif/animations/walking/south-west/frame_004.png",
+              "coif/animations/walking/south-west/frame_005.png"
+            ],
+            "south": [
+              "coif/animations/walking/south/frame_000.png",
+              "coif/animations/walking/south/frame_001.png",
+              "coif/animations/walking/south/frame_002.png",
+              "coif/animations/walking/south/frame_003.png",
+              "coif/animations/walking/south/frame_004.png",
+              "coif/animations/walking/south/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "b7ebce46-9dea-4bb7-9d69-6a3c29b58c16",
+        "name": "spear",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:52.209804+00:00"
+      },
+      "folder": "spear",
+      "frames": {
+        "rotations": {
+          "south": "spear/rotations/south.png",
+          "south-east": "spear/rotations/south-east.png",
+          "east": "spear/rotations/east.png",
+          "north-east": "spear/rotations/north-east.png",
+          "north": "spear/rotations/north.png",
+          "north-west": "spear/rotations/north-west.png",
+          "west": "spear/rotations/west.png",
+          "south-west": "spear/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "south-west": [
+              "spear/animations/walking/south-west/frame_000.png",
+              "spear/animations/walking/south-west/frame_001.png",
+              "spear/animations/walking/south-west/frame_002.png",
+              "spear/animations/walking/south-west/frame_003.png",
+              "spear/animations/walking/south-west/frame_004.png",
+              "spear/animations/walking/south-west/frame_005.png"
+            ],
+            "south-east": [
+              "spear/animations/walking/south-east/frame_000.png",
+              "spear/animations/walking/south-east/frame_001.png",
+              "spear/animations/walking/south-east/frame_002.png",
+              "spear/animations/walking/south-east/frame_003.png",
+              "spear/animations/walking/south-east/frame_004.png",
+              "spear/animations/walking/south-east/frame_005.png"
+            ],
+            "west": [
+              "spear/animations/walking/west/frame_000.png",
+              "spear/animations/walking/west/frame_001.png",
+              "spear/animations/walking/west/frame_002.png",
+              "spear/animations/walking/west/frame_003.png",
+              "spear/animations/walking/west/frame_004.png",
+              "spear/animations/walking/west/frame_005.png"
+            ],
+            "north-west": [
+              "spear/animations/walking/north-west/frame_000.png",
+              "spear/animations/walking/north-west/frame_001.png",
+              "spear/animations/walking/north-west/frame_002.png",
+              "spear/animations/walking/north-west/frame_003.png",
+              "spear/animations/walking/north-west/frame_004.png",
+              "spear/animations/walking/north-west/frame_005.png"
+            ],
+            "south": [
+              "spear/animations/walking/south/frame_000.png",
+              "spear/animations/walking/south/frame_001.png",
+              "spear/animations/walking/south/frame_002.png",
+              "spear/animations/walking/south/frame_003.png",
+              "spear/animations/walking/south/frame_004.png",
+              "spear/animations/walking/south/frame_005.png"
+            ],
+            "north-east": [
+              "spear/animations/walking/north-east/frame_000.png",
+              "spear/animations/walking/north-east/frame_001.png",
+              "spear/animations/walking/north-east/frame_002.png",
+              "spear/animations/walking/north-east/frame_003.png",
+              "spear/animations/walking/north-east/frame_004.png",
+              "spear/animations/walking/north-east/frame_005.png"
+            ],
+            "east": [
+              "spear/animations/walking/east/frame_000.png",
+              "spear/animations/walking/east/frame_001.png",
+              "spear/animations/walking/east/frame_002.png",
+              "spear/animations/walking/east/frame_003.png",
+              "spear/animations/walking/east/frame_004.png",
+              "spear/animations/walking/east/frame_005.png"
+            ],
+            "north": [
+              "spear/animations/walking/north/frame_000.png",
+              "spear/animations/walking/north/frame_001.png",
+              "spear/animations/walking/north/frame_002.png",
+              "spear/animations/walking/north/frame_003.png",
+              "spear/animations/walking/north/frame_004.png",
+              "spear/animations/walking/north/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "79c24134-3047-4c1d-b7cc-194492404516",
+        "name": "longbow",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:20:52.511637+00:00"
+      },
+      "folder": "longbow",
+      "frames": {
+        "rotations": {
+          "south": "longbow/rotations/south.png",
+          "south-east": "longbow/rotations/south-east.png",
+          "east": "longbow/rotations/east.png",
+          "north-east": "longbow/rotations/north-east.png",
+          "north": "longbow/rotations/north.png",
+          "north-west": "longbow/rotations/north-west.png",
+          "west": "longbow/rotations/west.png",
+          "south-west": "longbow/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "east": [
+              "longbow/animations/walking/east/frame_000.png",
+              "longbow/animations/walking/east/frame_001.png",
+              "longbow/animations/walking/east/frame_002.png",
+              "longbow/animations/walking/east/frame_003.png",
+              "longbow/animations/walking/east/frame_004.png",
+              "longbow/animations/walking/east/frame_005.png"
+            ],
+            "south-west": [
+              "longbow/animations/walking/south-west/frame_000.png",
+              "longbow/animations/walking/south-west/frame_001.png",
+              "longbow/animations/walking/south-west/frame_002.png",
+              "longbow/animations/walking/south-west/frame_003.png",
+              "longbow/animations/walking/south-west/frame_004.png",
+              "longbow/animations/walking/south-west/frame_005.png"
+            ],
+            "north": [
+              "longbow/animations/walking/north/frame_000.png",
+              "longbow/animations/walking/north/frame_001.png",
+              "longbow/animations/walking/north/frame_002.png",
+              "longbow/animations/walking/north/frame_003.png",
+              "longbow/animations/walking/north/frame_004.png",
+              "longbow/animations/walking/north/frame_005.png"
+            ],
+            "south-east": [
+              "longbow/animations/walking/south-east/frame_000.png",
+              "longbow/animations/walking/south-east/frame_001.png",
+              "longbow/animations/walking/south-east/frame_002.png",
+              "longbow/animations/walking/south-east/frame_003.png",
+              "longbow/animations/walking/south-east/frame_004.png",
+              "longbow/animations/walking/south-east/frame_005.png"
+            ],
+            "north-east": [
+              "longbow/animations/walking/north-east/frame_000.png",
+              "longbow/animations/walking/north-east/frame_001.png",
+              "longbow/animations/walking/north-east/frame_002.png",
+              "longbow/animations/walking/north-east/frame_003.png",
+              "longbow/animations/walking/north-east/frame_004.png",
+              "longbow/animations/walking/north-east/frame_005.png"
+            ],
+            "north-west": [
+              "longbow/animations/walking/north-west/frame_000.png",
+              "longbow/animations/walking/north-west/frame_001.png",
+              "longbow/animations/walking/north-west/frame_002.png",
+              "longbow/animations/walking/north-west/frame_003.png",
+              "longbow/animations/walking/north-west/frame_004.png",
+              "longbow/animations/walking/north-west/frame_005.png"
+            ],
+            "south": [
+              "longbow/animations/walking/south/frame_000.png",
+              "longbow/animations/walking/south/frame_001.png",
+              "longbow/animations/walking/south/frame_002.png",
+              "longbow/animations/walking/south/frame_003.png",
+              "longbow/animations/walking/south/frame_004.png",
+              "longbow/animations/walking/south/frame_005.png"
+            ],
+            "west": [
+              "longbow/animations/walking/west/frame_000.png",
+              "longbow/animations/walking/west/frame_001.png",
+              "longbow/animations/walking/west/frame_002.png",
+              "longbow/animations/walking/west/frame_003.png",
+              "longbow/animations/walking/west/frame_004.png",
+              "longbow/animations/walking/west/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "2ff9bf53-8968-481b-a513-2ad337f41c98",
+        "name": "crossbow",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 64,
+          "height": 64
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:23:00.041424+00:00"
+      },
+      "folder": "crossbow",
+      "frames": {
+        "rotations": {
+          "south": "crossbow/rotations/south.png",
+          "south-east": "crossbow/rotations/south-east.png",
+          "east": "crossbow/rotations/east.png",
+          "north-east": "crossbow/rotations/north-east.png",
+          "north": "crossbow/rotations/north.png",
+          "north-west": "crossbow/rotations/north-west.png",
+          "west": "crossbow/rotations/west.png",
+          "south-west": "crossbow/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "south-west": [
+              "crossbow/animations/walking/south-west/frame_000.png",
+              "crossbow/animations/walking/south-west/frame_001.png",
+              "crossbow/animations/walking/south-west/frame_002.png",
+              "crossbow/animations/walking/south-west/frame_003.png",
+              "crossbow/animations/walking/south-west/frame_004.png",
+              "crossbow/animations/walking/south-west/frame_005.png"
+            ],
+            "west": [
+              "crossbow/animations/walking/west/frame_000.png",
+              "crossbow/animations/walking/west/frame_001.png",
+              "crossbow/animations/walking/west/frame_002.png",
+              "crossbow/animations/walking/west/frame_003.png",
+              "crossbow/animations/walking/west/frame_004.png",
+              "crossbow/animations/walking/west/frame_005.png"
+            ],
+            "north": [
+              "crossbow/animations/walking/north/frame_000.png",
+              "crossbow/animations/walking/north/frame_001.png",
+              "crossbow/animations/walking/north/frame_002.png",
+              "crossbow/animations/walking/north/frame_003.png",
+              "crossbow/animations/walking/north/frame_004.png",
+              "crossbow/animations/walking/north/frame_005.png"
+            ],
+            "south-east": [
+              "crossbow/animations/walking/south-east/frame_000.png",
+              "crossbow/animations/walking/south-east/frame_001.png",
+              "crossbow/animations/walking/south-east/frame_002.png",
+              "crossbow/animations/walking/south-east/frame_003.png",
+              "crossbow/animations/walking/south-east/frame_004.png",
+              "crossbow/animations/walking/south-east/frame_005.png"
+            ],
+            "south": [
+              "crossbow/animations/walking/south/frame_000.png",
+              "crossbow/animations/walking/south/frame_001.png",
+              "crossbow/animations/walking/south/frame_002.png",
+              "crossbow/animations/walking/south/frame_003.png",
+              "crossbow/animations/walking/south/frame_004.png",
+              "crossbow/animations/walking/south/frame_005.png"
+            ],
+            "north-west": [
+              "crossbow/animations/walking/north-west/frame_000.png",
+              "crossbow/animations/walking/north-west/frame_001.png",
+              "crossbow/animations/walking/north-west/frame_002.png",
+              "crossbow/animations/walking/north-west/frame_003.png",
+              "crossbow/animations/walking/north-west/frame_004.png",
+              "crossbow/animations/walking/north-west/frame_005.png"
+            ],
+            "east": [
+              "crossbow/animations/walking/east/frame_000.png",
+              "crossbow/animations/walking/east/frame_001.png",
+              "crossbow/animations/walking/east/frame_002.png",
+              "crossbow/animations/walking/east/frame_003.png",
+              "crossbow/animations/walking/east/frame_004.png",
+              "crossbow/animations/walking/east/frame_005.png"
+            ],
+            "north-east": [
+              "crossbow/animations/walking/north-east/frame_000.png",
+              "crossbow/animations/walking/north-east/frame_001.png",
+              "crossbow/animations/walking/north-east/frame_002.png",
+              "crossbow/animations/walking/north-east/frame_003.png",
+              "crossbow/animations/walking/north-east/frame_004.png",
+              "crossbow/animations/walking/north-east/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "5ce95099-3433-4ad8-b370-fe7a534522e4",
+        "name": "sword",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:23:00.371849+00:00"
+      },
+      "folder": "sword",
+      "frames": {
+        "rotations": {
+          "south": "sword/rotations/south.png",
+          "south-east": "sword/rotations/south-east.png",
+          "east": "sword/rotations/east.png",
+          "north-east": "sword/rotations/north-east.png",
+          "north": "sword/rotations/north.png",
+          "north-west": "sword/rotations/north-west.png",
+          "west": "sword/rotations/west.png",
+          "south-west": "sword/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "west": [
+              "sword/animations/walking/west/frame_000.png",
+              "sword/animations/walking/west/frame_001.png",
+              "sword/animations/walking/west/frame_002.png",
+              "sword/animations/walking/west/frame_003.png",
+              "sword/animations/walking/west/frame_004.png",
+              "sword/animations/walking/west/frame_005.png"
+            ],
+            "north": [
+              "sword/animations/walking/north/frame_000.png",
+              "sword/animations/walking/north/frame_001.png",
+              "sword/animations/walking/north/frame_002.png",
+              "sword/animations/walking/north/frame_003.png",
+              "sword/animations/walking/north/frame_004.png",
+              "sword/animations/walking/north/frame_005.png"
+            ],
+            "north-east": [
+              "sword/animations/walking/north-east/frame_000.png",
+              "sword/animations/walking/north-east/frame_001.png",
+              "sword/animations/walking/north-east/frame_002.png",
+              "sword/animations/walking/north-east/frame_003.png",
+              "sword/animations/walking/north-east/frame_004.png",
+              "sword/animations/walking/north-east/frame_005.png"
+            ],
+            "north-west": [
+              "sword/animations/walking/north-west/frame_000.png",
+              "sword/animations/walking/north-west/frame_001.png",
+              "sword/animations/walking/north-west/frame_002.png",
+              "sword/animations/walking/north-west/frame_003.png",
+              "sword/animations/walking/north-west/frame_004.png",
+              "sword/animations/walking/north-west/frame_005.png"
+            ],
+            "south": [
+              "sword/animations/walking/south/frame_000.png",
+              "sword/animations/walking/south/frame_001.png",
+              "sword/animations/walking/south/frame_002.png",
+              "sword/animations/walking/south/frame_003.png",
+              "sword/animations/walking/south/frame_004.png",
+              "sword/animations/walking/south/frame_005.png"
+            ],
+            "east": [
+              "sword/animations/walking/east/frame_000.png",
+              "sword/animations/walking/east/frame_001.png",
+              "sword/animations/walking/east/frame_002.png",
+              "sword/animations/walking/east/frame_003.png",
+              "sword/animations/walking/east/frame_004.png",
+              "sword/animations/walking/east/frame_005.png"
+            ],
+            "south-west": [
+              "sword/animations/walking/south-west/frame_000.png",
+              "sword/animations/walking/south-west/frame_001.png",
+              "sword/animations/walking/south-west/frame_002.png",
+              "sword/animations/walking/south-west/frame_003.png",
+              "sword/animations/walking/south-west/frame_004.png",
+              "sword/animations/walking/south-west/frame_005.png"
+            ],
+            "south-east": [
+              "sword/animations/walking/south-east/frame_000.png",
+              "sword/animations/walking/south-east/frame_001.png",
+              "sword/animations/walking/south-east/frame_002.png",
+              "sword/animations/walking/south-east/frame_003.png",
+              "sword/animations/walking/south-east/frame_004.png",
+              "sword/animations/walking/south-east/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "94d03f45-c0b7-47c7-b9ae-6b4c8a892ecb",
+        "name": "surcoat",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:45:09.454932+00:00"
+      },
+      "folder": "surcoat",
+      "frames": {
+        "rotations": {
+          "south": "surcoat/rotations/south.png",
+          "south-east": "surcoat/rotations/south-east.png",
+          "east": "surcoat/rotations/east.png",
+          "north-east": "surcoat/rotations/north-east.png",
+          "north": "surcoat/rotations/north.png",
+          "north-west": "surcoat/rotations/north-west.png",
+          "west": "surcoat/rotations/west.png",
+          "south-west": "surcoat/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "west": [
+              "surcoat/animations/walking/west/frame_000.png",
+              "surcoat/animations/walking/west/frame_001.png",
+              "surcoat/animations/walking/west/frame_002.png",
+              "surcoat/animations/walking/west/frame_003.png",
+              "surcoat/animations/walking/west/frame_004.png",
+              "surcoat/animations/walking/west/frame_005.png"
+            ],
+            "north": [
+              "surcoat/animations/walking/north/frame_000.png",
+              "surcoat/animations/walking/north/frame_001.png",
+              "surcoat/animations/walking/north/frame_002.png",
+              "surcoat/animations/walking/north/frame_003.png",
+              "surcoat/animations/walking/north/frame_004.png",
+              "surcoat/animations/walking/north/frame_005.png"
+            ],
+            "north-east": [
+              "surcoat/animations/walking/north-east/frame_000.png",
+              "surcoat/animations/walking/north-east/frame_001.png",
+              "surcoat/animations/walking/north-east/frame_002.png",
+              "surcoat/animations/walking/north-east/frame_003.png",
+              "surcoat/animations/walking/north-east/frame_004.png",
+              "surcoat/animations/walking/north-east/frame_005.png"
+            ],
+            "east": [
+              "surcoat/animations/walking/east/frame_000.png",
+              "surcoat/animations/walking/east/frame_001.png",
+              "surcoat/animations/walking/east/frame_002.png",
+              "surcoat/animations/walking/east/frame_003.png",
+              "surcoat/animations/walking/east/frame_004.png",
+              "surcoat/animations/walking/east/frame_005.png"
+            ],
+            "south-west": [
+              "surcoat/animations/walking/south-west/frame_000.png",
+              "surcoat/animations/walking/south-west/frame_001.png",
+              "surcoat/animations/walking/south-west/frame_002.png",
+              "surcoat/animations/walking/south-west/frame_003.png",
+              "surcoat/animations/walking/south-west/frame_004.png",
+              "surcoat/animations/walking/south-west/frame_005.png"
+            ],
+            "south": [
+              "surcoat/animations/walking/south/frame_000.png",
+              "surcoat/animations/walking/south/frame_001.png",
+              "surcoat/animations/walking/south/frame_002.png",
+              "surcoat/animations/walking/south/frame_003.png",
+              "surcoat/animations/walking/south/frame_004.png",
+              "surcoat/animations/walking/south/frame_005.png"
+            ],
+            "south-east": [
+              "surcoat/animations/walking/south-east/frame_000.png",
+              "surcoat/animations/walking/south-east/frame_001.png",
+              "surcoat/animations/walking/south-east/frame_002.png",
+              "surcoat/animations/walking/south-east/frame_003.png",
+              "surcoat/animations/walking/south-east/frame_004.png",
+              "surcoat/animations/walking/south-east/frame_005.png"
+            ],
+            "north-west": [
+              "surcoat/animations/walking/north-west/frame_000.png",
+              "surcoat/animations/walking/north-west/frame_001.png",
+              "surcoat/animations/walking/north-west/frame_002.png",
+              "surcoat/animations/walking/north-west/frame_003.png",
+              "surcoat/animations/walking/north-west/frame_004.png",
+              "surcoat/animations/walking/north-west/frame_005.png"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "character": {
+        "id": "67fe91c3-6b84-41cf-ae18-35680d09c653",
+        "name": "aketon",
+        "prompt": "Medieval man c.1335 as a plain base figure for dressing: off-white linen shirt, short linen braies, undyed wool hose, simple dark leather shoes, bare head with short brown hair, empty hands, arms relaxed at the sides. Crisp pixel art, single color black outline. No belt, no hat, no weapon.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T08:46:19.334569+00:00"
+      },
+      "folder": "aketon",
+      "frames": {
+        "rotations": {
+          "south": "aketon/rotations/south.png",
+          "south-east": "aketon/rotations/south-east.png",
+          "east": "aketon/rotations/east.png",
+          "north-east": "aketon/rotations/north-east.png",
+          "north": "aketon/rotations/north.png",
+          "north-west": "aketon/rotations/north-west.png",
+          "west": "aketon/rotations/west.png",
+          "south-west": "aketon/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "north-east": [
+              "aketon/animations/walking/north-east/frame_000.png",
+              "aketon/animations/walking/north-east/frame_001.png",
+              "aketon/animations/walking/north-east/frame_002.png",
+              "aketon/animations/walking/north-east/frame_003.png",
+              "aketon/animations/walking/north-east/frame_004.png",
+              "aketon/animations/walking/north-east/frame_005.png"
+            ],
+            "north": [
+              "aketon/animations/walking/north/frame_000.png",
+              "aketon/animations/walking/north/frame_001.png",
+              "aketon/animations/walking/north/frame_002.png",
+              "aketon/animations/walking/north/frame_003.png",
+              "aketon/animations/walking/north/frame_004.png",
+              "aketon/animations/walking/north/frame_005.png"
+            ],
+            "south": [
+              "aketon/animations/walking/south/frame_000.png",
+              "aketon/animations/walking/south/frame_001.png",
+              "aketon/animations/walking/south/frame_002.png",
+              "aketon/animations/walking/south/frame_003.png",
+              "aketon/animations/walking/south/frame_004.png",
+              "aketon/animations/walking/south/frame_005.png"
+            ],
+            "north-west": [
+              "aketon/animations/walking/north-west/frame_000.png",
+              "aketon/animations/walking/north-west/frame_001.png",
+              "aketon/animations/walking/north-west/frame_002.png",
+              "aketon/animations/walking/north-west/frame_003.png",
+              "aketon/animations/walking/north-west/frame_004.png",
+              "aketon/animations/walking/north-west/frame_005.png"
+            ],
+            "south-west": [
+              "aketon/animations/walking/south-west/frame_000.png",
+              "aketon/animations/walking/south-west/frame_001.png",
+              "aketon/animations/walking/south-west/frame_002.png",
+              "aketon/animations/walking/south-west/frame_003.png",
+              "aketon/animations/walking/south-west/frame_004.png",
+              "aketon/animations/walking/south-west/frame_005.png"
+            ],
+            "east": [
+              "aketon/animations/walking/east/frame_000.png",
+              "aketon/animations/walking/east/frame_001.png",
+              "aketon/animations/walking/east/frame_002.png",
+              "aketon/animations/walking/east/frame_003.png",
+              "aketon/animations/walking/east/frame_004.png",
+              "aketon/animations/walking/east/frame_005.png"
+            ],
+            "south-east": [
+              "aketon/animations/walking/south-east/frame_000.png",
+              "aketon/animations/walking/south-east/frame_001.png",
+              "aketon/animations/walking/south-east/frame_002.png",
+              "aketon/animations/walking/south-east/frame_003.png",
+              "aketon/animations/walking/south-east/frame_004.png",
+              "aketon/animations/walking/south-east/frame_005.png"
+            ],
+            "west": [
+              "aketon/animations/walking/west/frame_000.png",
+              "aketon/animations/walking/west/frame_001.png",
+              "aketon/animations/walking/west/frame_002.png",
+              "aketon/animations/walking/west/frame_003.png",
+              "aketon/animations/walking/west/frame_004.png",
+              "aketon/animations/walking/west/frame_005.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-10-29T08:53:28.779061"
+}

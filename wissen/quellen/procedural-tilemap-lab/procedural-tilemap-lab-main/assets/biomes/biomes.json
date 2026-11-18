@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "kind": "procedural-tilemap-lab/biome-index",
+  "defaultBiome": "grassland",
+  "recipes": [
+    {
+      "id": "grassland",
+      "file": "grassland.recipe.json"
+    },
+    {
+      "id": "road",
+      "file": "road.recipe.json"
+    },
+    {
+      "id": "forest",
+      "file": "forest.recipe.json"
+    },
+    {
+      "id": "mountain",
+      "file": "mountain.recipe.json"
+    },
+    {
+      "id": "dungeon",
+      "file": "dungeon.recipe.json"
+    }
+  ]
+}

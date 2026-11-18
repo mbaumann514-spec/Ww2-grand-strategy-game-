@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Procedural Tilemap Lab - Performance Baseline</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="lab-shell benchmark-shell">
+      <header class="lab-header">
+        <div>
+          <p class="eyebrow">Procedural Tilemap Lab</p>
+          <h1>Performance Baseline v0.1</h1>
+          <p>Measure the same representative cases repeatedly with cold and warm caches, then compare medians.</p>
+          <nav class="lab-nav" aria-label="Lab pages">
+            <a href="./">Map View</a>
+            <a href="./material-lab.html">Material Lab</a>
+          </nav>
+        </div>
+        <div class="controls">
+          <label>
+            Repeats
+            <input id="benchmarkRepeats" type="number" min="1" max="9" value="3" />
+          </label>
+          <button id="runBenchmarkButton" type="button">Run baseline</button>
+          <button id="downloadBenchmarkButton" class="compact-button" type="button" disabled>Download JSON</button>
+        </div>
+      </header>
+
+      <section class="benchmark-summary" aria-live="polite">
+        <strong id="benchmarkState">Preparing</strong>
+        <span id="benchmarkProgress">Loading read-only assets.</span>
+      </section>
+
+      <section class="benchmark-results" aria-labelledby="benchmarkResultsHeading">
+        <div class="stage-heading">
+          <div>
+            <h2 id="benchmarkResultsHeading">Median results</h2>
+            <p>Cold clears renderer caches; warm redraws the same seed and settings immediately afterward.</p>
+          </div>
+        </div>
+        <div class="benchmark-table-wrap">
+          <table class="benchmark-table">
+            <thead>
+              <tr>
+                <th>Case</th>
+                <th>Map</th>
+                <th>Layout</th>
+                <th>Preview cold</th>
+                <th>Preview warm</th>
+                <th>Seed change</th>
+                <th>Full map</th>
+                <th>PNG encode</th>
+                <th>Export total</th>
+              </tr>
+            </thead>
+            <tbody id="benchmarkResultsBody">
+              <tr><td colspan="9">Not measured.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <details class="benchmark-json-details">
+        <summary>Raw JSON</summary>
+        <pre id="benchmarkJson">Not measured.</pre>
+      </details>
+
+      <div class="benchmark-canvas-bank" aria-hidden="true">
+        <canvas id="benchmarkPreviewCanvas" width="1488" height="720"></canvas>
+        <canvas id="benchmarkFullMapCanvas"></canvas>
+      </div>
+    </main>
+
+    <script type="module" src="./labBoot.js" data-lab-entry="./performanceBaselineRunner.js"></script>
+  </body>
+</html>

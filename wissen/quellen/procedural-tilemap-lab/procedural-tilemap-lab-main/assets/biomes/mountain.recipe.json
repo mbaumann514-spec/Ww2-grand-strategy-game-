@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "kind": "procedural-tilemap-lab/biome-recipe",
+  "id": "mountain",
+  "label": "Mountain",
+  "proceduralProfile": "grassland-v2",
+  "preset": "mountainPath",
+  "atmosphere": "overcast",
+  "terrain": {
+    "highTerraceLayout": "none",
+    "highTerraceHeight": 1,
+    "highTerraceMinDistance": 480,
+    "treeDensity": "none"
+  },
+  "propWeights": {
+    "rocks": 2.1,
+    "trees": 0
+  },
+  "elementSets": [
+    "mountain-core"
+  ],
+  "requiredElements": [
+    "rocks",
+    "rock-ground",
+    "scree",
+    "dirt-smudge",
+    "high-terrace-top",
+    "high-terrace-cliff-face"
+  ],
+  "enabledElements": {
+    "grass-plane-light": false,
+    "dirt-smudge": true,
+    "rock-ground": true,
+    "scree": true,
+    "dense-grass": false,
+    "meadow-bed": false,
+    "low-terrace-top": false,
+    "low-terrace-soil-edge": false,
+    "high-terrace-top": true,
+    "high-terrace-cliff-face": true
+  },
+  "elementWeights": {
+    "grass-plane-light": 0,
+    "dirt-smudge": 1.3,
+    "rock-ground": 1,
+    "scree": 1,
+    "dense-grass": 0,
+    "meadow-bed": 0,
+    "low-terrace-top": 0,
+    "low-terrace-soil-edge": 0,
+    "high-terrace-top": 0.95,
+    "high-terrace-cliff-face": 1.1
+  }
+}

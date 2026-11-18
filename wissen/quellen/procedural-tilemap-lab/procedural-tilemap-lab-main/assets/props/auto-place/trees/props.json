@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "kind": "tree-sprites",
+  "tileSize": 48,
+  "assets": [
+    {
+      "id": "tree_oak_01",
+      "file": "tree_oak_01.png",
+      "label": "Oak 01",
+      "shape": "broadleaf",
+      "footprint": {
+        "w": 2,
+        "h": 2
+      },
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 961,
+        "h": 1105
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.98
+      },
+      "scale": 0.2,
+      "shadow": {
+        "x": 0.5,
+        "y": 0.94,
+        "w": 0.62,
+        "h": 0.1,
+        "angle": 0,
+        "alpha": 0.28,
+        "blur": 6,
+        "round": 1
+      },
+      "collision": "custom",
+      "collisionBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 2,
+        "h": 2
+      },
+      "collisionTiles": [
+        {
+          "x": 0,
+          "y": 1
+        }
+      ],
+      "draw": {
+        "shadow": true,
+        "footGrass": true
+      }
+    },
+    {
+      "id": "tree_broadleaf_01",
+      "file": "tree_broadleaf_01.png",
+      "label": "Broadleaf 01",
+      "shape": "broadleaf",
+      "footprint": {
+        "w": 2,
+        "h": 2
+      },
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 786,
+        "h": 973
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.98
+      },
+      "scale": 0.2,
+      "shadow": {
+        "x": 0.5,
+        "y": 0.94,
+        "w": 0.52,
+        "h": 0.1,
+        "angle": 0,
+        "alpha": 0.26,
+        "blur": 6,
+        "round": 1
+      },
+      "collision": "custom",
+      "collisionBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 2,
+        "h": 2
+      },
+      "collisionTiles": [
+        {
+          "x": 0,
+          "y": 1
+        }
+      ],
+      "draw": {
+        "shadow": true,
+        "footGrass": true
+      }
+    },
+    {
+      "id": "tree_pine_01",
+      "file": "tree_pine_01.png",
+      "label": "Pine 01",
+      "shape": "conifer",
+      "footprint": {
+        "w": 2,
+        "h": 2
+      },
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 648,
+        "h": 1152
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.98
+      },
+      "scale": 0.19,
+      "shadow": {
+        "x": 0.5,
+        "y": 0.95,
+        "w": 0.46,
+        "h": 0.08,
+        "angle": 0,
+        "alpha": 0.25,
+        "blur": 5,
+        "round": 1
+      },
+      "collision": "custom",
+      "collisionBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 2,
+        "h": 2
+      },
+      "collisionTiles": [
+        {
+          "x": 0,
+          "y": 1
+        }
+      ],
+      "draw": {
+        "shadow": true,
+        "footGrass": true
+      }
+    }
+  ]
+}

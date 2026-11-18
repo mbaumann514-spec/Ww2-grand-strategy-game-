@@ -1,0 +1,23 @@
+apply plugin: 'java-library'
+apply plugin: 'com.vanniktech.maven.publish'
+
+sourceCompatibility = 1.7
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+javadoc.options.source("17")
+javadoc.destinationDir = file("../docs/apidocs")
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+if (JavaVersion.current().isJava9Compatible()) {
+    compileJava.targetCompatibility = 7
+}
+
+def projectName = 'jbump'
+
+jar {
+    archiveBaseName.set(projectName)
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    manifest {
+        attributes 'Implementation-Title': projectName, 'Implementation-Version': archiveVersion
+    }
+}

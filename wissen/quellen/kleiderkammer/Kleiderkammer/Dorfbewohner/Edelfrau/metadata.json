@@ -1,0 +1,103 @@
+{
+  "group_id": "c108e779-0d0f-4612-9ea9-079927ce85db",
+  "states": [
+    {
+      "character": {
+        "id": "8df88298-b5f3-414a-b518-dd95ec02aa81",
+        "name": "Idle",
+        "prompt": "Medieval noblewoman c.1335, crisp pixel art: walking, fair skin, floor-length closed madder-red surcoat over tight-sleeved blue wool cotte, white linen veil and wimple covering hair and chin, narrow belt, plain fur-lined cloak, no crown, no jewels.",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-10-29T14:03:01.293159+00:00"
+      },
+      "folder": "Idle",
+      "frames": {
+        "rotations": {
+          "south": "Idle/rotations/south.png",
+          "south-east": "Idle/rotations/south-east.png",
+          "east": "Idle/rotations/east.png",
+          "north-east": "Idle/rotations/north-east.png",
+          "north": "Idle/rotations/north.png",
+          "north-west": "Idle/rotations/north-west.png",
+          "west": "Idle/rotations/west.png",
+          "south-west": "Idle/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "north-west": [
+              "Idle/animations/walking/north-west/frame_000.png",
+              "Idle/animations/walking/north-west/frame_001.png",
+              "Idle/animations/walking/north-west/frame_002.png",
+              "Idle/animations/walking/north-west/frame_003.png",
+              "Idle/animations/walking/north-west/frame_004.png",
+              "Idle/animations/walking/north-west/frame_005.png"
+            ],
+            "north-east": [
+              "Idle/animations/walking/north-east/frame_000.png",
+              "Idle/animations/walking/north-east/frame_001.png",
+              "Idle/animations/walking/north-east/frame_002.png",
+              "Idle/animations/walking/north-east/frame_003.png",
+              "Idle/animations/walking/north-east/frame_004.png",
+              "Idle/animations/walking/north-east/frame_005.png"
+            ],
+            "east": [
+              "Idle/animations/walking/east/frame_000.png",
+              "Idle/animations/walking/east/frame_001.png",
+              "Idle/animations/walking/east/frame_002.png",
+              "Idle/animations/walking/east/frame_003.png",
+              "Idle/animations/walking/east/frame_004.png",
+              "Idle/animations/walking/east/frame_005.png"
+            ],
+            "south-west": [
+              "Idle/animations/walking/south-west/frame_000.png",
+              "Idle/animations/walking/south-west/frame_001.png",
+              "Idle/animations/walking/south-west/frame_002.png",
+              "Idle/animations/walking/south-west/frame_003.png",
+              "Idle/animations/walking/south-west/frame_004.png",
+              "Idle/animations/walking/south-west/frame_005.png"
+            ],
+            "west": [
+              "Idle/animations/walking/west/frame_000.png",
+              "Idle/animations/walking/west/frame_001.png",
+              "Idle/animations/walking/west/frame_002.png",
+              "Idle/animations/walking/west/frame_003.png",
+              "Idle/animations/walking/west/frame_004.png",
+              "Idle/animations/walking/west/frame_005.png"
+            ],
+            "north": [
+              "Idle/animations/walking/north/frame_000.png",
+              "Idle/animations/walking/north/frame_001.png",
+              "Idle/animations/walking/north/frame_002.png",
+              "Idle/animations/walking/north/frame_003.png",
+              "Idle/animations/walking/north/frame_004.png",
+              "Idle/animations/walking/north/frame_005.png"
+            ],
+            "south-east": [
+              "Idle/animations/walking/south-east/frame_000.png",
+              "Idle/animations/walking/south-east/frame_001.png",
+              "Idle/animations/walking/south-east/frame_002.png",
+              "Idle/animations/walking/south-east/frame_003.png",
+              "Idle/animations/walking/south-east/frame_004.png",
+              "Idle/animations/walking/south-east/frame_005.png"
+            ],
+            "south": [
+              "Idle/animations/walking/south/frame_000.png",
+              "Idle/animations/walking/south/frame_001.png",
+              "Idle/animations/walking/south/frame_002.png",
+              "Idle/animations/walking/south/frame_003.png",
+              "Idle/animations/walking/south/frame_004.png",
+              "Idle/animations/walking/south/frame_005.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.1",
+  "export_date": "2026-10-29T14:10:19.191420"
+}

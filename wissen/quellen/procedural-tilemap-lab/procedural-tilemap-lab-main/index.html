@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Procedural Tilemap Lab - Map View</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="map-view-page">
+    <main class="lab-shell">
+      <header class="lab-header">
+        <div>
+          <p class="eyebrow">Procedural Tilemap Lab</p>
+          <h1>Map View</h1>
+          <nav class="lab-nav" aria-label="Lab pages">
+            <a href="./" aria-current="page">Map View</a>
+            <a href="./material-lab.html">Material Lab</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="stage-band field-stage">
+        <div class="stage-heading">
+          <div>
+            <h2>Procedural Map Preview</h2>
+            <p>Generate, inspect, and export a reproducible procedural map.</p>
+          </div>
+          <div class="map-stage-actions">
+            <button id="exportFullMapTopButton" class="compact-button primary-button" type="button">Export PNG</button>
+            <div class="map-dock-launchers" aria-label="Diagnostic panels">
+              <button id="openElementsDockButton" class="compact-button" type="button" aria-controls="fieldDiagnosticDock" aria-expanded="false">Elements</button>
+              <button id="openPerformanceDockButton" class="compact-button" type="button" aria-controls="fieldDiagnosticDock" aria-expanded="false">Performance</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="mapWorkspace" class="map-workspace">
+          <aside class="map-control-rail" aria-label="Map controls">
+            <details class="map-control-group" open>
+              <summary>Generation</summary>
+              <div class="map-control-grid">
+                <label>
+                  Biome
+                  <select id="biomeSelect">
+                    <option value="grassland" selected>Grassland</option>
+                  </select>
+                </label>
+                <label>
+                  Seed
+                  <input id="seedInput" type="number" min="1" max="999999" value="150615" />
+                </label>
+                <button id="randomizeButton" class="compact-button" type="button">New Seed</button>
+                <label>
+                  Map size
+                  <select id="mapSizeModeSelect">
+                    <option value="random" selected>random</option>
+                    <option value="preset">preset</option>
+                    <option value="custom">custom</option>
+                  </select>
+                </label>
+                <label id="mapSizePresetControl" hidden>
+                  Size preset
+                  <select id="mapSizePresetSelect">
+                    <option value="compact">compact</option>
+                    <option value="standard" selected>standard</option>
+                    <option value="large">large</option>
+                  </select>
+                </label>
+                <label id="mapOrientationControl">
+                  Orientation
+                  <select id="mapOrientationSelect">
+                    <option value="auto" selected>auto</option>
+                    <option value="landscape">landscape</option>
+                    <option value="portrait">portrait</option>
+                  </select>
+                </label>
+                <label id="customMapWidthControl" hidden>
+                  Width
+                  <input id="customMapWidthInput" type="number" min="34" max="96" step="1" value="54" />
+                </label>
+                <label id="customMapHeightControl" hidden>
+                  Height
+                  <input id="customMapHeightInput" type="number" min="34" max="96" step="1" value="34" />
+                </label>
+                <p id="mapResolvedSettings" class="map-control-help map-resolved-settings">Resolved after generation.</p>
+                <label id="dungeonTopologyControl" hidden>
+                  Dungeon topology
+                  <select id="dungeonTopologySelect" disabled>
+                    <option value="auto" selected>auto archetype (recommended)</option>
+                    <option value="standard">standard cavern</option>
+                    <option value="narrowCorridors">narrow corridors v2.7 (variable)</option>
+                    <option value="largeHub">large hub v2 (variable)</option>
+                  </select>
+                </label>
+              </div>
+            </details>
+
+            <details class="map-control-group" open>
+              <summary>Appearance</summary>
+              <div class="map-control-grid">
+                <label>
+                  Terrain preset
+                  <select id="fieldPresetSelect">
+                    <option value="baseline">baseline</option>
+                  </select>
+                </label>
+                <label class="toggle-label">
+                  <input id="presentationEffectsToggle" type="checkbox" checked />
+                  Presentation effects
+                </label>
+                <label>
+                  Atmosphere
+                  <select id="atmosphereSelect">
+                    <option value="softHaze" selected>soft haze</option>
+                    <option value="goldenMotes">golden motes</option>
+                    <option value="coolMist">cool mist</option>
+                    <option value="lateAfternoon">late afternoon</option>
+                    <option value="overcast">overcast</option>
+                    <option value="none">none</option>
+                  </select>
+                </label>
+                <label class="toggle-label">
+                  <input id="vignetteEffectToggle" type="checkbox" checked />
+                  Vignette effect
+                </label>
+                <label id="terraceLayoutControl">
+                  High terrace
+                  <select id="terraceLayoutSelect">
+                    <option value="none" selected>none</option>
+                    <option value="broadPlateau">broad plateau</option>
+                  </select>
+                </label>
+                <label id="treeDensityControl">
+                  Trees
+                  <select id="treeDensitySelect">
+                    <option value="none">none</option>
+                    <option value="sparse" selected>sparse</option>
+                    <option value="normal">normal</option>
+                  </select>
+                </label>
+                <label class="range-control">
+                  <span>High terraces <output id="highTerraceAmountValue">100%</output></span>
+                  <input id="highTerraceAmountInput" type="range" min="0" max="180" step="10" value="100" />
+                </label>
+                <label class="range-control">
+                  <span>Cliff height <output id="highTerraceHeightValue">100%</output></span>
+                  <input id="highTerraceHeightInput" type="range" min="70" max="170" step="10" value="100" />
+                </label>
+                <label class="range-control">
+                  <span>High spacing <output id="highTerraceSpacingValue">560px</output></span>
+                  <input id="highTerraceSpacingInput" type="range" min="260" max="880" step="20" value="560" />
+                </label>
+              </div>
+            </details>
+
+            <details class="map-control-group" open>
+              <summary>Display</summary>
+              <div class="map-control-grid map-toggle-grid">
+                <label class="toggle-label">
+                  <input id="playerOverlayToggle" type="checkbox" checked />
+                  Player
+                </label>
+                <label class="toggle-label">
+                  <input id="enemyOverlayToggle" type="checkbox" checked />
+                  Enemies
+                </label>
+                <label class="toggle-label">
+                  <input id="fieldGridToggle" type="checkbox" />
+                  Grid
+                </label>
+                <button id="resetActorButton" class="compact-button" type="button">Reset player</button>
+              </div>
+            </details>
+
+            <details class="map-control-group" open>
+              <summary>Export</summary>
+              <div class="map-control-grid">
+                <p class="map-control-help">Use the integration bundle as the starting point for AI-assisted game integration.</p>
+                <label>
+                  Bundle scope
+                  <select id="integrationBundleScopeSelect">
+                    <option value="currentBiome" selected>Current environment</option>
+                    <option value="allBiomes">All environments</option>
+                  </select>
+                </label>
+                <label class="toggle-label">
+                  <input id="integrationBundleEffectsToggle" type="checkbox" />
+                  Include presentation effects
+                </label>
+                <button id="exportIntegrationBundleButton" class="compact-button primary-button" type="button" disabled>Export integration bundle</button>
+                <span id="integrationBundleStatus" class="export-status" role="status" aria-live="polite">Checking bundle export…</span>
+                <label>
+                  PNG layers
+                  <select id="exportLayerModeSelect">
+                    <option value="current" selected>current preview</option>
+                    <option value="base">base map + props</option>
+                    <option value="baseActors">base + actors</option>
+                    <option value="debug">base + debug</option>
+                  </select>
+                </label>
+                <button id="exportFullMapButton" class="compact-button" type="button">Export PNG</button>
+                <p class="map-control-help">PNG is intended for visual review, comparison, and reports.</p>
+              </div>
+            </details>
+          </aside>
+
+          <div class="map-main-column">
+            <div class="map-summary-bar">
+              <strong id="fieldHumanSummary">Preparing map…</strong>
+              <span>Move: arrows / WASD · Elements: E · Grid: G</span>
+            </div>
+            <div class="field-frame">
+              <canvas id="mapCanvas" class="field-canvas" width="1488" height="720"></canvas>
+              <div class="field-meta map-rule-meta">
+                <span id="fieldRulePrimary">Rules: grass passable</span>
+                <span id="fieldRuleBlocker">stone blocked</span>
+                <span id="fieldRulePropA">tree trunk blocked</span>
+                <span id="fieldRulePropB">large rock blocked</span>
+                <span id="fieldRuleHeight">no height layer</span>
+                <span id="fieldRuleVisual">visual-only grass, trails, brush, rocks</span>
+              </div>
+              <details class="field-technical-details">
+                <summary>Technical details</summary>
+                <p id="fieldCameraStatus">actor --,-- / camera --,--</p>
+              </details>
+            </div>
+          </div>
+
+          <aside id="fieldDiagnosticDock" class="map-diagnostic-dock" aria-labelledby="diagnosticDockTitle">
+            <div id="diagnosticDockResizeHandle" class="panel-resize-handle map-dock-resize-handle" role="separator" aria-label="Resize diagnostic panel" aria-orientation="vertical" aria-valuemin="340" aria-valuemax="640" aria-valuenow="420" tabindex="0"></div>
+            <div class="map-dock-header">
+              <strong id="diagnosticDockTitle" class="map-dock-title">Elements</strong>
+              <button id="closeDiagnosticDockButton" class="map-dock-close" type="button" aria-label="Close diagnostic dock">×</button>
+            </div>
+            <section id="elementsDockPanel" class="map-dock-panel" aria-label="Elements">
+              <div class="element-debug-map-wrap">
+                <canvas id="elementDebugCanvas" class="element-debug-canvas" width="1488" height="720" aria-label="Element debug map"></canvas>
+                <span id="elementDebugHover" class="element-debug-hover" hidden></span>
+              </div>
+              <div class="debug-selection-card">
+                <div>
+                  <strong>Selected element</strong>
+                  <p id="debugSelectionSummary">None selected</p>
+                </div>
+                <div class="debug-copy-actions">
+                  <button id="copyElementIdButton" class="compact-button" type="button" disabled>Copy element ID</button>
+                  <button id="copyAiContextButton" class="compact-button" type="button" disabled>Copy AI context</button>
+                </div>
+                <span id="debugCopyStatus" role="status" aria-live="polite"></span>
+              </div>
+              <div id="fieldDebugLegend" class="debug-legend-panel" aria-label="Element debug legend"></div>
+            </section>
+            <section id="performanceDockPanel" class="map-dock-panel" aria-label="Performance" hidden>
+              <div id="fieldPerformancePanel" class="performance-panel" aria-label="Performance panel"></div>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./labBoot.js" data-lab-entry="./mapView.js"></script>
+  </body>
+</html>

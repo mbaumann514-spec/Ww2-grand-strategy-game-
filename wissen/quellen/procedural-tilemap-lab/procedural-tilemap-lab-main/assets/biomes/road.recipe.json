@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "kind": "procedural-tilemap-lab/biome-recipe",
+  "id": "road",
+  "label": "Road",
+  "proceduralProfile": "grassland-v2",
+  "preset": "trailExperiment",
+  "atmosphere": "lateAfternoon",
+  "terrain": {
+    "highTerraceLayout": "none",
+    "highTerraceHeight": 0.9,
+    "highTerraceMinDistance": 620,
+    "treeDensity": "none"
+  },
+  "propWeights": {
+    "rocks": 0,
+    "trees": 0.25
+  },
+  "elementSets": [
+    "grassland-core",
+    "road-core"
+  ],
+  "requiredElements": [
+    "trail-network",
+    "road-bed",
+    "road-edge-grass"
+  ],
+  "enabledElements": {
+    "grass-plane-light": true,
+    "dirt-smudge": true,
+    "dense-grass": true,
+    "meadow-bed": true,
+    "low-terrace-top": true,
+    "low-terrace-soil-edge": true,
+    "high-terrace-top": false,
+    "high-terrace-cliff-face": false
+  },
+  "elementWeights": {
+    "grass-plane-light": 0.7,
+    "dirt-smudge": 1.55,
+    "dense-grass": 0.55,
+    "meadow-bed": 0.45,
+    "low-terrace-top": 0.7,
+    "low-terrace-soil-edge": 0.9
+  }
+}

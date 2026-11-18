@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "kind": "procedural-tilemap-lab/biome-recipe",
+  "id": "forest",
+  "label": "Forest",
+  "proceduralProfile": "grassland-v2",
+  "preset": "forestGrove",
+  "atmosphere": "goldenMotes",
+  "terrain": {
+    "highTerraceLayout": "none",
+    "highTerraceHeight": 1,
+    "highTerraceMinDistance": 520,
+    "treeDensity": "normal"
+  },
+  "propWeights": {
+    "rocks": 0,
+    "trees": 1.85
+  },
+  "elementSets": [
+    "forest-core"
+  ],
+  "requiredElements": [
+    "forest-clearing",
+    "forest-path",
+    "forest-wall",
+    "trees",
+    "canopy-shade",
+    "understory",
+    "leaf-litter"
+  ],
+  "enabledElements": {
+    "grass-plane-light": true,
+    "dirt-smudge": true,
+    "dense-grass": true,
+    "meadow-bed": true,
+    "low-terrace-top": false,
+    "low-terrace-soil-edge": false,
+    "high-terrace-top": false,
+    "high-terrace-cliff-face": false
+  },
+  "elementWeights": {
+    "grass-plane-light": 0.34,
+    "dirt-smudge": 0.78,
+    "dense-grass": 0.58,
+    "meadow-bed": 0.28,
+    "leaf-litter": 1.35,
+    "understory": 1.2
+  }
+}

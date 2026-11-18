@@ -69,6 +69,13 @@ All code, the rules for the borders of 1939, the region division (grown round to
 nobody's drawing), the numbers in `data/*.json`, the texts. Three files in `tools/karte/quelle/` and four small Kotlin
 helpers (`PixelFont`, `PixelBuffer`, `Upload`, `AtlasLayout`) are taken over from the author's own sister game.
 
+## What lies in the repository and is not in the game
+
+`wissen/` is a copy of the sister game's shelf of knowledge (its commit `a0be23d`, 18 November 2026, on the author's
+word). `wissen/README.md` lists every repository kept there with its licence (MIT, Apache-2.0, BSD-3-Clause, CC0 and
+the author's own) and those only listed because their licence forbids keeping them. None of it is compiled into or
+shipped with the game.
+
 ## What is used to build it and does not ship
 
 Python 3 with shapely (BSD-3), numpy (BSD-3), mapbox-earcut (ISC) and pillow (HPND) for `tools/karte/`; Gradle and the

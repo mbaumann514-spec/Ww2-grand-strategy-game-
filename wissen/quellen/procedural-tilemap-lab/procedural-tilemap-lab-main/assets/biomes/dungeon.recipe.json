@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "kind": "procedural-tilemap-lab/biome-recipe",
+  "id": "dungeon",
+  "label": "Dungeon",
+  "proceduralProfile": "dungeon-v1",
+  "preset": "dungeonStone",
+  "atmosphere": "none",
+  "terrain": {
+    "highTerraceLayout": "none",
+    "highTerraceHeight": 1,
+    "highTerraceMinDistance": 560,
+    "treeDensity": "none"
+  },
+  "propWeights": {
+    "rocks": 0,
+    "trees": 0
+  },
+  "dungeon": {
+    "topologyId": "auto",
+    "materialStyleId": "cave-stone",
+    "roomThemeSetId": "cave-v1",
+    "decorPackId": "cave-v1",
+    "lightingProfileId": "torch-v1"
+  },
+  "elementSets": [
+    "dungeon-core"
+  ],
+  "requiredElements": [
+    "dungeon-floor",
+    "dungeon-wall",
+    "dungeon-floor-wear",
+    "dungeon-floor-moisture",
+    "dungeon-wall-cracks",
+    "dungeon-wall-moisture",
+    "dungeon-torch-warmth",
+    "dungeon-rubble",
+    "dungeon-stairs"
+  ],
+  "enabledElements": {
+    "grass-plane-light": false,
+    "dirt-smudge": false,
+    "dense-grass": false,
+    "meadow-bed": false,
+    "low-terrace-top": false,
+    "low-terrace-soil-edge": false,
+    "high-terrace-top": false,
+    "high-terrace-cliff-face": false,
+    "rock-ground": false,
+    "scree": false,
+    "fine-grass-strokes": false
+  },
+  "elementWeights": {
+    "dungeon-floor": 1,
+    "dungeon-wall": 1,
+    "dungeon-floor-wear": 1,
+    "dungeon-floor-moisture": 1,
+    "dungeon-wall-cracks": 1,
+    "dungeon-wall-moisture": 1,
+    "dungeon-torch-warmth": 1,
+    "dungeon-rubble": 1,
+    "dungeon-stairs": 1
+  }
+}

@@ -1,0 +1,2 @@
+include 'test', 'jbump'
+rootProject.name = 'jbump'

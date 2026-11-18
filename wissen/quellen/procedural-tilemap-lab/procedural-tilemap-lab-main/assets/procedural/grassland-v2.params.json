@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "kind": "grassland-v2-procedural-params",
+  "elements": {
+    "high-terrace-top": {
+      "opacity": 1,
+      "brightness": 0.92,
+      "saturation": 0.75,
+      "edgeNoise": 0.68,
+      "grassDetail": 1
+    },
+    "high-terrace-cliff-face": {
+      "opacity": 1,
+      "brightness": 0.7,
+      "saturation": 1,
+      "edgeNoise": 0.5,
+      "soilWarmth": 0.5,
+      "strata": 1
+    },
+    "low-terrace-top": {
+      "opacity": 0.4,
+      "brightness": 1,
+      "saturation": 1,
+      "edgeNoise": 0.52,
+      "grassDetail": 1
+    },
+    "low-terrace-soil-edge": {
+      "opacity": 1,
+      "brightness": 1,
+      "soilWarmth": 0.5,
+      "edgeNoise": 0.5,
+      "grassDetail": 1
+    },
+    "dirt-smudge": {
+      "opacity": 1,
+      "density": 1,
+      "size": 1,
+      "edgeSoftness": 1,
+      "noise": 1,
+      "warmth": 0.5
+    },
+    "rock-ground": {
+      "opacity": 1,
+      "brightness": 1,
+      "density": 1,
+      "size": 1,
+      "edgeSoftness": 0.58,
+      "noise": 0.62
+    },
+    "scree": {
+      "opacity": 1,
+      "brightness": 1,
+      "density": 1,
+      "size": 1,
+      "edgeSoftness": 1,
+      "noise": 0.68
+    },
+    "grass-plane-light": {
+      "opacity": 0.42,
+      "brightness": 1,
+      "density": 1,
+      "size": 1,
+      "edgeSoftness": 1,
+      "hueShift": 0
+    },
+    "dense-grass": {
+      "opacity": 1,
+      "density": 1,
+      "size": 1,
+      "edgeSoftness": 1,
+      "brightness": 1,
+      "hueShift": 0,
+      "detailDensity": 1
+    },
+    "meadow-bed": {
+      "opacity": 1.2,
+      "density": 1.7,
+      "size": 2.17,
+      "edgeSoftness": 0.5,
+      "variation": 1,
+      "detailDensity": 1,
+      "seedOffset": 0
+    },
+    "fine-grass-strokes": {
+      "forestStrength": 2.11,
+      "grasslandStrength": 1.18,
+      "mountainStrength": 3.07,
+      "contrast": 1,
+      "darkBias": 1,
+      "lightBias": 1,
+      "broadScale": 31,
+      "fineScale": 3,
+      "renderScale": 3
+    },
+    "dungeon-floor": {
+      "noiseOpacity": 0.82,
+      "contrast": 1.15,
+      "darkBias": 0.99,
+      "lightBias": 0.82,
+      "broadScale": 90,
+      "fineScale": 10,
+      "renderScale": 5
+    },
+    "dungeon-wall": {
+      "noiseOpacity": 0.76,
+      "contrast": 1.22,
+      "darkBias": 1.18,
+      "lightBias": 0.74,
+      "broadScale": 48,
+      "fineScale": 6,
+      "renderScale": 3
+    },
+    "dungeon-floor-wear": {
+      "opacity": 1,
+      "density": 1,
+      "size": 1,
+      "variation": 0.65
+    },
+    "dungeon-floor-moisture": {
+      "opacity": 1,
+      "density": 1,
+      "size": 1,
+      "edgeSoftness": 0.78
+    },
+    "dungeon-wall-cracks": {
+      "opacity": 1,
+      "density": 1,
+      "size": 1
+    },
+    "dungeon-wall-moisture": {
+      "opacity": 0.85,
+      "density": 0.85,
+      "size": 1,
+      "edgeSoftness": 0.78
+    },
+    "dungeon-torch-warmth": {
+      "opacity": 1,
+      "size": 1,
+      "warmth": 0.72
+    }
+  }
+}

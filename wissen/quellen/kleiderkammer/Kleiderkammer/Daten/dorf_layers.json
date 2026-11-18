@@ -1,0 +1,201 @@
+{
+ "comment": "The paper doll's layers: each a PixelLab state of the base figure dorf_body (tools/dorf_layers.py cuts them). Order is the historiker's draw order (docs/HISTORIKER.md). erase: the state moved a limb, so the base's limb is cleared under it.",
+ "base": "body",
+ "layers": [
+  {
+   "name": "lyr_tunic",
+   "state": "tunic",
+   "slot": "garment"
+  },
+  {
+   "name": "lyr_aketon",
+   "state": "aketon",
+   "slot": "padding"
+  },
+  {
+   "name": "lyr_haubergeon",
+   "state": "haubergeon",
+   "slot": "mail"
+  },
+  {
+   "name": "lyr_plates",
+   "state": "plates",
+   "slot": "plates"
+  },
+  {
+   "name": "lyr_surcoat",
+   "state": "surcoat",
+   "slot": "surcoat"
+  },
+  {
+   "name": "lyr_coif",
+   "state": "coif",
+   "slot": "hood"
+  },
+  {
+   "name": "lyr_kettlehat",
+   "state": "kettlehat",
+   "slot": "helmet"
+  },
+  {
+   "name": "lyr_bascinet",
+   "state": "bascinet",
+   "slot": "helmet"
+  },
+  {
+   "name": "lyr_spear",
+   "state": "spear",
+   "slot": "weapon"
+  },
+  {
+   "name": "lyr_longbow",
+   "state": "longbow",
+   "slot": "weapon"
+  },
+  {
+   "name": "lyr_crossbow",
+   "state": "crossbow",
+   "slot": "weapon",
+   "erase": true
+  },
+  {
+   "name": "lyr_sword",
+   "state": "sword",
+   "slot": "weapon",
+   "erase": true
+  },
+  {
+   "name": "lyr_cervelliere",
+   "slot": "helmet",
+   "state": "cervelliere"
+  },
+  {
+   "name": "lyr_visorbascinet",
+   "slot": "helmet",
+   "state": "visorbascinet"
+  },
+  {
+   "name": "lyr_hundsgugel",
+   "slot": "helmet",
+   "state": "hundsgugel"
+  },
+  {
+   "name": "lyr_greatbascinet",
+   "slot": "helmet",
+   "state": "greatbascinet"
+  },
+  {
+   "name": "lyr_earlysallet",
+   "slot": "helmet",
+   "state": "earlysallet"
+  },
+  {
+   "name": "lyr_germansallet",
+   "slot": "helmet",
+   "state": "germansallet"
+  },
+  {
+   "name": "lyr_celata",
+   "slot": "helmet",
+   "state": "celata"
+  },
+  {
+   "name": "lyr_burgsallet",
+   "slot": "helmet",
+   "state": "burgsallet"
+  },
+  {
+   "name": "lyr_armet",
+   "slot": "helmet",
+   "state": "armet"
+  },
+  {
+   "name": "lyr_barbuta",
+   "slot": "helmet",
+   "state": "barbuta"
+  },
+  {
+   "name": "lyr_bevor",
+   "slot": "bevor",
+   "state": "bevor"
+  },
+  {
+   "name": "lyr_nasalhelm",
+   "slot": "helmet",
+   "state": "nasalhelm"
+  },
+  {
+   "name": "lyr_spangenhelm",
+   "slot": "helmet",
+   "state": "spangenhelm"
+  },
+  {
+   "name": "lyr_roundnasal",
+   "slot": "helmet",
+   "state": "roundnasal"
+  },
+  {
+   "name": "lyr_faceplate",
+   "slot": "helmet",
+   "state": "faceplate"
+  },
+  {
+   "name": "lyr_greathelm",
+   "slot": "helmet",
+   "state": "greathelm"
+  },
+  {
+   "name": "lyr_sugarloaf",
+   "slot": "helmet",
+   "state": "sugarloaf"
+  },
+  {
+   "name": "lyr_lategreathelm",
+   "slot": "helmet",
+   "state": "lategreathelm"
+  },
+  {
+   "name": "lyr_earlychapel",
+   "slot": "helmet",
+   "state": "earlychapel"
+  },
+  {
+   "name": "lyr_jack",
+   "state": "jack",
+   "slot": "padding"
+  },
+  {
+   "name": "lyr_harness",
+   "state": "harness",
+   "slot": "plates"
+  },
+  {
+   "name": "lyr_brigandine",
+   "state": "brigandine",
+   "slot": "plates"
+  },
+  {
+   "name": "lyr_jupon",
+   "state": "jupon",
+   "slot": "surcoat"
+  },
+  {
+   "name": "lyr_handgonne",
+   "state": "handgonne",
+   "slot": "weapon",
+   "erase": true
+  },
+  {
+   "name": "lyr_pollaxe",
+   "state": "pollaxe",
+   "slot": "weapon",
+   "erase": true
+  },
+  {
+   "name": "lyr_bill",
+   "state": "bill",
+   "slot": "weapon",
+   "erase": true
+  }
+ ]
+}

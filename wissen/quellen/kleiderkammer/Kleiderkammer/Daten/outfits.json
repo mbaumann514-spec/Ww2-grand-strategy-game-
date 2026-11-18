@@ -1,0 +1,759 @@
+{
+  "comment": "How each soldier is dressed, as layers over the one base figure, in draw order (docs/HISTORIKER.md: garment, padding, mail, plates, surcoat, hood, helmet, weapon). A layer missing from the atlas is left out, so an outfit never fails to draw. Later the player may swap a slot's layer for another of the same slot: that is what slots are for.",
+  "slots": [
+    "garment",
+    "padding",
+    "mail",
+    "plates",
+    "surcoat",
+    "hood",
+    "helmet",
+    "bevor",
+    "weapon"
+  ],
+  "outfits": {
+    "spearman": [
+      "lyr_tunic",
+      "lyr_aketon",
+      "lyr_kettlehat",
+      "lyr_spear"
+    ],
+    "spearmanComment": "The levy of the Statute of Winchester: aketon, kettle hat, spear. England, France and the Empire alike.",
+    "archer": [
+      "lyr_tunic",
+      "lyr_coif",
+      "lyr_longbow"
+    ],
+    "archerComment": "The English and Welsh archer with his yew bow: no plate (the historiker's note on the first archer's pauldrons).",
+    "crossbowman": [
+      "lyr_aketon",
+      "lyr_kettlehat",
+      "lyr_crossbow"
+    ],
+    "crossbowmanComment": "France, the Empire and the Genoese: spanned by a belt hook, no windlass.",
+    "manatarms": [
+      "lyr_aketon",
+      "lyr_haubergeon",
+      "lyr_plates",
+      "lyr_surcoat",
+      "lyr_bascinet",
+      "lyr_sword"
+    ],
+    "manatarmsComment": "A man-at-arms of 1335: mail, a coat of plates with couters and greaves, a surcoat, a bascinet with aventail. No full plate before 1400.",
+    "handgunner": [
+      "lyr_aketon",
+      "lyr_kettlehat",
+      "lyr_handgonne"
+    ],
+    "handgunnerComment": "The hand-gunner of 1440-1500, French and German only (historiker, 31 October 2026): dressed as the crossbowman of his rank, a jack or a brigandine and a sallet; the gun clamped under the arm, fired by a slow match."
+  },
+  "helmets": [
+    "lyr_spangenhelm",
+    "lyr_nasalhelm",
+    "lyr_roundnasal",
+    "lyr_faceplate",
+    "lyr_greathelm",
+    "lyr_sugarloaf",
+    "lyr_lategreathelm",
+    "lyr_earlychapel",
+    "lyr_kettlehat",
+    "lyr_bascinet",
+    "lyr_coif",
+    "lyr_cervelliere",
+    "lyr_visorbascinet",
+    "lyr_hundsgugel",
+    "lyr_greatbascinet",
+    "lyr_earlysallet",
+    "lyr_germansallet",
+    "lyr_celata",
+    "lyr_burgsallet",
+    "lyr_armet",
+    "lyr_barbuta",
+    "lyr_bevor"
+  ],
+  "helmetsComment": "The layers of the head (and the bevor): an era's helmet takes their place in an outfit.",
+  "eras": [
+    {
+      "rank": 0,
+      "name": "1335-1360",
+      "helmets": {}
+    },
+    {
+      "rank": 2,
+      "name": "1360-1400",
+      "helmets": {
+        "manatarms": {
+          "german": [
+            "lyr_hundsgugel"
+          ],
+          "english": [
+            "lyr_visorbascinet"
+          ],
+          "french": [
+            "lyr_visorbascinet"
+          ]
+        },
+        "crossbowman": {
+          "all": [
+            "lyr_cervelliere"
+          ]
+        }
+      },
+      "bodies": {
+        "manatarms": {
+          "all": [
+            "lyr_jupon"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 3,
+      "name": "1400-1440",
+      "helmets": {
+        "manatarms": {
+          "german": [
+            "lyr_hundsgugel"
+          ],
+          "english": [
+            "lyr_greatbascinet"
+          ],
+          "french": [
+            "lyr_greatbascinet"
+          ]
+        },
+        "crossbowman": {
+          "all": [
+            "lyr_cervelliere"
+          ]
+        },
+        "archer": {
+          "all": [
+            "lyr_kettlehat"
+          ]
+        },
+        "handgunner": {
+          "all": [
+            "lyr_cervelliere"
+          ]
+        }
+      },
+      "bodies": {
+        "manatarms": {
+          "english": [
+            "lyr_harness"
+          ],
+          "french": [
+            "lyr_harness"
+          ],
+          "german": [
+            "lyr_jupon"
+          ]
+        },
+        "spearman": {
+          "english": [
+            "lyr_jack"
+          ],
+          "french": [
+            "lyr_jack"
+          ],
+          "german": [
+            "lyr_aketon",
+            "lyr_haubergeon"
+          ]
+        },
+        "crossbowman": {
+          "french": [
+            "lyr_jack"
+          ],
+          "german": [
+            "lyr_aketon",
+            "lyr_haubergeon"
+          ]
+        }
+      },
+      "weapons": {
+        "manatarms": {
+          "english": [
+            "lyr_pollaxe"
+          ],
+          "french": [
+            "lyr_pollaxe"
+          ]
+        },
+        "spearman": {
+          "english": [
+            "lyr_bill"
+          ]
+        }
+      }
+    },
+    {
+      "rank": 4,
+      "name": "1440-1500",
+      "helmets": {
+        "manatarms": {
+          "german": [
+            "lyr_germansallet",
+            "lyr_bevor"
+          ],
+          "english": [
+            "lyr_burgsallet"
+          ],
+          "french": [
+            "lyr_burgsallet"
+          ]
+        },
+        "crossbowman": {
+          "all": [
+            "lyr_earlysallet"
+          ]
+        },
+        "archer": {
+          "all": [
+            "lyr_earlysallet"
+          ]
+        },
+        "handgunner": {
+          "all": [
+            "lyr_earlysallet"
+          ]
+        }
+      },
+      "bodies": {
+        "manatarms": {
+          "all": [
+            "lyr_harness"
+          ]
+        },
+        "spearman": {
+          "english": [
+            "lyr_jack"
+          ],
+          "french": [
+            "lyr_jack"
+          ],
+          "german": [
+            "lyr_brigandine"
+          ]
+        },
+        "archer": {
+          "all": [
+            "lyr_jack"
+          ]
+        },
+        "crossbowman": {
+          "english": [
+            "lyr_jack"
+          ],
+          "french": [
+            "lyr_jack"
+          ],
+          "german": [
+            "lyr_brigandine"
+          ]
+        },
+        "handgunner": {
+          "french": [
+            "lyr_jack"
+          ],
+          "german": [
+            "lyr_brigandine"
+          ]
+        }
+      },
+      "weapons": {
+        "manatarms": {
+          "all": [
+            "lyr_pollaxe"
+          ]
+        },
+        "spearman": {
+          "english": [
+            "lyr_bill"
+          ]
+        }
+      }
+    }
+  ],
+  "erasComment": "The helmets by era (docs/HISTORIKER.md, third pre-check; the historiker's helmet pre-check and post-check of 29 October 2026). Rank 1 (Dorf) stays in the first era on purpose. The sallet north of the Alps only from about 1440, so the German crossbowman keeps the cervelliere until rank 4; the archers take a helmet from 1400 on. The German sallet is worn only with its bevor (post-check: alone its face is too open). An era begins with a rank of the village, not with a year: the game's years are short and a village should see its men re-armed as it grows. The Hundsgugel stays German (thin in England and France), the great bascinet western, the German sallet with its bevor the Empire's, the Burgundian sallet with its bevor (in the one layer, as drawn) England's and France's. The great helm is not offered: a village levy in one is wrong (knights only). Celata, armet and barbuta are drawn but not given to anyone by default: Italian, and rare; they wait for the player's own choice at the muster. Spearman and archer keep the kettle hat and the coif throughout: the common man's helmets did not change as fast.",
+  "wardrobe": [
+    {
+      "layers": [
+        "lyr_tunic"
+      ],
+      "slot": "garment",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_aketon"
+      ],
+      "slot": "padding",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_haubergeon"
+      ],
+      "slot": "mail",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_plates"
+      ],
+      "slot": "plates",
+      "rank": 1,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_surcoat"
+      ],
+      "slot": "surcoat",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_coif"
+      ],
+      "slot": "hood",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1000-1400"
+    },
+    {
+      "layers": [
+        "lyr_spangenhelm"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1000-1100"
+    },
+    {
+      "layers": [
+        "lyr_nasalhelm"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1000-1150"
+    },
+    {
+      "layers": [
+        "lyr_roundnasal"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1130-1220"
+    },
+    {
+      "layers": [
+        "lyr_faceplate"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1190-1220"
+    },
+    {
+      "layers": [
+        "lyr_greathelm"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1220-1280"
+    },
+    {
+      "layers": [
+        "lyr_earlychapel"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1200-1300"
+    },
+    {
+      "layers": [
+        "lyr_cervelliere"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1230-1400"
+    },
+    {
+      "layers": [
+        "lyr_sugarloaf"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1270-1340"
+    },
+    {
+      "layers": [
+        "lyr_kettlehat"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1300-1480"
+    },
+    {
+      "layers": [
+        "lyr_bascinet"
+      ],
+      "slot": "helmet",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1330-1400"
+    },
+    {
+      "layers": [
+        "lyr_visorbascinet"
+      ],
+      "slot": "helmet",
+      "rank": 2,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1335-1400"
+    },
+    {
+      "layers": [
+        "lyr_hundsgugel"
+      ],
+      "slot": "helmet",
+      "rank": 2,
+      "who": "knight",
+      "cultures": [
+        "german"
+      ],
+      "years": "1370-1420"
+    },
+    {
+      "layers": [
+        "lyr_lategreathelm"
+      ],
+      "slot": "helmet",
+      "rank": 2,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1320-1400"
+    },
+    {
+      "layers": [
+        "lyr_greatbascinet"
+      ],
+      "slot": "helmet",
+      "rank": 3,
+      "who": "knight",
+      "cultures": [
+        "english",
+        "french"
+      ],
+      "years": "1400-1440"
+    },
+    {
+      "layers": [
+        "lyr_earlysallet"
+      ],
+      "slot": "helmet",
+      "rank": 3,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1430-1460"
+    },
+    {
+      "layers": [
+        "lyr_germansallet",
+        "lyr_bevor"
+      ],
+      "slot": "helmet",
+      "rank": 4,
+      "who": "knight",
+      "cultures": [
+        "german"
+      ],
+      "years": "1440-1480"
+    },
+    {
+      "layers": [
+        "lyr_burgsallet"
+      ],
+      "slot": "helmet",
+      "rank": 4,
+      "who": "knight",
+      "cultures": [
+        "english",
+        "french"
+      ],
+      "years": "1440-1480"
+    },
+    {
+      "layers": [
+        "lyr_celata"
+      ],
+      "slot": "helmet",
+      "rank": 4,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1430-1480"
+    },
+    {
+      "layers": [
+        "lyr_armet"
+      ],
+      "slot": "helmet",
+      "rank": 4,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1440-1500"
+    },
+    {
+      "layers": [
+        "lyr_barbuta"
+      ],
+      "slot": "helmet",
+      "rank": 4,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1430-1480"
+    },
+    {
+      "layers": [
+        "lyr_bevor"
+      ],
+      "slot": "bevor",
+      "rank": 4,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1440-1500"
+    },
+    {
+      "layers": [
+        "lyr_spear"
+      ],
+      "slot": "weapon",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "units": [
+        "spearman",
+        "manatarms"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_sword"
+      ],
+      "slot": "weapon",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "units": [
+        "manatarms",
+        "spearman"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_longbow"
+      ],
+      "slot": "weapon",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "english"
+      ],
+      "units": [
+        "archer"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_crossbow"
+      ],
+      "slot": "weapon",
+      "rank": 0,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "units": [
+        "crossbowman"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_jupon"
+      ],
+      "slot": "surcoat",
+      "rank": 2,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1360-1420"
+    },
+    {
+      "layers": [
+        "lyr_harness"
+      ],
+      "slot": "plates",
+      "rank": 3,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "years": "1400-1500"
+    },
+    {
+      "layers": [
+        "lyr_jack"
+      ],
+      "slot": "padding",
+      "rank": 3,
+      "who": "common",
+      "cultures": [
+        "all"
+      ],
+      "years": "1400-1500"
+    },
+    {
+      "layers": [
+        "lyr_brigandine"
+      ],
+      "slot": "plates",
+      "rank": 4,
+      "who": "common",
+      "cultures": [
+        "french",
+        "german"
+      ],
+      "years": "1440-1500"
+    },
+    {
+      "layers": [
+        "lyr_handgonne"
+      ],
+      "slot": "weapon",
+      "rank": 4,
+      "who": "common",
+      "cultures": [
+        "french",
+        "german"
+      ],
+      "units": [
+        "handgunner"
+      ]
+    },
+    {
+      "layers": [
+        "lyr_pollaxe"
+      ],
+      "slot": "weapon",
+      "rank": 3,
+      "who": "knight",
+      "cultures": [
+        "all"
+      ],
+      "units": [
+        "manatarms"
+      ],
+      "years": "1400-1500"
+    },
+    {
+      "layers": [
+        "lyr_bill"
+      ],
+      "slot": "weapon",
+      "rank": 3,
+      "who": "common",
+      "cultures": [
+        "english"
+      ],
+      "units": [
+        "spearman"
+      ],
+      "years": "1400-1500"
+    }
+  ],
+  "wardrobeComment": "Every piece a soldier may be dressed in at the muster ground's dress board (the author, 29 October 2026: a troop editor, many clothes, within a culture, fair per stage of development): its layers, its slot, the rank (level) it opens at, who may wear it ('common' for spearman, archer, crossbowman; 'knight' for the man-at-arms, who may also wear common pieces) and the cultures it belongs to ('all', or english / french / german: the Hundsgugel German, the great bascinet western). Cosmetic: nothing here changes a fight. The years are for the historiker and never shown. Garment, padding, mail, plates, surcoat, hood, helmet and bevor may each also be left off. Weapons are chosen too, but only among those a kind of soldier is trained for ('units'): a spearman may carry a sword, an archer only his bow. The weapon slot is never empty. The longbow is English (the historiker).",
+  "bodiesComment": "An era's body armour, where it has one, takes the place of the outfit's padding, mail, plates and surcoat (historiker's pre-check, 31 October 2026). Man-at-arms: from 1360 plate arms and legs under a short padded jupon (the Black Prince's effigy, 1376); from 1400 in England and France the open white harness (Capwell 2015), in the Empire the jupon a while longer (filled in, thin for the Leine); from 1440 the white harness everywhere (the Beauchamp effigy). Common men: from 1400 the quilted jack in England and France; in the Empire mail over the padded coat (filled in, thin); from 1440 the jack in England (Bridport muster roll 1457: 67 jacks, 2 brigandines) and France (the ordinance of Montils-les-Tours 1448: 'jaque ou brigandine'), the brigandine in the Empire (filled in, after south German pictures and the Wolfegg Housebook). The English archer of 1400-1440 often wore none (Monstrelet, Waurin). No jack of plate (16th century).",
+  "weaponsComment": "An era's weapon in place of the outfit's own (historiker's post-check, 31 October 2026): the man-at-arms in white harness fights on foot with a pollaxe, no shield (Azincourt 1415; the Beauchamp Pageant, c. 1485; Capwell 2015), from 1400 in England and France, from 1440 in the Empire, where the jupon and its shield last longer; the English foot soldier from 1400 carries the bill (Bridport 1457; the commissions of array)."
+}

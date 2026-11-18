@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "kind": "large-rock-sprites",
+  "tileSize": 48,
+  "assets": [
+    {
+      "id": "rock_large_boulder_01",
+      "file": "rock_large_boulder_01.png",
+      "label": "Boulder 01",
+      "shape": "boulder",
+      "footprint": {
+        "w": 2,
+        "h": 2
+      },
+      "sourceBounds": {
+        "x": 29,
+        "y": 23,
+        "w": 398,
+        "h": 370
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "scale": 0.34,
+      "shadow": {
+        "x": 0.5,
+        "y": 0.73,
+        "w": 0.85,
+        "h": 0.33,
+        "angle": 0,
+        "alpha": 0.34,
+        "blur": 2,
+        "round": 1
+      },
+      "collision": "custom",
+      "draw": {
+        "shadow": true,
+        "footGrass": true
+      },
+      "collisionBounds": {
+        "x": -1,
+        "y": -1,
+        "w": 4,
+        "h": 4
+      },
+      "collisionTiles": [
+        {
+          "x": 0,
+          "y": -1
+        },
+        {
+          "x": 1,
+          "y": -1
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "rock_large_boulder_02",
+      "file": "rock_large_boulder_02.png",
+      "label": "Boulder 02",
+      "shape": "boulder",
+      "footprint": {
+        "w": 2,
+        "h": 3
+      },
+      "sourceBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 354,
+        "h": 408
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.92
+      },
+      "scale": 0.34,
+      "shadow": {
+        "x": 0.5,
+        "y": 0.76,
+        "w": 0.76,
+        "h": 0.51,
+        "angle": 0.04,
+        "alpha": 0.36,
+        "blur": 2,
+        "round": 1
+      },
+      "collision": "footprint",
+      "draw": {
+        "shadow": true,
+        "footGrass": true
+      }
+    },
+    {
+      "id": "rock_large_boulder_03",
+      "file": "rock_large_boulder_03.png",
+      "label": "Boulder 03",
+      "shape": "boulder",
+      "footprint": {
+        "w": 3,
+        "h": 2
+      },
+      "sourceBounds": {
+        "x": 2,
+        "y": 2,
+        "w": 375,
+        "h": 279
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.88
+      },
+      "scale": 0.36,
+      "shadow": {
+        "x": 0.47,
+        "y": 0.69,
+        "w": 0.89,
+        "h": 0.45,
+        "angle": -0.17,
+        "alpha": 0.34,
+        "blur": 2,
+        "round": 1
+      },
+      "collision": "footprint",
+      "draw": {
+        "shadow": true,
+        "footGrass": true
+      }
+    }
+  ]
+}

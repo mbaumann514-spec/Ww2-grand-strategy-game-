@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "kind": "procedural-tilemap-lab/biome-recipe",
+  "id": "grassland",
+  "label": "Grassland",
+  "proceduralProfile": "grassland-v2",
+  "preset": "baseline",
+  "atmosphere": "softHaze",
+  "terrain": {
+    "highTerraceLayout": "none",
+    "highTerraceHeight": 1,
+    "highTerraceMinDistance": 560,
+    "treeDensity": "sparse"
+  },
+  "propWeights": {
+    "rocks": 0,
+    "trees": 1
+  },
+  "elementSets": [
+    "grassland-core"
+  ],
+  "requiredElements": [
+    "trees"
+  ],
+  "enabledElements": {
+    "grass-plane-light": true,
+    "dirt-smudge": true,
+    "dense-grass": true,
+    "meadow-bed": true,
+    "low-terrace-top": true,
+    "low-terrace-soil-edge": true,
+    "high-terrace-top": true,
+    "high-terrace-cliff-face": true
+  },
+  "elementWeights": {
+    "grass-plane-light": 1,
+    "dirt-smudge": 1,
+    "dense-grass": 1,
+    "meadow-bed": 1,
+    "low-terrace-top": 1,
+    "low-terrace-soil-edge": 1,
+    "high-terrace-top": 1,
+    "high-terrace-cliff-face": 1
+  }
+}

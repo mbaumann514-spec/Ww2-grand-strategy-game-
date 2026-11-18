@@ -1,0 +1,29 @@
+{
+  "name": "procedural-tilemap-lab",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node lab-server.mjs 8140 --open",
+    "start:server": "node lab-server.mjs 8140",
+    "benchmark:performance:edge": "node scripts/run-performance-baseline-edge.mjs",
+    "check:visual:edge": "node scripts/run-performance-baseline-edge.mjs --visual-smoke",
+    "check:material-ui:edge": "node scripts/run-performance-baseline-edge.mjs --material-lab-smoke",
+    "check:map-ui:edge": "node scripts/run-performance-baseline-edge.mjs --map-ui-smoke --viewport=1366x768",
+    "check:map-ui:edge:dungeon": "node scripts/run-performance-baseline-edge.mjs --map-ui-smoke --viewport=1366x768 --topology=narrowCorridors",
+    "check:map-ui:edge:wide": "node scripts/run-performance-baseline-edge.mjs --map-ui-smoke --viewport=1920x1200",
+    "check:map-ui:edge:wqhd": "node scripts/run-performance-baseline-edge.mjs --map-ui-smoke --viewport=2560x1440",
+    "check:map-ui:edge:4k": "node scripts/run-performance-baseline-edge.mjs --map-ui-smoke --viewport=3840x2160",
+    "check:i18n:edge:map": "node scripts/run-performance-baseline-edge.mjs --localization-smoke=map --language=ja --viewport=1366x768",
+    "check:i18n:edge:material": "node scripts/run-performance-baseline-edge.mjs --localization-smoke=material --language=ja --viewport=1600x1000",
+    "check:i18n:edge:performance": "node scripts/run-performance-baseline-edge.mjs --localization-smoke=performance --language=ja --viewport=1366x768",
+    "test": "npm run check:quick",
+    "check:quick": "node scripts/check-lab.mjs --quick",
+    "check": "node scripts/check-lab.mjs",
+    "check:docs": "node scripts/check-documentation.mjs",
+    "audit:assets": "node scripts/audit-generated-assets.mjs"
+  }
+}

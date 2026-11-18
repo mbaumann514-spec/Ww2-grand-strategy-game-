@@ -66,6 +66,7 @@ If a requirement cannot be met without breaking one of these, **say so instead o
 | `data/` | The map (GENERATED), the rules, the states, the scenario, the seas, the texts, the licence texts. |
 | `tools/karte/` | Builds the map of 1 September 1939 from Natural Earth and `regeln_1939.py`. |
 | `docs/` | `ROADMAP.md`, and the reviewers' reports in `pruefer/`. |
+| `wissen/` | **A copy of the sister game's shelf of knowledge**, whole, as it stood at its commit `a0be23d`, taken on the author's word of 18 November 2026 (*"Nehme alles aus wissen in Sacrum Imperium und kopier das in deinen WW2-Folder"*): what was learned (`WISSEN.md`), the reviewers, the skills, the historian's notes, and the source text of the repositories the author gave, each under the licence its `README.md` names. It carries the sister game's 332 reference preview pictures, the author's one exception to "no image file"; nothing in `wissen/` is ever part of the game. Whoever takes a piece into the game ports it, keeps its copyright line and adds it to `LICENSES.md`. |
 
 - **One clock.** `World.day` counts days from 1 January 1936; everything else is derived.
 - **Every number the player feels lives in a commented JSON file** with its reasoning (`data/rules.json`,

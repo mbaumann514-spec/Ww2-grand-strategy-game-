@@ -1,0 +1,44 @@
+KLEIDERKAMMER DES DORFSPIELS - was wo liegt
+Stand: 10. November 2026. Alle Bilder sind PixelLab-Originale des Autors (vor der Verkleinerung
+auf 70 % beim Import ins Spiel). Privat, nicht veroeffentlichen.
+
+Handout/kleiderkammer.html   Das Handout zum Oeffnen im Browser (alles erklaert, alle Bilder drin).
+Handout/Tafeln/              Die Bildtafeln einzeln:
+                               base_*        Grundfigur gross, 8 Richtungen, Gehzyklus
+                               L_<ebene>     jede Ebene allein auf der Grundfigur, von vorn
+                               L8_<ebene>    dieselbe in allen 8 Richtungen
+                               O_<truppe>_<stufe>_<region>  jede Truppe je Zeitalter und Region, von vorn
+                               O8_<truppe>_<stufe>_<region> dieselbe in allen 8 Richtungen
+                               V_<wer>       Dorfbewohner, von vorn
+                               V8_<wer>      Dorfbewohner in allen 8 Richtungen
+                               S_<fach>      Fachsymbole
+                               scale_cmp     Groesse im Spiel (Original und 70 %)
+
+Grundfigur/                  dorf_body: der Mann in Hemd, Bruche, Beinlingen.
+                               Idle/rotations/<richtung>.png        Stand, 8 Richtungen
+                               Idle/animations/walking/<richtung>/  Gehen, 6 Bilder
+                             Auf ihm sitzt jede Ebene.
+
+PixelLab-Zustaende/<stueck>/ Der ganze Mann in jedem Kleidungsstueck, so wie PixelLab ihn gezeichnet hat
+                             (gleiche Pose, 8 Richtungen, Gehen). Aus dem Unterschied zur Grundfigur
+                             schneidet tools/dorf_layers.py die Ebene.
+
+Ebenen/<Fach>/<ebene>/       Alle Ebenen, nach den 9 Faechern in Zeichenreihenfolge:
+                               1_Kleid 2_Polster 3_Kette 4_Platten 5_Ueberrock 6_Haube 7_Helm 8_Bevor 9_Waffe
+                             Dateinamen: <ebene>_<richtung>.png        Stand
+                                         <ebene>_<richtung>_<0-5>.png  Gehen
+                                         <ebene>_<richtung>_w<0-11>.png Arbeits-/Kampfbewegung
+                             Magenta (255,0,255) = loescht die Grundfigur darunter (versetzter Arm).
+                             Leinwand 48 x 48, lange Waffen 64 oder 68, mittig auf die Grundfigur legen.
+
+Dorfbewohner/                Bauer, Baeuerin, Edelfrau, Haendler: ganze Figuren ohne Ebenen,
+                             8 Richtungen und ihre Arbeitsbewegungen.
+
+Fachsymbole/                 Die 9 Symbole des Kleiderbretts am Musterplatz.
+
+Daten/outfits.json           Wer was traegt: Grundausstattung je Truppe, Zeitalter (Helm, Koerper,
+                             Waffe je Region), Kleiderkammer (ab welcher Stufe, wer, welche Region).
+Daten/dorf_layers.json       Die Ebenen mit Fach und PixelLab-Zustand.
+
+Zusammensetzen wie im Spiel: Grundfigur, dann die Ebenen der Truppe in der Fach-Reihenfolge
+1 bis 9 darueber, Magenta-Pixel machen die Stelle durchsichtig.

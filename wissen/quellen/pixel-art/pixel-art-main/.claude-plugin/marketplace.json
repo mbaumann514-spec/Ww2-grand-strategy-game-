@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "wan-huiyan-pixel-art",
+  "description": "Generate pixel art SVG illustrations and animated GIFs for READMEs, docs, and slides.",
+  "owner": { "name": "Huiyan Wan" },
+  "plugins": [
+    {
+      "name": "pixel-art",
+      "source": "./plugins/pixel-art",
+      "description": "Pixel-art SVG illustration generator with built-in animation pipeline (CSS-SVG → puppeteer → GIF).",
+      "version": "1.0.0"
+    }
+  ]
+}

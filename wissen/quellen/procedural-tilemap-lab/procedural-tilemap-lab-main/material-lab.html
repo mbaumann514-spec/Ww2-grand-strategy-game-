@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Procedural Tilemap Lab - Material Lab</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="lab-shell">
+      <header class="lab-header">
+        <div>
+          <p class="eyebrow">Procedural Tilemap Lab</p>
+          <div class="title-row">
+            <h1>Material Lab</h1>
+            <div id="materialLatestWarning" class="latest-warning" hidden>Update available!</div>
+          </div>
+          <nav class="lab-nav" aria-label="Lab pages">
+            <a href="./">Map View</a>
+            <a href="./material-lab.html" aria-current="page">Material Lab</a>
+          </nav>
+        </div>
+        <div id="materialSeedControls" class="controls">
+          <label>
+            Seed
+            <input id="seedInput" type="number" min="1" max="999999" value="150615" />
+          </label>
+          <button id="randomizeButton" type="button">New Seed</button>
+        </div>
+      </header>
+
+      <section class="stage-band material-stage">
+        <div class="material-workspace-heading">
+          <div>
+            <h2>Material workspace</h2>
+            <p>Find a source, preview the result, then review and save a coherent change set.</p>
+          </div>
+          <div class="material-mode-tabs" role="tablist" aria-label="Material Lab mode">
+            <button id="materialSpriteModeButton" type="button" role="tab" aria-selected="true" aria-controls="materialWorkbench">Props</button>
+            <button id="materialProceduralModeButton" type="button" role="tab" aria-selected="false" aria-controls="materialWorkbench" tabindex="-1">Procedural Elements</button>
+          </div>
+          <select id="materialModeSelect" class="visually-hidden" aria-hidden="true" tabindex="-1">
+            <option value="spriteProps" selected>props</option>
+            <option value="proceduralElements">procedural elements</option>
+          </select>
+        </div>
+
+        <div class="material-frame">
+          <div id="materialWorkbench" class="material-workbench" role="tabpanel" aria-labelledby="materialSpriteModeButton">
+            <aside class="material-browser" aria-label="Material browser">
+              <div class="material-pane-heading">
+                <div>
+                  <strong id="materialBrowserTitle">Sprite library</strong>
+                  <span id="materialBrowserSummary">Loading sources...</span>
+                </div>
+              </div>
+
+              <div id="spriteBrowserControls" class="material-browser-controls">
+                <label class="material-search-field">
+                  <span>Search assets</span>
+                  <input id="materialAssetSearchInput" type="search" placeholder="ID or label" autocomplete="off" />
+                </label>
+                <div class="material-filter-grid">
+                  <label>
+                    Category
+                    <select id="materialCategoryFilter">
+                      <option value="all" selected>All</option>
+                      <option value="rocks">Rocks</option>
+                      <option value="trees">Trees</option>
+                    </select>
+                  </label>
+                  <label>
+                    Shape
+                    <select id="materialShapeSelect">
+                      <option value="all" selected>All shapes</option>
+                      <option value="ledge">Ledge</option>
+                      <option value="boulder">Boulder</option>
+                      <option value="broadleaf">Broadleaf</option>
+                    </select>
+                  </label>
+                </div>
+                <select id="materialPropSelect" class="visually-hidden" aria-hidden="true" tabindex="-1">
+                  <option value="largeRock">large rock</option>
+                  <option value="spriteLargeRock" selected>sprite rocks</option>
+                  <option value="spriteTrees">sprite trees</option>
+                </select>
+                <div id="materialAssetBrowser" class="material-browser-list" role="listbox" aria-label="Sprite assets"></div>
+              </div>
+
+              <div id="proceduralBrowserControls" class="material-browser-controls" hidden>
+                <label class="material-search-field">
+                  <span>Search elements</span>
+                  <input id="proceduralSearchInput" type="search" placeholder="ID or label" autocomplete="off" />
+                </label>
+                <div class="material-filter-grid">
+                  <label>
+                    Group
+                    <select id="proceduralGroupFilter"><option value="all">All groups</option></select>
+                  </label>
+                  <label>
+                    Status
+                    <select id="proceduralStatusFilter">
+                      <option value="all">All</option>
+                      <option value="wired" selected>Wired</option>
+                      <option value="planned">Planned</option>
+                    </select>
+                  </label>
+                </div>
+                <div id="proceduralElementBrowser" class="material-browser-list" role="listbox" aria-label="Procedural elements"></div>
+              </div>
+            </aside>
+
+            <section class="material-preview-column" aria-label="Material preview">
+              <div class="material-preview-heading">
+                <div>
+                  <span class="material-pane-kicker">Live preview</span>
+                  <strong id="materialSelectionTitle">Select a material</strong>
+                  <span id="materialSelectionMeta">Draft changes appear here immediately.</span>
+                </div>
+                <span id="materialScopeBadge" class="status-badge is-muted">Props</span>
+              </div>
+              <div class="material-preview-tools">
+                <label>
+                  Background
+                  <select id="materialBackgroundSelect">
+                    <option value="grass" selected>Grass</option>
+                    <option value="dirt">Dirt</option>
+                    <option value="neutral">Neutral</option>
+                    <option value="checker">Checker</option>
+                  </select>
+                </label>
+                <label>
+                  View
+                  <select id="materialPreviewModeSelect">
+                    <option value="selectedOnly" selected>Selected material</option>
+                    <option value="beforeAfter">Compare changes</option>
+                  </select>
+                </label>
+                <label>
+                  Zoom
+                  <select id="materialZoomSelect">
+                    <option value="fit" selected>Fit</option>
+                    <option value="0.5">50%</option>
+                    <option value="0.75">75%</option>
+                    <option value="1">100%</option>
+                    <option value="1.5">150%</option>
+                  </select>
+                </label>
+                <label class="toggle-label sprite-tool"><input id="materialGridToggle" type="checkbox" checked /> Grid</label>
+                <label class="toggle-label sprite-tool"><input id="materialFootprintToggle" type="checkbox" checked /> Footprint</label>
+                <label class="toggle-label sprite-tool"><input id="materialShadowToggle" type="checkbox" checked /> Shadow</label>
+                <label class="toggle-label sprite-tool"><input id="materialFootGrassToggle" type="checkbox" checked /> Foot grass</label>
+              </div>
+              <div id="materialCanvasViewport" class="material-canvas-viewport">
+                <canvas id="materialLabCanvas" class="material-canvas" width="1280" height="640"></canvas>
+              </div>
+              <div class="field-meta material-preview-meta">
+                <span id="materialPreviewSummary">material lab ready</span>
+                <span>Preview changes are drafts until saved</span>
+              </div>
+              <details class="field-technical-details material-technical-details">
+                <summary>Technical details</summary>
+                <p id="materialLabStatus">material lab ready</p>
+              </details>
+            </section>
+
+            <aside class="material-inspector" aria-label="Material inspector">
+              <div id="materialInspectorResizeHandle" class="panel-resize-handle material-inspector-resize-handle" role="separator" aria-label="Resize material inspector" aria-orientation="vertical" aria-valuemin="340" aria-valuemax="560" aria-valuenow="390" tabindex="0"></div>
+              <div id="materialSpriteEditor" class="material-adjust-panel" hidden>
+                <div class="material-adjust-header">
+                  <span class="material-pane-kicker">Sprite inspector</span>
+                  <select id="materialSpriteSelect" class="visually-hidden" aria-hidden="true" tabindex="-1"></select>
+                  <div class="material-status-badges" aria-label="Selected material status">
+                    <span id="materialSaveBadge" class="status-badge">checking</span>
+                    <span id="materialDraftBadge" class="status-badge">applied</span>
+                    <span id="materialRollbackBadge" class="status-badge">rollback</span>
+                  </div>
+                  <button id="materialCopyAssetIdButton" class="compact-button material-copy-id" type="button" disabled>Copy asset ID</button>
+                </div>
+                <div id="materialShadowSaveStatus" class="material-save-status">save mode checking</div>
+                <section class="sprite-state-panel" aria-label="Sprite prop editor state">
+                  <div id="materialStateSummary" class="sprite-state-summary">state checking</div>
+                  <div id="materialDiffSummary" class="sprite-diff-summary">no selected diff</div>
+                  <ol id="materialApplyHistory" class="sprite-apply-history"></ol>
+                </section>
+
+                <section class="inspector-section">
+                  <div class="inspector-section-header"><div><strong>Shadow</strong><span>Ground contact and softness</span></div></div>
+                  <div class="material-adjust-grid shadow-grid">
+                    <div class="range-control"><span>X <output id="materialShadowXValue">0.50</output></span><input id="materialShadowXInput" type="range" min="0" max="1" step="0.01" /></div>
+                    <div class="range-control"><span>Y <output id="materialShadowYValue">0.90</output></span><input id="materialShadowYInput" type="range" min="0" max="1.15" step="0.01" /></div>
+                    <div class="range-control"><span>X width <output id="materialShadowWValue">0.90</output></span><input id="materialShadowWInput" type="range" min="0.1" max="1.4" step="0.01" /></div>
+                    <div class="range-control"><span>Y width <output id="materialShadowHValue">0.20</output></span><input id="materialShadowHInput" type="range" min="0.04" max="0.7" step="0.01" /></div>
+                    <div class="range-control"><span>Angle <output id="materialShadowAngleValue">0.00</output></span><input id="materialShadowAngleInput" type="range" min="-0.8" max="0.8" step="0.01" /></div>
+                    <div class="range-control"><span>Alpha <output id="materialShadowAlphaValue">0.34</output></span><input id="materialShadowAlphaInput" type="range" min="0.02" max="0.75" step="0.01" /></div>
+                    <div class="range-control"><span>Blur <output id="materialShadowBlurValue">2.0</output></span><input id="materialShadowBlurInput" type="range" min="0" max="8" step="0.1" /></div>
+                    <div class="range-control"><span>Round <output id="materialShadowRoundValue">1.00</output></span><input id="materialShadowRoundInput" type="range" min="0" max="1" step="0.01" /></div>
+                  </div>
+                </section>
+
+                <section class="inspector-section">
+                  <div class="inspector-section-header"><div><strong>Placement footprint</strong><span>Placement base; collision is edited separately</span></div></div>
+                  <div class="material-adjust-grid footprint-grid">
+                    <div class="range-control"><span>Width <output id="materialFootprintWValue">2</output></span><input id="materialFootprintWInput" type="range" min="1" max="5" step="1" /></div>
+                    <div class="range-control"><span>Height <output id="materialFootprintHValue">2</output></span><input id="materialFootprintHInput" type="range" min="1" max="5" step="1" /></div>
+                  </div>
+                </section>
+
+                <section class="inspector-section">
+                  <div class="inspector-section-header"><div><strong>Collision</strong><span id="materialCollisionSummary">footprint -- / blocked --</span></div></div>
+                  <div class="material-collision-editor">
+                    <div class="material-collision-actions">
+                      <button id="materialCollisionExpandLeftButton" class="compact-button" type="button">Expand left</button>
+                      <button id="materialCollisionExpandRightButton" class="compact-button" type="button">Expand right</button>
+                      <button id="materialCollisionExpandUpButton" class="compact-button" type="button">Expand up</button>
+                      <button id="materialCollisionExpandDownButton" class="compact-button" type="button">Expand down</button>
+                      <button id="materialCollisionTrimButton" class="compact-button" type="button">Trim empty</button>
+                    </div>
+                    <div id="materialCollisionGrid" class="material-collision-grid" aria-label="Collision tile editor"></div>
+                  </div>
+                </section>
+
+                <section class="inspector-section">
+                  <div class="inspector-section-header"><div><strong>Transform</strong><span>Anchor and rendered size</span></div></div>
+                  <div class="material-adjust-grid transform-grid">
+                    <div class="range-control"><span>Anchor X <output id="materialAnchorXValue">0.50</output></span><input id="materialAnchorXInput" type="range" min="0" max="1" step="0.01" /></div>
+                    <div class="range-control"><span>Anchor Y <output id="materialAnchorYValue">0.90</output></span><input id="materialAnchorYInput" type="range" min="0" max="1" step="0.01" /></div>
+                    <div class="range-control is-wide"><span>Scale <output id="materialScaleValue">0.35</output></span><input id="materialScaleInput" type="range" min="0.08" max="0.8" step="0.01" /></div>
+                  </div>
+                </section>
+
+                <details class="inspector-json">
+                  <summary>Technical details</summary>
+                  <textarea id="materialShadowJson" class="material-json-output" readonly spellcheck="false"></textarea>
+                </details>
+              </div>
+
+              <div id="proceduralEditor" class="material-adjust-panel" hidden>
+                <div class="material-adjust-header">
+                  <span class="material-pane-kicker">Procedural settings</span>
+                  <select id="proceduralElementSelect" class="visually-hidden" aria-hidden="true" tabindex="-1"></select>
+                  <div class="material-context-grid">
+                    <label>Editing scope<select id="proceduralScopeSelect"><option value="global">Global defaults</option><option value="biome">Environment override</option></select></label>
+                    <label>Environment<select id="proceduralBiomeSelect"></select></label>
+                  </div>
+                </div>
+                <details class="inspector-json procedural-status-details">
+                  <summary>Save and change details</summary>
+                  <div class="procedural-status-details-body">
+                    <div class="material-status-badges" aria-label="Procedural params status">
+                      <span id="proceduralSaveBadge" class="status-badge">checking</span>
+                      <span id="proceduralDraftBadge" class="status-badge">applied</span>
+                      <span id="proceduralRollbackBadge" class="status-badge">rollback</span>
+                    </div>
+                    <div id="proceduralSaveStatus" class="material-save-status">save mode checking</div>
+                    <section class="procedural-state-panel" aria-label="Procedural editor state">
+                      <div id="proceduralStateSummary" class="procedural-state-summary">state checking</div>
+                      <div id="proceduralDiffSummary" class="procedural-diff-summary">no selected diff</div>
+                      <ol id="proceduralApplyHistory" class="procedural-apply-history"></ol>
+                    </section>
+                  </div>
+                </details>
+                <section class="inspector-section">
+                  <div class="inspector-section-header"><div><strong>Parameters</strong><span>Changes preview immediately in the active scope</span></div></div>
+                  <div id="proceduralControlGrid" class="material-adjust-grid"></div>
+                </section>
+                <section id="proceduralBakeSection" class="inspector-section" hidden>
+                  <div class="inspector-section-header">
+                    <div><strong>Fine-grass bake</strong><span>Full-area transparent PNG for Map View</span></div>
+                    <button id="proceduralBakeFineGrassButton" class="compact-button" type="button">Bake fine-grass PNG</button>
+                  </div>
+                  <div id="proceduralBakeStatus" class="material-save-status">bake mode checking</div>
+                </section>
+                <details class="inspector-json">
+                  <summary>Technical details</summary>
+                  <textarea id="proceduralParamsJson" class="material-json-output" readonly spellcheck="false"></textarea>
+                </details>
+              </div>
+            </aside>
+          </div>
+
+          <footer class="material-save-bar" aria-live="polite">
+            <div>
+              <strong id="materialUnsavedSummary">No unsaved changes</strong>
+              <span id="materialSaveFeedback">Edits remain local drafts until you save them.</span>
+            </div>
+            <div class="material-save-actions">
+              <button id="materialUndoSaveButton" class="compact-button" type="button">Undo last save</button>
+              <button id="materialDiscardChangesButton" class="compact-button" type="button">Discard</button>
+              <button id="materialReviewChangesButton" class="compact-button" type="button">Review</button>
+              <button id="materialSaveChangesButton" class="compact-button primary-button" type="button">Save changes</button>
+            </div>
+          </footer>
+        </div>
+
+        <div hidden aria-hidden="true">
+          <button id="materialShadowApplyButton" type="button"></button>
+          <button id="materialCollisionApplyButton" type="button"></button>
+          <button id="materialFootprintApplyButton" type="button"></button>
+          <button id="materialTransformApplyButton" type="button"></button>
+          <button id="materialShadowResetButton" type="button"></button>
+          <button id="materialCollisionResetButton" type="button"></button>
+          <button id="materialFootprintResetButton" type="button"></button>
+          <button id="materialTransformResetButton" type="button"></button>
+          <button id="materialShadowRollbackButton" type="button"></button>
+          <button id="proceduralApplyButton" type="button"></button>
+          <button id="proceduralResetButton" type="button"></button>
+          <button id="proceduralRollbackButton" type="button"></button>
+        </div>
+
+        <dialog id="materialReviewDialog" class="material-dialog">
+          <form method="dialog">
+            <div class="material-dialog-heading"><div><span class="material-pane-kicker">Review changes</span><h3 id="materialReviewTitle">Unsaved changes</h3></div><button class="compact-button" value="close" aria-label="Close review">Close</button></div>
+            <div id="materialReviewList" class="material-review-list"></div>
+            <div class="material-dialog-actions"><button id="materialReviewSaveButton" class="compact-button primary-button" type="button">Save changes</button></div>
+          </form>
+        </dialog>
+
+        <dialog id="materialNavigationDialog" class="material-dialog material-guard-dialog">
+          <form method="dialog">
+            <span class="material-pane-kicker">Unsaved changes</span>
+            <h3>What should happen to this draft?</h3>
+            <p id="materialNavigationMessage">Save or discard changes before leaving the current editing scope.</p>
+            <div class="material-dialog-actions">
+              <button id="materialNavigationCancelButton" class="compact-button" value="cancel">Cancel</button>
+              <button id="materialNavigationDiscardButton" class="compact-button" type="button">Discard</button>
+              <button id="materialNavigationSaveButton" class="compact-button primary-button" type="button">Save and continue</button>
+            </div>
+          </form>
+        </dialog>
+      </section>
+    </main>
+
+    <script type="module" src="./labBoot.js" data-lab-entry="./materialLab.js"></script>
+  </body>
+</html>

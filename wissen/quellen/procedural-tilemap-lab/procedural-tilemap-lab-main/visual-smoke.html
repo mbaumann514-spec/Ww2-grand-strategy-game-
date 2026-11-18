@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Procedural Tilemap Lab - Visual Smoke</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="lab-shell">
+      <header class="lab-header">
+        <div>
+          <p class="eyebrow">Procedural Tilemap Lab</p>
+          <h1>Visual Smoke</h1>
+        </div>
+        <div class="controls">
+          <a class="compact-button" href="./">Map View</a>
+          <a class="compact-button" href="./material-lab.html">Material Lab</a>
+          <button id="visualSmokeRunButton" class="compact-button" type="button">Run</button>
+        </div>
+      </header>
+
+      <section class="stage-band smoke-stage">
+        <div class="stage-heading">
+          <div>
+            <h2>Canvas Smoke Checks</h2>
+            <p>Map View and Material Lab iframe probes for non-empty canvas output</p>
+          </div>
+          <div id="visualSmokeSummary" class="smoke-summary">pending</div>
+        </div>
+
+        <div id="visualSmokeResults" class="smoke-results" aria-live="polite"></div>
+
+        <div class="smoke-frame-grid">
+          <iframe
+            id="visualSmokeMapFrame"
+            title="Map View visual smoke target"
+            src="./?biome=dungeon&topology=narrowCorridors&smoke=1"
+          ></iframe>
+          <iframe
+            id="visualSmokeSpriteFrame"
+            title="Material Lab sprite visual smoke target"
+            src="./material-lab.html?smoke=sprite"
+          ></iframe>
+          <iframe
+            id="visualSmokeProceduralFrame"
+            title="Material Lab procedural visual smoke target"
+            src="./material-lab.html?smoke=procedural"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./labBoot.js" data-lab-entry="./visualSmokeRunner.js"></script>
+  </body>
+</html>

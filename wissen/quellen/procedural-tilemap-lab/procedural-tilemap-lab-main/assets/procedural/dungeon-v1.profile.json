@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "kind": "procedural-tilemap-lab/procedural-profile",
+  "id": "dungeon-v1",
+  "label": "Dungeon v1",
+  "baseProfile": "grassland-v2",
+  "status": "contract-candidate",
+  "notes": [
+    "This is a P1 profile marker for Dungeon-specific material work.",
+    "Runtime still loads grassland-v2.params.json as the shared editable params manifest.",
+    "Dungeon recipe overrides and element weights decide which shared elements are active."
+  ],
+  "topologyIds": [
+    "auto",
+    "standard",
+    "narrowCorridors",
+    "largeHub"
+  ],
+  "materialStyleIds": [
+    "cave-stone"
+  ],
+  "elementSets": [
+    "dungeon-core"
+  ],
+  "primaryElements": [
+    "dungeon-floor",
+    "dungeon-wall",
+    "dungeon-floor-wear",
+    "dungeon-floor-moisture",
+    "dungeon-wall-cracks",
+    "dungeon-wall-moisture",
+    "dungeon-torch-warmth",
+    "dungeon-rubble",
+    "dungeon-stairs"
+  ],
+  "plannedElements": []
+}
