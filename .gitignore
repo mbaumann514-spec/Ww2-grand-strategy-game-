@@ -1,0 +1,22 @@
+# Gradle / JVM build output
+build/
+.gradle/
+.kotlin/
+!gradle/wrapper/gradle-wrapper.jar
+*.class
+
+# Downloads for the map build (Natural Earth), fetched by the tools; never in git.
+tools/cache/
+# The local Maven mirror's cache (tools/mvnproxy).
+tools/mvnproxy/cache/
+
+# Saved games and anything the running game writes.
+saves/
+*.log
+.DS_Store
+__pycache__/
+node_modules/
+# LWJGL unpacks its native libraries here when the game runs from the repository root.
+.lwjgl/
+# libGDX natives unpacked by the Android build.
+android/libs/

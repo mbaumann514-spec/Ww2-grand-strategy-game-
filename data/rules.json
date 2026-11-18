@@ -1,0 +1,163 @@
+{
+  "comment": "Every number the player feels, with its reasoning beside it. `comment` and `*Comment` keys are stripped when the file is loaded. A magic number in the Kotlin is a bug: put it here. Figures marked (filled in) are our own judgement where no source gives a number; the historiker's pre-check is docs/pruefer/historiker_vorpruefung_1939.md.",
+
+  "units": {
+    "comment": "One piece on the map is a division. attack and defense are relative fighting power; speed is kilometres a day on good roads; cost is factory-days; manpower is thousands of men for the division and its slice of corps and army troops (about 40,000 for an infantry division); fuel is what it burns a day when it moves or fights. Strengths follow the establishment figures the historiker lists (a German infantry division 17,700 men, a Panzer division about 300 tanks); the ratios between the kinds are filled in.",
+    "INF": { "attack": 10, "defense": 14, "speed": 24, "cost": 520, "manpower": 40, "fuel": 0.0, "comment": "Infantry on foot with horse-drawn guns: 86 of Germany's 104 divisions in 1939. Strong on the defence, slow." },
+    "ARM": { "attack": 26, "defense": 15, "speed": 55, "cost": 1700, "manpower": 30, "fuel": 1.0, "comment": "An armoured division. Dear, thirsty, and decisive on open ground." },
+    "MOT": { "attack": 13, "defense": 13, "speed": 60, "cost": 900, "manpower": 38, "fuel": 0.5, "comment": "Motorised infantry and the light divisions: keeps up with the tanks." },
+    "CAV": { "attack": 8,  "defense": 8,  "speed": 38, "cost": 330, "manpower": 18,  "fuel": 0.0, "comment": "Cavalry, which in 1939 fought dismounted with anti-tank guns; a brigade-sized formation counted as a small division." },
+    "MTN": { "attack": 10, "defense": 15, "speed": 22, "cost": 600, "manpower": 38, "fuel": 0.0, "comment": "Mountain troops: no penalty in hills and mountains." },
+    "GAR": { "attack": 4,  "defense": 10, "speed": 14, "cost": 260, "manpower": 22, "fuel": 0.0, "comment": "Fortress troops, militia and second-line reserves: hold a line, cannot take one." }
+  },
+
+  "terrain": {
+    "comment": "What the ground does. move multiplies speed; defense multiplies the defender's power; attack multiplies the attacker's, by kind of unit (a kind not named takes `all`). A region's terrain is the kind that covers most of it.",
+    "plains":    { "move": 1.0,  "defense": 1.0,  "attack": { "all": 1.0, "ARM": 1.2 } },
+    "forest":    { "move": 0.75, "defense": 1.2,  "attack": { "all": 0.9, "ARM": 0.7, "MOT": 0.8 } },
+    "hills":     { "move": 0.7,  "defense": 1.3,  "attack": { "all": 0.85, "ARM": 0.7, "MOT": 0.75, "MTN": 1.0 } },
+    "mountains": { "move": 0.45, "defense": 1.6,  "attack": { "all": 0.65, "ARM": 0.4, "MOT": 0.5, "MTN": 0.95 } },
+    "marsh":     { "move": 0.5,  "defense": 1.25, "attack": { "all": 0.75, "ARM": 0.45, "MOT": 0.55 } },
+    "desert":    { "move": 0.8,  "defense": 0.9,  "attack": { "all": 0.95, "ARM": 1.15, "MOT": 1.05 } },
+    "tundra":    { "move": 0.5,  "defense": 1.2,  "attack": { "all": 0.7, "ARM": 0.5, "MOT": 0.6 } }
+  },
+
+  "combat": {
+    "comment": "A battle is fought a day at a time between the divisions attacking a region and those in it. Each side's power is the sum of its engaged divisions; the ratio of the two decides how fast each side's organisation runs down. A division whose organisation is spent falls back, or surrenders if it has nowhere to go.",
+    "width": 8,
+    "widthComment": "How many divisions of one side can fight in one region at once. More only wait their turn: a front has room for so many.",
+    "widthPerExtraFlank": 4,
+    "widthPerExtraFlankComment": "An attack from a second and a third neighbouring region brings more men to bear.",
+    "orgLossPerDay": 0.055,
+    "orgLossPerDayComment": "At even odds a division loses this much organisation a day: about two weeks from fresh to spent, which is how long a set-piece battle of 1939-41 lasted (filled in).",
+    "ratioExponent": 0.85,
+    "minRatio": 0.2,
+    "maxRatio": 5.0,
+    "attackerWear": 1.15,
+    "attackerWearComment": "Attacking costs more than holding.",
+    "strengthPerOrg": 0.22,
+    "strengthPerOrgComment": "Men and equipment lost for each point of organisation lost, as a share.",
+    "breakOrg": 0.12,
+    "breakOrgComment": "Below this a division can no longer fight and falls back.",
+    "attackMinOrg": 0.5,
+    "attackMinOrgComment": "A division this tired breaks off its attack and waits: an army that attacks until it is spent has nothing left to hold with.",
+    "regroupDays": 4,
+    "regroupDaysComment": "After breaking off an attack a division needs this long before it can attack again.",
+    "riverCrossing": 0.75,
+    "riverCrossingComment": "Attacking across a major river.",
+    "straitCrossing": 0.5,
+    "landing": 0.45,
+    "landingComment": "Attacking from the sea onto a defended shore.",
+    "landingWidth": 4,
+    "fortPerLevel": 0.3,
+    "fortPerLevelComment": "Each level of permanent fortification adds this to the defender's power: level 3, the Maginot Line's strong sectors, nearly doubles it. The historiker's scale: 1 field works, 2 a light permanent line, 3 a heavy one.",
+    "entrenchPerDay": 0.03,
+    "entrenchMax": 0.3,
+    "entrenchComment": "A division that stays put digs in, up to this bonus.",
+    "noSupplyPower": 0.5,
+    "noFuelPower": 0.55,
+    "dice": 0.15,
+    "diceComment": "The day's luck: power varies by this much either way, from the game's seed.",
+    "surpriseDays": 28,
+    "surprisePower": 1.3,
+    "surpriseComment": "The side that opens a war fights better for its first weeks: the defender is not yet mobilised (Poland stood at two thirds on 1 September 1939; the Red Army in June 1941)."
+  },
+
+  "movement": {
+    "comment": "A division marches from one region's town to the next. Days = distance / (speed x terrain x roads x weather).",
+    "friendlyRail": 2.2,
+    "friendlyRailComment": "Inside one's own lines, away from the enemy, troops go by rail.",
+    "riverDays": 1.0,
+    "straitDays": 2.0,
+    "seaKmPerDay": 350,
+    "seaLoadDays": 3,
+    "retreatSpeed": 1.5,
+    "minDays": 1.0,
+    "noFuelSpeed": 0.5
+  },
+
+  "weather": {
+    "comment": "The east and the far north have a mud season and a hard winter (the rasputitsa of October-November and March-April; the winter of 1941-42). A region has them if it lies east of `mudEastOfLon` or north of `mudNorthOfLat`.",
+    "mudEastOfLon": 24.0,
+    "mudNorthOfLat": 58.0,
+    "mudMonths": [3, 4, 10, 11],
+    "mudMove": 0.5,
+    "mudAttack": 0.8,
+    "winterMonths": [12, 1, 2],
+    "winterMove": 0.7,
+    "winterAttack": 0.75,
+    "winterAttackComment": "Applies to the attacker. States in `winterHardy` (countries.json) are spared."
+  },
+
+  "supply": {
+    "comment": "A division is supplied if its region is joined, through land its own side holds, to its capital or to a port its navy can reach. Cut off, it wastes away: this is what makes an encirclement kill.",
+    "orgLossPerDay": 0.05,
+    "strengthLossPerDay": 0.02,
+    "orgGainPerDay": 0.045,
+    "orgGainMovingPerDay": 0.012,
+    "reinforcePerDay": 0.012,
+    "reinforcePerDayComment": "Share of full strength a division out of battle gets back a day, if men and factories allow.",
+    "reinforceCostShare": 0.5,
+    "depthPenaltyPerRegion": 0.04,
+    "depthPenaltyMax": 0.4,
+    "depthPenaltyComment": "An army far from home attacks worse: each region between it and its own country (or an ally's) takes this much off its attack, up to the maximum. The railheads did not keep up in Russia in 1941, nor in France in 1944. (filled in)",
+    "occupationYield": 0.3,
+    "occupationYieldComment": "Share of a conquered region's factories and oil that works for the occupier. (filled in)"
+  },
+
+  "economy": {
+    "comment": "Factories make factory-days; a division costs factory-days and men. Oil makes fuel.",
+    "manpowerPerMillionPerMonth": 2.2,
+    "manpowerPerMillionPerMonthComment": "Thousands of recruits a month for each million people still under one's own control, at war. Germany's 79 million give about 170,000 a month; over five years ten million, which is the order of what it called up. (filled in)",
+    "peaceManpowerShare": 0.35,
+    "startManpowerMonths": 6,
+    "fuelPerOilPerDay": 1.0,
+    "fuelStockDays": 120,
+    "fuelStartDays": 60,
+    "productionLines": 6,
+    "newDivisionOrg": 0.3,
+    "warEconomyPerYear": 0.12,
+    "warEconomyPerYearComment": "A state at war turns more of its industry to arms each year it fights, up to `warEconomyMax` (Germany's and Britain's output roughly doubled between 1940 and 1944).",
+    "warEconomyMax": 1.6,
+    "peaceEconomy": 0.5,
+    "peaceEconomyComment": "A state at peace arms at half pace."
+  },
+
+  "sea": {
+    "comment": "Navies and air forces are one number per state for now (ROADMAP: fleets as pieces). A sea zone is ruled by whoever brings the most power to it from the bases he holds; power falls off with distance.",
+    "navyReachKm": 700,
+    "airReachKm": 350,
+    "airWeight": 0.6,
+    "dominance": 1.5,
+    "dominanceComment": "A side rules a zone when its power there is this many times the enemy's. Between the two it is contested.",
+    "contestedLoss": 0.15,
+    "contestedLossComment": "Share of a division lost crossing a contested sea."
+  },
+
+  "diplomacy": {
+    "comment": "How wars widen and end.",
+    "capitulationDefault": 0.75,
+    "capitulationDefaultComment": "A state gives up when it has lost its capital and this share of its victory points; countries.json may name another share.",
+    "limitedWarMaxDays": 150,
+    "limitedWarGoalShare": 0.6,
+    "ultimatumRatio": 3.0,
+    "ultimatumRatioComment": "An AI gives way to an ultimatum when the other's army is this many times its own and nobody at war stands with it.",
+    "victoryCheckFromDay": 30
+  },
+
+  "ai": {
+    "comment": "How the computer plays. It gives the same orders a player gives.",
+    "thinkEveryDays": 2,
+    "attackOdds": 1.35,
+    "attackOddsComment": "It attacks where its engaged power is this many times the defender's; a state's `aggression` in countries.json scales it.",
+    "stagingDays": 40,
+    "stagingDaysComment": "This long before a war its plan intends, a state masses on that frontier: Germany's divisions stood on the Danish and the Dutch border before the day, not after it.",
+    "frontBase": 1.0,
+    "frontPerThreat": 0.045,
+    "frontPerThreatComment": "Divisions wanted in a front region for each point of enemy attack power next to it.",
+    "garrisonCapital": 1,
+    "reserveShare": 0.12,
+    "productionHorizonDays": 45,
+    "mix": { "INF": 0.66, "ARM": 0.12, "MOT": 0.12, "MTN": 0.04, "GAR": 0.06 }
+  }
+}

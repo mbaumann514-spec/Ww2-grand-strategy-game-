@@ -1,0 +1,22 @@
+# One place for every dependency version, so the modules cannot drift apart.
+# The same versions the sister game ships with, which are known to work together.
+
+[versions]
+kotlin = "2.0.21"
+gdx = "1.14.2"
+# Reflection-free JSON: the compiler plugin generates the serialisers, which is what survives
+# R8 shrinking an Android release build.
+serialization = "1.7.3"
+# The JVM everything is compiled and tested against, the Android module included.
+jdk = "21"
+
+[libraries]
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+gdx = { module = "com.badlogicgames.gdx:gdx", version.ref = "gdx" }
+gdx-backend-lwjgl3 = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl3", version.ref = "gdx" }
+gdx-backend-android = { module = "com.badlogicgames.gdx:gdx-backend-android", version.ref = "gdx" }
+gdx-platform-natives = { module = "com.badlogicgames.gdx:gdx-platform", version.ref = "gdx" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
